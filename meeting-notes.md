@@ -8,20 +8,22 @@ Front-End:
     Develops user interface for reading summaries, visualizing trending items, and browsing materials
     Works closely with backend to integrate APIs
     Team Member: Zack Carlstrom
- Back-End & Data Pipeline:
+Back-End & Data Pipeline:
     Sets up Kafka (or Kinesis) for streaming user events
     Implements Spark/Flink jobs for ETL, real-time analytics, and indexing 
     Works work frontend and ML/LLM team on data format and endpoints
-    Team Member: Anirudh Kakati
+    Team Member: Anirudh Kakati & Tapas Das
 ML/LLM Specialist:
     Integrates a open-source LLM for generating summaries of the resources
     Optimizes LLM usage
     Tunes or refines text processing scripts to ensure clean, concise summaries
-    Team Members: Ankush Raut & Tapas Das
+    Team Members: Ankush Raut
 Infrastructure & DevOps:
     Terraform scripts provision the required cloud resource on a free tier
     An Agile board for tracking development tasks and sprints
-    Team Members: Ankush Raut & Tapas Das
+    Team Members: Anirudh Kakati & Tapas Das
+    
+Roles and responsibilities are subject to change as needed.
 
 By the next meeting, we plan on clearly defining the tools and scope of the project. We will create a document to show the professor to get feedback on the project idea. 
 
