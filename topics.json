@@ -85,8 +85,10 @@
             "Feature Selection Methods: Filter, Wrapper, and Embedded Methods": [],
             "Implementing Feature Selection with Scikit-Learn": []
         },
-        "Supervised Learning in Machine Learning": {
-            "Linear Regression in Machine Learning: Simple and Multiple Regression": [],
+        "Supervised Learning": {
+            "Introduction to Supervised Learning": [],
+            "Simple Linear Regression": [],
+            "Multiple Linear Regression": [],
             "Implementing Linear Regression with Scikit-Learn": [],
             "Polynomial Regression in Machine Learning": [],
             "Implementing Polynomial Regression with Scikit-Learn": [],
@@ -105,19 +107,20 @@
             "Cross-Validation Techniques for Model Evaluation in Machine Learning": [],
             "Implementing Cross-Validation with Scikit-Learn": []
         },
-        "Unsupervised Learning in Machine Learning": {
-            "K-Means Clustering Algorithm for Unsupervised Learning": [],
+        "Unsupervised Learning": {
+            "Introduction to Unsupervised Learning": [],
+            "K-Means Clustering": [],
             "Implementing K-Means with Scikit-Learn": [],
-            "Hierarchical Clustering Algorithm for Unsupervised Learning": [],
+            "Hierarchical Clustering": [],
             "Implementing Hierarchical Clustering with Scikit-Learn": [],
-            "DBSCAN Clustering Algorithm for Anomaly Detection": [],
+            "DBSCAN Clustering Algorithm": [],
             "Implementing DBSCAN with Scikit-Learn": [],
-            "Dimensionality Reduction with PCA for Feature Engineering": [],
+            "Principal Component Analysis (PCA)": [],
             "Implementing PCA with Scikit-Learn": [],
             "t-SNE and UMAP for High-Dimensional Data Visualization": [],
             "Implementing t-SNE and UMAP with Scikit-Learn": []
         },
-        "Reinforcement Learning Fundamentals": {
+        "Reinforcement Learning": {
             "Markov Decision Processes (MDPs) in Reinforcement Learning": [],
             "Implementing MDPs with Python": [],
             "Q-Learning and Deep Q Networks (DQN) in Reinforcement Learning": [],
