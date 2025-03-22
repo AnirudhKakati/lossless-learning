@@ -39,7 +39,7 @@
         "Optimization": {
             "Convex vs. Non-Convex Functions in Optimization": [],
             "First-Order and Second-Order Conditions for Convexity": [],
-            "Constrained vs. Unconstrained Optimization in Machine Learning": [],
+            "Constrained vs. Unconstrained Optimization": [],
             "Lagrange Multipliers and KKT Conditions in Optimization": []
         }
     },
@@ -76,12 +76,14 @@
     },
     "Classical Machine Learning": {
         "Feature Engineering and Preprocessing": {
+            "Data Preprocessing for Machine Learning": [],
             "Encoding Categorical Variables: One-Hot Encoding and Label Encoding": [],
             "Implementing Categorical Encoding with Scikit-Learn": [],
             "Feature Scaling Techniques: Min-Max Scaling, Standardization, Log Transformations": [],
             "Implementing Feature Scaling with Scikit-Learn": [],
             "Text Data Preprocessing: Tokenization and TF-IDF Vectorization": [],
             "Implementing Text Preprocessing with NLTK and Scikit-Learn": [],
+            "Feature Engineering for Machine Learning": [],
             "Feature Selection Methods: Filter, Wrapper, and Embedded Methods": [],
             "Implementing Feature Selection with Scikit-Learn": []
         },
@@ -90,22 +92,26 @@
             "Simple Linear Regression": [],
             "Multiple Linear Regression": [],
             "Implementing Linear Regression with Scikit-Learn": [],
-            "Polynomial Regression in Machine Learning": [],
+            "Polynomial Regression": [],
             "Implementing Polynomial Regression with Scikit-Learn": [],
-            "Ridge and Lasso Regression for Regularization in Machine Learning": [],
+            "Ridge and Lasso Regression for Regularization": [],
             "Implementing Regularized Regression with Scikit-Learn": [],
-            "Logistic Regression for Classification in Machine Learning": [],
+            "Logistic Regression": [],
             "Implementing Logistic Regression with Scikit-Learn": [],
-            "Decision Trees and Random Forests for Classification in Machine Learning": [],
+            "Decision Trees and Random Forests": [],
             "Implementing Decision Trees and Random Forests with Scikit-Learn": [],
-            "Support Vector Machines (SVM) for Classification in Machine Learning": [],
+            "Naive Bayes Classifiers": [],
+            "Implementing Naive Bayes with Scikit-Learn": [],
+            "Support Vector Machines (SVM)": [],
             "Implementing SVM with Scikit-Learn": [],
-            "Ensemble Learning: Bagging, Boosting, and Stacking in Machine Learning": [],
+            "Ensemble Learning: Bagging, Boosting, and Stacking": [],
             "Implementing Ensemble Methods with Scikit-Learn": [],
-            "Model Evaluation Metrics: Confusion Matrix, Precision-Recall, F1-Score": [],
+            "Model Evaluation Metrics": [],
             "Implementing Model Evaluation with Scikit-Learn": [],
-            "Cross-Validation Techniques for Model Evaluation in Machine Learning": [],
-            "Implementing Cross-Validation with Scikit-Learn": []
+            "Cross-Validation Techniques for Model Evaluation": [],
+            "Implementing Cross-Validation with Scikit-Learn": [],
+            "Hyperparameter Tuning Techniques": [],
+            "Implementing Grid Search and Random Search with Scikit-Learn": []
         },
         "Unsupervised Learning": {
             "Introduction to Unsupervised Learning": [],
@@ -118,7 +124,9 @@
             "Principal Component Analysis (PCA)": [],
             "Implementing PCA with Scikit-Learn": [],
             "t-SNE and UMAP for High-Dimensional Data Visualization": [],
-            "Implementing t-SNE and UMAP with Scikit-Learn": []
+            "Implementing t-SNE and UMAP with Scikit-Learn": [],
+            "Association Rule Mining":[],
+            "Implementing Association Rule Mining in Python":[]
         },
         "Reinforcement Learning": {
             "Markov Decision Processes (MDPs) in Reinforcement Learning": [],
@@ -129,40 +137,38 @@
     },
     "Deep Learning": {
         "Neural Networks in Deep Learning": {
-            "Perceptron and Multi-Layer Perceptron (MLP) in Deep Learning": [],
-            "Implementing MLPs with TensorFlow/PyTorch": [],
-            "Activation Functions in Deep Learning: ReLU, Sigmoid, Tanh": [],
-            "Implementing Activation Functions with TensorFlow/PyTorch": [],
+            "Perceptron and Multi-Layer Perceptron (MLP)": [],
+            "Implementing Neural Networks with TensorFlow/PyTorch": [],
+            "Activation Functions in Deep Learning": [],
             "Backpropagation Algorithm for Training Neural Networks": [],
-            "Implementing Backpropagation with TensorFlow/PyTorch": [],
-            "Loss Functions in Machine Learning: MSE, Cross-Entropy": [],
-            "Implementing Loss Functions with TensorFlow/PyTorch": [],
+            "Loss Functions in Machine Learning": [],
+            "Implementing Custom Loss Functions with Python": [],
             "Vanishing and Exploding Gradient Problems in Deep Learning": [],
-            "Solving Gradient Problems with TensorFlow/PyTorch": []
+            "Gradient Stabilization Techniques": [],
+            "Normalization Techniques: Batch, Layer, Instance, Group": []
         },
         "Convolutional Neural Networks (CNNs)": {
-            "Convolution Operations in CNNs for Image Processing": [],
-            "Implementing Convolution Operations with TensorFlow/PyTorch": [],
+            "Fundamentals of Convolution Operations": [],
+            "CNN Building Blocks: Pooling, Stride, Padding": [],
             "Popular CNN Architectures: AlexNet, ResNet, EfficientNet": [],
-            "Implementing CNN Architectures with TensorFlow/PyTorch": []
+            "Implementing CNNs with TensorFlow/PyTorch": [],
+            "Transfer Learning with Pre-trained CNN Models": []
         },
         "Recurrent Neural Networks (RNNs) and Transformers": {
             "Recurrent Neural Networks (RNNs) for Sequence Modeling": [],
-            "Implementing RNNs with TensorFlow/PyTorch": [],
             "Long Short-Term Memory (LSTMs) and Gated Recurrent Units (GRUs)": [],
-            "Implementing LSTMs and GRUs with TensorFlow/PyTorch": [],
-            "Transformers and Self-Attention Mechanism in NLP": [],
-            "Implementing Transformers with TensorFlow/PyTorch": []
+            "Implementing RNNs, LSTMs, and GRUs with TensorFlow/PyTorch": [],
+            "Attention Mechanisms in Sequence Models": [],
+            "Transformers and Self-Attention Architecture": [],
+            "Implementing Transformers with TensorFlow/PyTorch": [],
+            "Pre-trained Transformer Models: BERT, GPT, T5": []
         },
         "Generative Models in Deep Learning": {
-            "Generative Adversarial Networks (GANs) and Adversarial Training": [],
-            "Implementing GANs with TensorFlow/PyTorch": [],
-            "Applications of GANs in Image and Text Generation": [],
-            "Implementing GAN Applications with TensorFlow/PyTorch": [],
-            "Variational Autoencoders (VAEs) for Unsupervised Learning": [],
-            "Implementing VAEs with TensorFlow/PyTorch": [],
-            "Latent Space Representation in Variational Autoencoders": [],
-            "Exploring Latent Space with TensorFlow/PyTorch": []
+            "Generative Adversarial Networks (GANs)": [],
+            "Variational Autoencoders (VAEs)": [],
+            "Diffusion Models for Image Generation": [],
+            "Text-to-Image Models: DALL-E, Stable Diffusion": [],
+            "Evaluating Generative Models: Inception Score, FID": []
         }
     },
     "MLOps": {
