@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Nunito:wght@400;600&display=swap');
+
+
+.underline-hover {
+  @apply relative inline-block p-2 hover:text-gray-900 
+         after:block after:h-[4px] after:w-0 after:bg-emerald-300 
+         after:transition-all after:duration-300 after:ease-in-out 
+         hover:after:w-full font-sans;
+}
+
+body {
+  @apply overflow-hidden;
+}
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -69,4 +82,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
