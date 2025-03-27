@@ -118,12 +118,11 @@ resource "google_cloudfunctions2_function" "youtube_data_fetcher" {
   }
 }
 
-# allow invocation of the function only by the service account
+# allow invocation of the function by all users
 resource "google_cloud_run_service_iam_member" "invoker_yt" {
   location = google_cloudfunctions2_function.youtube_data_fetcher.location
   service  = google_cloudfunctions2_function.youtube_data_fetcher.name
   role     = "roles/run.invoker"
-  # member   = "serviceAccount:${google_service_account.youtube_data_fetcher_sa.email}" 
   member   = "allUsers" 
 }
 
@@ -214,12 +213,11 @@ resource "google_cloudfunctions2_function" "github_repo_fetcher" {
   }
 }
 
-# allow invocation of the function only by the service account
+# allow invocation of the function by all users
 resource "google_cloud_run_service_iam_member" "invoker_gh" {
   location = google_cloudfunctions2_function.github_repo_fetcher.location
   service  = google_cloudfunctions2_function.github_repo_fetcher.name
   role     = "roles/run.invoker"
-  # member   = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
   member   = "allUsers" 
 }
 
