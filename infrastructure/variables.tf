@@ -18,3 +18,9 @@ variable "youtube_api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "github_access_token" {
+  description = "Github Access Token (sensitive)"
+  type        = string
+  sensitive   = true
+}
