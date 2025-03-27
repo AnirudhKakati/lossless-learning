@@ -17,6 +17,7 @@ resource "google_storage_bucket_object" "topics_json_file" {
   bucket = google_storage_bucket.main_project_bucket.name
 }
 
+#we create a secret for the youtube api key which is currently in .tfvars file
 resource "google_secret_manager_secret" "youtube_api_key" {
   secret_id = "youtube-api-key"
   
@@ -25,10 +26,23 @@ resource "google_secret_manager_secret" "youtube_api_key" {
   }
 }
 
-#we create a secret for the youtube api key which is currently in .tfvars file
 resource "google_secret_manager_secret_version" "youtube_api_key_version" {
   secret      = google_secret_manager_secret.youtube_api_key.id
   secret_data = var.youtube_api_key
+}
+
+#we create a secret for the github access token which is currently in .tfvars file
+resource "google_secret_manager_secret" "github_access_token" {
+  secret_id = "github-access-token"
+  
+  replication {
+    auto {}
+  }
+}
+
+resource "google_secret_manager_secret_version" "github_access_token_version" {
+  secret      = google_secret_manager_secret.github_access_token.id
+  secret_data = var.github_access_token
 }
 
 # we will take the topics json file and extract the domains from it
@@ -42,8 +56,10 @@ locals {
   # extract the top-level keys (domains)
   domains = keys(local.topics_data)
 }
-#this will be used in the trigger for the youtube data fetching cloud function
+#this will be used in the trigger for the cloud functions
 
+
+## THIS SECTION IS FOR YOUTUBE DATA FETCHING CLOUD FUNCTION
 # create a service account for the YouTube data fetcher Cloud Function
 resource "google_service_account" "youtube_data_fetcher_sa" {
   account_id   = "youtube-data-fetcher-sa"
@@ -52,14 +68,14 @@ resource "google_service_account" "youtube_data_fetcher_sa" {
 }
 
 # grant bucket access to the service account
-resource "google_storage_bucket_iam_member" "bucket_access" {
+resource "google_storage_bucket_iam_member" "bucket_access_yt" {
   bucket = google_storage_bucket.main_project_bucket.name
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.youtube_data_fetcher_sa.email}"
 }
 
 # grant Secret Manager access to the service account
-resource "google_secret_manager_secret_iam_member" "secret_access" {
+resource "google_secret_manager_secret_iam_member" "secret_access_yt" {
   project   = var.project_id
   secret_id = google_secret_manager_secret.youtube_api_key.secret_id
   role      = "roles/secretmanager.secretAccessor"
@@ -67,10 +83,10 @@ resource "google_secret_manager_secret_iam_member" "secret_access" {
 }
 
 # upload the function code to the bucket with timestampped name
-resource "google_storage_bucket_object" "function_archive" {
+resource "google_storage_bucket_object" "function_archive_yt" {
   name   = "cloud_functions/fetching_youtube_videos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
-  source = "${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip"  # Path to your zipped function
+  source = "${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip"
 }
 
 # cloud Functions v2 deployment for the youtube data fetching function to fetch for each domain
@@ -85,7 +101,7 @@ resource "google_cloudfunctions2_function" "youtube_data_fetcher" {
     source {
       storage_source {
         bucket = google_storage_bucket.main_project_bucket.name
-        object = google_storage_bucket_object.function_archive.name
+        object = google_storage_bucket_object.function_archive_yt.name
       }
     }
   }
@@ -102,11 +118,12 @@ resource "google_cloudfunctions2_function" "youtube_data_fetcher" {
   }
 }
 
-# allow invocation of the function by all users
-resource "google_cloud_run_service_iam_member" "invoker" {
+# allow invocation of the function only by the service account
+resource "google_cloud_run_service_iam_member" "invoker_yt" {
   location = google_cloudfunctions2_function.youtube_data_fetcher.location
   service  = google_cloudfunctions2_function.youtube_data_fetcher.name
   role     = "roles/run.invoker"
+  # member   = "serviceAccount:${google_service_account.youtube_data_fetcher_sa.email}" 
   member   = "allUsers" 
 }
 
@@ -115,7 +132,7 @@ resource "google_cloud_scheduler_job" "youtube_data_fetch_jobs" {
   count       = length(local.domains)
   name        = "fetch-youtube-data-${lower(replace(local.domains[count.index], " ", "-"))}"
   description = "Triggers YouTube data fetching for ${local.domains[count.index]}"
-  schedule    = "0 0 ${count.index + 1} * *"  # run on different days of the month
+  schedule    = "30 0 ${count.index + 1} * *"  # run on different days of the month
   
   http_target {
     http_method = "POST"
@@ -136,3 +153,100 @@ resource "google_cloud_scheduler_job" "youtube_data_fetch_jobs" {
     }
   }
 }
+## END OF SECTION FOR YOUTUBE DATA FETCHING CLOUD FUNCTION
+
+## THIS SECTION IS FOR GITHUB REPO FETCHING CLOUD FUNCTION
+# create a service account for the Github repo fetcher Cloud Function
+resource "google_service_account" "github_repo_fetcher_sa" {
+  account_id   = "github-repo-fetcher-sa"
+  display_name = "Service Account for Github Repo Fetcher"
+  project      = var.project_id
+}
+
+# grant bucket access to the service account
+resource "google_storage_bucket_iam_member" "bucket_access_gh" {
+  bucket = google_storage_bucket.main_project_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
+}
+
+# grant Secret Manager access to the service account
+resource "google_secret_manager_secret_iam_member" "secret_access_gh" {
+  project   = var.project_id
+  secret_id = google_secret_manager_secret.github_access_token.secret_id
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
+}
+
+# upload the function code to the bucket with timestampped name
+resource "google_storage_bucket_object" "function_archive_gh" {
+  name   = "cloud_functions/fetching_github_repos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  bucket = google_storage_bucket.main_project_bucket.name
+  source = "${path.module}/../scripts/fetching_github_repos/fetching_github_repos_function.zip" 
+}
+
+# cloud Functions v2 deployment for the youtube data fetching function to fetch for each domain
+resource "google_cloudfunctions2_function" "github_repo_fetcher" {
+  name        = "github-repo-fetcher"
+  location    = var.region
+  description = "Fetches Github repos for specified domains"
+  
+  build_config {
+    runtime     = "python311"
+    entry_point = "github_repo_fetcher" 
+    source {
+      storage_source {
+        bucket = google_storage_bucket.main_project_bucket.name
+        object = google_storage_bucket_object.function_archive_gh.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 10
+    min_instance_count = 0
+    available_memory   = "2048Mi"
+    timeout_seconds    = 540
+    environment_variables = {
+      DEFAULT_BUCKET_NAME = var.project_bucket_name
+    }
+    service_account_email = google_service_account.github_repo_fetcher_sa.email
+  }
+}
+
+# allow invocation of the function only by the service account
+resource "google_cloud_run_service_iam_member" "invoker_gh" {
+  location = google_cloudfunctions2_function.github_repo_fetcher.location
+  service  = google_cloudfunctions2_function.github_repo_fetcher.name
+  role     = "roles/run.invoker"
+  # member   = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
+  member   = "allUsers" 
+}
+
+# create a Cloud Scheduler job for each domain to trigger the Cloud Function
+resource "google_cloud_scheduler_job" "github_repo_fetch_jobs" {
+  count       = length(local.domains)
+  name        = "fetch-github-repo-${lower(replace(local.domains[count.index], " ", "-"))}"
+  description = "Triggers Github repo fetching for ${local.domains[count.index]}"
+  schedule    = "0 0 ${count.index + 1} * *"  # run on different days of the month
+  
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.github_repo_fetcher.service_config[0].uri
+    
+    oidc_token {
+      service_account_email = google_service_account.github_repo_fetcher_sa.email
+    }
+    
+    body = base64encode(jsonencode({
+      domain      = local.domains[count.index],
+      bucket_name = var.project_bucket_name,
+      project_id  = var.project_id
+    }))
+    
+    headers = {
+      "Content-Type" = "application/json"
+    }
+  }
+}
+## END OF SECTION FOR GITHUB REPO FETCHING CLOUD FUNCTION
