@@ -22,24 +22,24 @@ def get_transcripts_for_videos(domain):
     """
 
     print(f"Fetching transcripts for : {domain}")
-    domain="_".join(domain.lower().split())
+    domain="_".join(domain.lower().split()) 
     blobs=bucket.list_blobs(prefix=folder_path)
 
     for blob in blobs:
-        if blob.name.endswith(f'{domain}_youtube_videos.json'):
+        if blob.name.endswith(f'{domain}_youtube_videos.json'): #search for our required file
             content=blob.download_as_text()
             try:
-                data=json.loads(content)
+                data=json.loads(content) #get data as json
             except json.JSONDecodeError:
                 print(f"Couldn't parse {blob.name}")
                 return
             
-            all_records=[]
-            for record in data:
-                video_id=record["ID"]
+            all_records=[] #to store the records back
+            for record in data: #for every record
+                video_id=record["ID"] #get the corresponding video_id and fetch the transcript
                 transcript_text=get_transcript(video_id)
-                record["Transcript"]=transcript_text
-                all_records.append(record)
+                record["Transcript"]=transcript_text #add this transcript text as a field
+                all_records.append(record) #append it to all records
                 print(f"Completed video id : {video_id}")
             break
     else:
@@ -52,8 +52,8 @@ def get_transcripts_for_videos(domain):
 
     df=pd.DataFrame(all_records)
     json_data=df.to_json(orient="records", indent=4)
-    destination_blob_name=f"{folder_path}{domain}_youtube_videos_with_transcripts.json"
-    save_data_to_bucket(destination_blob_name,json_data)
+    destination_blob_name=f"{folder_path}{domain}_youtube_videos_with_transcripts.json" 
+    save_data_to_bucket(destination_blob_name,json_data) #save it back to the same bucket
     print(f"Successfuly fetched transcripts for Domain : {domain}")
 
 
@@ -68,15 +68,15 @@ def get_transcript(video_id):
         str: A single string containing the transcript text. Returns an empty string if unavailable.
     """
 
-    try:
+    try: #get the list of available transcripts
         transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-    except Exception as e:
+    except Exception as e: #case when no transcripts are found, return empty string
         print(f"Error fetching transcript list for video {video_id}: {e}")
         return ""
     
     transcript_text=""
     for transcript in transcript_list:
-        if (transcript.language_code=="en"):
+        if (transcript.language_code=="en"): #look for english transcript
             try:
                 text=transcript.fetch("en").to_raw_data()
                 text_formatted=[" ".join(x["text"].split()) for x in text]
