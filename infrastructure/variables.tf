@@ -24,3 +24,15 @@ variable "github_access_token" {
   type        = string
   sensitive   = true
 }
+
+variable "custom_search_api_key" {
+  description = "Custom Search API key (sensitive)"
+  type        = string
+  sensitive   = true
+}
+
+variable "custom_search_engine_id" {
+  description = "Custom Search Engine ID (sensitive)"
+  type = string
+  sensitive = true
+}

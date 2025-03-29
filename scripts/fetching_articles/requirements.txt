@@ -1,0 +1,5 @@
+google-api-python-client==2.164.0
+pandas==2.2.3
+functions-framework==3.8.2
+google-cloud-secret-manager==2.23.2
+google-cloud-storage==3.1.0
