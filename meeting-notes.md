@@ -63,8 +63,8 @@ Started implementing the front end design from Figma to code using React and Tai
 
 Meeting Date: 3/28/2025
 
-Scripts for fetching educational data have been implemented. For articles, we are using the google custome search API. The Youtube API was causing issues for video transcrips, so instead we will create a local script to obtain those vs using the cloud. For Book pdfs, we will manually upload them. 
+Scripts for fetching data have been implemented. For fetching youtube videos we use youtube data v3 API, for fetching github repos we make REST API calls to github search repositories API and for fetching articles we use google custom search API with a custom search engine. No feasible cloud hosted solution was found for fetching video transcrips, so instead we will create a local script to obtain those. For Book pdfs, we will manually upload them. 
 
-Terraform transcrips were created for managing our infrastrucure on GCP. 
+All corresponding GCP resources were created through terraform code. 
 
 For the front end, started working on pages for search and summary. Moved page elements into a components folder to better fit the React structure. Added more details to the side navigation bar. Finished the search filter element. 
