@@ -56,7 +56,7 @@ For the front end, a Figma prototype was created for the home/dashboard page. We
 
 Meeting Date 3/20/2025
 
-Finalizing data pipeline for educational resources. Working on creating teraform scripts to manage GCP infrastructure. Finishing up scripts for fetching educational data such as transcripts and articles. 
+Finalizing data pipeline for educational resources. Working on creating teraform scripts to manage GCP infrastructure. Finishing up scripts for fetching educational data such as videos and articles. 
 
 Started implementing the front end design from Figma to code using React and Tailwind CSS. Spent time learning about Tailwind and CSS because did not have much experience using before. Created outline of the dashboard page with a basic navbar, search bar, and article carousel. 
 
