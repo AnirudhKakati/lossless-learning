@@ -53,3 +53,18 @@ We also want to include information from reference books. This comes with the is
 To track user habits, we plan on storing statistics of how many clicks a page has or how much time a user has spent on a page. We can then use this data for trending articles and to create visualizations. 
 
 For the front end, a Figma prototype was created for the home/dashboard page. We will continue with transfering the prototype to code. For the additional pages, more Figma prototypes will be created and tested. 
+
+Meeting Date 3/20/2025
+
+Finalizing data pipeline for educational resources. Working on creating teraform scripts to manage GCP infrastructure. Finishing up scripts for fetching educational data such as transcripts and articles. 
+
+Started implementing the front end design from Figma to code using React and Tailwind CSS. Spent time learning about Tailwind and CSS because did not have much experience using before. Created outline of the dashboard page with a basic navbar, search bar, and article carousel. 
+
+
+Meeting Date: 3/28/2025
+
+Scripts for fetching educational data have been implemented. For articles, we are using the google custome search API. The Youtube API was causing issues for video transcrips, so instead we will create a local script to obtain those vs using the cloud. For Book pdfs, we will manually upload them. 
+
+Terraform transcrips were created for managing our infrastrucure on GCP. 
+
+For the front end, started working on pages for search and summary. Moved page elements into a components folder to better fit the React structure. Added more details to the side navigation bar. Finished the search filter element. 
