@@ -29,7 +29,7 @@ export default function Summary() {
                         Content Type
                     </h3>
                     <ul className="mt-2 space-y-2">
-                        {["Article", "Exercise", "Video", "Lessons"].map(
+                        {["Article", "Youtube Video", "Github Repository"].map(
                         (item, index) => (
                             <li key={index} className="flex items-center">
                             <input type="checkbox" id={item} className="w-4 h-4 mr-2" />
@@ -42,7 +42,7 @@ export default function Summary() {
             
 
                     <div className="mt-4">
-                    <h3 className="text-xs font-semibold text-emerald-300 uppercase">Topics</h3>
+                    <h3 className="text-xs font-semibold text-emerald-300 uppercase">Domain</h3>
                     <ul className="mt-2 space-y-2">
                         {[
                         "Foundational Mathematics",

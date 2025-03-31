@@ -11,7 +11,7 @@ export default function SearchFilter() {
             Content Type
           </h3>
           <ul className="mt-2 space-y-2">
-            {["Article", "Exercise", "Video", "Courses, Units, and Lessons", "AI Activities"].map(
+            {["Article", "Youtube Video", "Github Repository"].map(
               (item, index) => (
                 <li key={index} className="flex items-center">
                   <input type="checkbox" id={item} className="w-4 h-4 mr-2" />
@@ -27,15 +27,7 @@ export default function SearchFilter() {
           <h3 className="text-xs font-semibold text-gray-500 uppercase">Domain</h3>
           <ul className="mt-2 space-y-2">
             {[
-              "Math",
-              "Science",
-              "Economics and finance",
-              "Arts and humanities",
-              "Computing",
-              "Test prep",
-              "Partner content",
-              "Life skills",
-              "Khan for Educators",
+ 
             ].map((item, index) => (
               <li key={index} className="flex items-center">
                 <input type="checkbox" id={item} className="w-4 h-4 mr-2" />
