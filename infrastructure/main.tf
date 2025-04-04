@@ -110,9 +110,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_yt" {
   member    = "serviceAccount:${google_service_account.youtube_data_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_yt" {
-  name   = "cloud_functions/fetching_youtube_videos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_youtube_videos_function_${filemd5("${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip"
 }
@@ -205,9 +205,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_gh" {
   member    = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_gh" {
-  name   = "cloud_functions/fetching_github_repos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_github_repos_function_${filemd5("${path.module}/../scripts/fetching_github_repos/fetching_github_repos_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_github_repos/fetching_github_repos_function.zip" 
 }
@@ -308,9 +308,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_at" {
   member    = "serviceAccount:${google_service_account.articles_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_at" {
-  name   = "cloud_functions/fetching_articles_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_articles_function_${filemd5("${path.module}/../scripts/fetching_articles/fetching_articles_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_articles/fetching_articles_function.zip"
 }
@@ -379,3 +379,17 @@ resource "google_cloud_scheduler_job" "articles_fetch_jobs" {
   }
 }
 ## END OF SECTION FOR ARTICLES FETCHING CLOUD FUNCTION
+
+#firestore database to store all our fetched data
+resource "google_project_service" "firestore" {
+  project = var.project_id
+  service = "firestore.googleapis.com"
+}
+
+resource "google_firestore_database" "firestore_db" {
+  project     = var.project_id
+  name        = "(default)" # firestore expects this exact name
+  location_id = var.region  
+  type        = "FIRESTORE_NATIVE"
+  depends_on  = [google_project_service.firestore]
+}
