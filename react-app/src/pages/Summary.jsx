@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar"
+import SearchFilter from "../components/SearchFilter"
 export default function Summary() {
 
     return (
@@ -13,6 +14,7 @@ export default function Summary() {
                     <SearchBar />
 
                     </div>
+                    <SearchFilter />
                 </div>
 
             </main>
