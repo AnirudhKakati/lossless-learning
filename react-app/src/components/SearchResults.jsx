@@ -46,10 +46,10 @@ export default function SearchResults() {
               {resources.map((resource, index) => (
                 <div
                   key={index}
-                  className="group p-3 flex gap-3 border rounded-md shadow-sm bg-white relative"
+                  className="group p-3 flex gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
                 >
                   <p className="absolute top-3 right-3 text-gray-500 text-xs">{resource.date}</p>
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 shrink-0">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 shrink-0 transition-colors duration-200 group-hover:border-emerald-300">
                     <div className="flex items-center justify-center w-full h-full">
                       {resource.icon}
                     </div>
