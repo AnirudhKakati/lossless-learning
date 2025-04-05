@@ -2,7 +2,6 @@ export default function SearchFilter() {
     return (
       <div className="w-64 p-4 border rounded-lg shadow-md bg-white">
 
-
         <h2 className="text-lg font-bold">Refine your search</h2>
   
 

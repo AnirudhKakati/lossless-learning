@@ -29,7 +29,6 @@ export default function Navbar() {
                 </ul>
             </nav>
         </div>
-
         <div>
             <h3 class="text-sm mb-5 text-gray-500">Settings</h3>
             <nav>
