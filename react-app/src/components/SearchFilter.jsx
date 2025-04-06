@@ -1,5 +1,6 @@
 export default function SearchFilter() {
     return (
+        <div className="bg-gray-100">
         <div className="w-64 p-4 border rounded-lg shadow-md bg-white h-fit">
         <h2 className="text-lg font-bold">Refine your search</h2>
         <div className="mt-4">
@@ -34,6 +35,7 @@ export default function SearchFilter() {
             ))}
           </ul>
         </div>
+      </div>
       </div>
     );
   }

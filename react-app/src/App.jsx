@@ -11,11 +11,13 @@ import Summary from "./pages/Summary";
 
 export default function App() {
   return (
-    <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/summary" element={<Summary />} />
-        </Routes>
-    </Router>
+    <div className = "bg-gray-100">
+      <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/summary" element={<Summary />} />
+          </Routes>
+      </Router>
+    </div>
 );
 }
