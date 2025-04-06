@@ -2,7 +2,7 @@ import { FiSearch } from "react-icons/fi";
 
 export default function SearchBar() {
     return (
-        <div className="relative w-full mb-6 bg-gray-100 p-2 rounded-lg overflow-hidden">
+        <div className="relative w-full mb-2 bg-gray-100 p-2 rounded-lg overflow-hidden">
         <input
           type="text"
           placeholder="Search lessons..."
