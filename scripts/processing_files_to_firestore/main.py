@@ -89,7 +89,7 @@ def add_to_firestore(bucket_name,resource_type):
             
             article_id = hashlib.md5(unique_key.encode()).hexdigest() #create a hash key using the url of the record. This will become the id of the record
             # in Firestore DB. This prevents duplicate records getting created in the DB for the same record 
-            doc_ref=db.collection("resources").document(article_id) #add it to the collection "records"
+            doc_ref=db.collection("resources").document(article_id) #add it to the collection "resources"
             doc_ref.set(record)
 
             count_records+=1 #keep count of records
