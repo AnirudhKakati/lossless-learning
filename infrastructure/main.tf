@@ -110,9 +110,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_yt" {
   member    = "serviceAccount:${google_service_account.youtube_data_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_yt" {
-  name   = "cloud_functions/fetching_youtube_videos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_youtube_videos_function_${filemd5("${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_youtube_videos/fetching_youtube_videos_function.zip"
 }
@@ -205,9 +205,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_gh" {
   member    = "serviceAccount:${google_service_account.github_repo_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_gh" {
-  name   = "cloud_functions/fetching_github_repos_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_github_repos_function_${filemd5("${path.module}/../scripts/fetching_github_repos/fetching_github_repos_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_github_repos/fetching_github_repos_function.zip" 
 }
@@ -308,9 +308,9 @@ resource "google_secret_manager_secret_iam_member" "secret_access_at" {
   member    = "serviceAccount:${google_service_account.articles_fetcher_sa.email}"
 }
 
-# upload the function code to the bucket with timestampped name
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
 resource "google_storage_bucket_object" "function_archive_at" {
-  name   = "cloud_functions/fetching_articles_function_${formatdate("YYYYMMDDhhmmss", timestamp())}.zip"
+  name   = "cloud_functions/fetching_articles_function_${filemd5("${path.module}/../scripts/fetching_articles/fetching_articles_function.zip")}.zip"
   bucket = google_storage_bucket.main_project_bucket.name
   source = "${path.module}/../scripts/fetching_articles/fetching_articles_function.zip"
 }
@@ -379,3 +379,114 @@ resource "google_cloud_scheduler_job" "articles_fetch_jobs" {
   }
 }
 ## END OF SECTION FOR ARTICLES FETCHING CLOUD FUNCTION
+
+#firestore database to store all our fetched data
+resource "google_project_service" "firestore" {
+  project = var.project_id
+  service = "firestore.googleapis.com"
+}
+
+resource "google_firestore_database" "firestore_db" {
+  project     = var.project_id
+  name        = "(default)" # firestore expects this exact name
+  location_id = var.region  
+  type        = "FIRESTORE_NATIVE"
+  depends_on  = [google_project_service.firestore] #ensures the api is enabled first before creating the database 
+}
+
+## THIS SECTION IS FOR CLOUD FUNCTION TO PROCESS RESOURCES INTO FIRESTORE DB
+# create a service account for the resources processor Cloud Function
+resource "google_service_account" "resources_processor_sa" {
+  account_id   = "resources-processor-sa"
+  display_name = "Service Account for Resources Processor"
+  project      = var.project_id
+}
+
+# grant bucket access to the service account
+resource "google_storage_bucket_iam_member" "bucket_access_rp" {
+  bucket = google_storage_bucket.main_project_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.resources_processor_sa.email}"
+}
+
+# grant firestoreDB access to the service account
+resource "google_project_iam_member" "firestore_access_for_rp" {
+  project = var.project_id
+  role    = "roles/datastore.user"  # needed for Firestore access
+  member  = "serviceAccount:${google_service_account.resources_processor_sa.email}"
+}
+
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
+resource "google_storage_bucket_object" "function_archive_rp" {
+  name   = "cloud_functions/processing_files_to_firestore_function_${filemd5("${path.module}/../scripts/processing_files_to_firestore/processing_files_to_firestore_function.zip")}.zip"
+  bucket = google_storage_bucket.main_project_bucket.name
+  source = "${path.module}/../scripts/processing_files_to_firestore/processing_files_to_firestore_function.zip"
+}
+
+# cloud Functions v2 deployment for the resources processing to DB function to process each resource type
+resource "google_cloudfunctions2_function" "resources_processor" {
+  name        = "resources-to-db-processor"
+  location    = var.region
+  description = "Processes the fetched data stored in cloud storage and adds it to Firestore DB"
+  
+  build_config {
+    runtime     = "python311"
+    entry_point = "firestore_data_processor" 
+    source {
+      storage_source {
+        bucket = google_storage_bucket.main_project_bucket.name
+        object = google_storage_bucket_object.function_archive_rp.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 10
+    min_instance_count = 0
+    available_memory   = "2048Mi"
+    timeout_seconds    = 540
+    environment_variables = {
+      DEFAULT_BUCKET_NAME = var.project_bucket_name
+    }
+    service_account_email = google_service_account.resources_processor_sa.email
+  }
+}
+
+# allow invocation of the function by all users
+resource "google_cloud_run_service_iam_member" "invoker_rp" {
+  location = google_cloudfunctions2_function.resources_processor.location
+  service  = google_cloudfunctions2_function.resources_processor.name
+  role     = "roles/run.invoker"
+  member   = "allUsers" 
+}
+
+locals {
+  resource_types = ["articles","videos","github_repos"]
+}
+
+# create a Cloud Scheduler job for each resource type to trigger the Cloud Function
+resource "google_cloud_scheduler_job" "resources_process_jobs" {
+  count       = length(local.resource_types)
+  name        = "process-resources-${lower(replace(local.resource_types[count.index], "_", "-"))}"
+  description = "Triggers processing and adding to Firestore DB for resource type ${local.resource_types[count.index]}"
+  schedule    = "15 0 ${count.index + 6} * *"  # run on different days of the month
+  
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.resources_processor.service_config[0].uri
+    
+    oidc_token {
+      service_account_email = google_service_account.resources_processor_sa.email
+    }
+    
+    body = base64encode(jsonencode({
+      resource_type = local.resource_types[count.index],
+      bucket_name   = var.project_bucket_name,
+    }))
+    
+    headers = {
+      "Content-Type" = "application/json"
+    }
+  }
+}
+## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
