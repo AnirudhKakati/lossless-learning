@@ -4,6 +4,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Summary from "./pages/Summary";
+import Resource from "./pages/Resource";
 
 
 
@@ -17,6 +18,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/summary/" element={<Summary />} />
             <Route path="/summary/:count" element={<Summary />} />
+            <Route path="/resource/" element={<Resource />} />
           </Routes>
       </Router>
     </div>
