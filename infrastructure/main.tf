@@ -17,6 +17,20 @@ resource "google_storage_bucket_object" "topics_json_file" {
   bucket = google_storage_bucket.main_project_bucket.name
 }
 
+# we get all book files from local ../books folder
+locals {
+  book_files = fileset("${path.module}/../books", "*.pdf")
+}
+
+# then upload each book into "books" folder in the project bucket
+resource "google_storage_bucket_object" "books_pdfs" {
+  for_each = {for file in local.book_files: file=>file}
+
+  name   = "books/${each.key}"  # uploads to 'books/filename.pdf'
+  source = "${path.module}/../books/${each.value}"
+  bucket = google_storage_bucket.main_project_bucket.name
+}
+
 #we create a secret for the youtube api key which is currently in .tfvars file
 resource "google_secret_manager_secret" "youtube_api_key" {
   secret_id = "youtube-api-key"

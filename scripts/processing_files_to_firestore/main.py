@@ -90,7 +90,7 @@ def add_to_firestore(bucket_name,resource_type):
             article_id = hashlib.md5(unique_key.encode()).hexdigest() #create a hash key using the url of the record. This will become the id of the record
             # in Firestore DB. This prevents duplicate records getting created in the DB for the same record 
             doc_ref=db.collection("resources").document(article_id) #add it to the collection "resources"
-            doc_ref.set(record)
+            doc_ref.set(record, merge=False)
 
             count_records+=1 #keep count of records
 
@@ -138,6 +138,8 @@ def firestore_data_processor(request):
     # validate required parameters
     if not resource_type:
         return "Error: Please provide a 'resource_type' parameter", 400
+    if resource_type not in {"videos","github_repos","articles"}:
+        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos' or 'articles' as a value", 400
     
     try:
         result=add_to_firestore(bucket_name,resource_type)

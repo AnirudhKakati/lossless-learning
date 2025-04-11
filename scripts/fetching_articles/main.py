@@ -86,7 +86,7 @@ def fetch_articles(domain, bucket_name, topics_file_path, output_folder, project
     topics_json=get_topics_json(bucket_name, topics_file_path) # get topics data from GCS
 
     records=[]
-    columns="Domain,Subdomain,Topic,Title,Link,Snippet,Display Link".split(",")
+    columns="Domain,Sub Domain,Topic,Title,Link,Snippet,Display Link".split(",")
 
     subdomains=list(topics_json[domain].keys()) #for every subdomain
     for subdomain in subdomains:
