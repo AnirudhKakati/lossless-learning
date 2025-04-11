@@ -1,8 +1,11 @@
 import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
 import { FaYoutube } from "react-icons/fa";
+import { useState } from 'react';
 
 export default function Resource() {
+  const [activeTab, setActiveTab] = useState('summary');
+  
   return (
     <div className= "flex bg-gray-100">
           <Navbar />
@@ -42,6 +45,48 @@ export default function Resource() {
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         ></iframe>
+                        
+                        <div className="border-b border-gray-300 mb-2 flex gap-4 text-sm font-semibold">
+                          <button
+                            onClick={() => setActiveTab('summary')}
+                            className={`pb-1 ${
+                              activeTab === 'summary'
+                                ? 'text-emerald-300 border-b-2 border-emerald-300'
+                                : 'text-gray-500'
+                            }`}
+                          >
+                            Generated Summary
+                          </button>
+                          <button
+                            onClick={() => setActiveTab('details')}
+                            className={`pb-1 ${
+                              activeTab === 'details'
+                                ? 'text-emerald-300 border-b-2 border-emerald-300'
+                                : 'text-gray-500'
+                            }`}
+                          >
+                            Resource Details
+                          </button>
+                        </div>
+
+                        <div className="text-sm text-gray-700 space-y-3">
+                          {activeTab === 'summary' && (
+                            <>
+                              <p>
+                                Doggo ipsum i am bekom fat most angery pupper I have ever seen you are doing me a frighten. 
+                                Porgo ur givin me a spook smol very jealous pupper blep puggo, fluffer shibe heckin good boys and girls...
+                              </p>
+                              <p>
+                                Big ol ur givin me a spook smol blop, porgo I am bekom fat wow such tempt...
+                              </p>
+                            </>
+                          )}
+                          {activeTab === 'details' && (
+                            <>
+                              <p>Resource details...</p>
+                            </>
+                          )}
+                        </div>
 
                     </div>
                   </div>
