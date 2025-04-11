@@ -138,6 +138,8 @@ def firestore_data_processor(request):
     # validate required parameters
     if not resource_type:
         return "Error: Please provide a 'resource_type' parameter", 400
+    if resource_type not in {"videos","github_repos","articles"}:
+        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos' or 'articles' as a value", 400
     
     try:
         result=add_to_firestore(bucket_name,resource_type)
