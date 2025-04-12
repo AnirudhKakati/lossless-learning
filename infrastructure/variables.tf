@@ -1,6 +1,11 @@
 variable "project_id" {
-  description = "Lossless Learning  Project ID"
-  default     = "ardent-sun-453501-d5"
+  description = "Lossless Learning Project ID"
+  type        = string
+}
+
+variable "project_number" {
+  description = "Lossless Learning Project Number"
+  type        = string
 }
 
 variable "region" {
