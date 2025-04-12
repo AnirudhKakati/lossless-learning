@@ -68,3 +68,15 @@ Scripts for fetching data have been implemented. For fetching youtube videos we 
 All corresponding GCP resources were created through terraform code. 
 
 For the front end, started working on pages for search and summary. Moved page elements into a components folder to better fit the React structure. Added more details to the side navigation bar. Finished the search filter element. 
+
+Meeting Date: 4/11/2025
+
+For book resources, we are finalizing the process of how they will be displayed to the user. 
+
+Fast API is ready. Working locally but having some issues with deployment using terraform scripts. Will be finished soon.
+
+Front end is finalizing the log-in page and adding a like function for saving resources and ranking search results. A database will be used for user authentication for logging in. 
+
+Once the data from the APIs are implemented into the front end, it will be hosted on GCP. 
+
+We plan on having our project finished by Monday and completing the presentation aspect by Tuesday. 
