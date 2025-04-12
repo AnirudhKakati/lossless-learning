@@ -45,6 +45,34 @@ resource "google_secret_manager_secret_version" "youtube_api_key_version" {
   secret_data = var.youtube_api_key
 }
 
+#enable cloud build api
+resource "google_project_service" "cloud_build" {
+  service = "cloudbuild.googleapis.com"
+}
+
+#enable the cloud run api
+resource "google_project_service" "cloud_run" {
+  service = "run.googleapis.com"
+}
+
+#enable the pub/sub api
+resource "google_project_service" "pubsub_api" {
+  project = var.project_id
+  service = "pubsub.googleapis.com"
+}
+
+#enable the cloud storage api
+resource "google_project_service" "storage_api" {
+  project = var.project_id
+  service = "storage-api.googleapis.com"
+}
+
+#enable artifact registry api
+resource "google_project_service" "artifact_registry_api" {
+  project = var.project_id
+  service = "artifactregistry.googleapis.com"
+}
+
 #we create a secret for the github access token which is currently in .tfvars file
 resource "google_secret_manager_secret" "github_access_token" {
   secret_id = "github-access-token"
@@ -177,7 +205,7 @@ resource "google_cloud_scheduler_job" "youtube_data_fetch_jobs" {
   
   http_target {
     http_method = "POST"
-    uri         = google_cloudfunctions2_function.youtube_data_fetcher.service_config[0].uri
+    uri         = google_cloudfunctions2_function.youtube_data_fetcher.url
     
     oidc_token {
       service_account_email = google_service_account.youtube_data_fetcher_sa.email
@@ -272,7 +300,7 @@ resource "google_cloud_scheduler_job" "github_repo_fetch_jobs" {
   
   http_target {
     http_method = "POST"
-    uri         = google_cloudfunctions2_function.github_repo_fetcher.service_config[0].uri
+    uri         = google_cloudfunctions2_function.github_repo_fetcher.url
     
     oidc_token {
       service_account_email = google_service_account.github_repo_fetcher_sa.email
@@ -375,7 +403,7 @@ resource "google_cloud_scheduler_job" "articles_fetch_jobs" {
   
   http_target {
     http_method = "POST"
-    uri         = google_cloudfunctions2_function.articles_fetcher.service_config[0].uri
+    uri         = google_cloudfunctions2_function.articles_fetcher.url
     
     oidc_token {
       service_account_email = google_service_account.articles_fetcher_sa.email
@@ -487,7 +515,7 @@ resource "google_cloud_scheduler_job" "resources_process_jobs" {
   
   http_target {
     http_method = "POST"
-    uri         = google_cloudfunctions2_function.resources_processor.service_config[0].uri
+    uri         = google_cloudfunctions2_function.resources_processor.url
     
     oidc_token {
       service_account_email = google_service_account.resources_processor_sa.email
