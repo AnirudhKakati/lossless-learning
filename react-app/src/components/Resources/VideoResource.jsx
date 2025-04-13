@@ -60,7 +60,7 @@ export default function VideoResource({ resource }) {
               : "text-gray-500"
           }`}
         >
-          Generated Summary
+          Video Transcript
         </button>
         <button
           onClick={() => setActiveTab("details")}
@@ -75,8 +75,12 @@ export default function VideoResource({ resource }) {
       </div>
 
       <div className="text-sm text-gray-700 space-y-3">
-        {activeTab === "summary" && (
-          <p>{transcript || "No transcript available."}</p>
+      {activeTab === "summary" && (
+        <div className="max-h-[300px] overflow-y-auto pr-2">
+            <p className="whitespace-pre-line">
+            {transcript || "No transcript available."}
+            </p>
+        </div>
         )}
         {activeTab === "details" && (
           <p>{`More details coming soon...`}</p>
