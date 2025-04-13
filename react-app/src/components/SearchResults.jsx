@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { FiBookOpen, FiGithub } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchResults({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCurrentPage(1); // Reset page on new data
@@ -47,13 +49,22 @@ export default function SearchResults({ data }) {
   };
 
   const extractTitle = (resource) => {
-    if (resource.repo_name) return resource.repo_name;
-    if (resource.video_title) return resource.video_title;
-    return resource.title || "Untitled";
+    let title = resource.repo_name || resource.video_title || resource.title || "Untitled";
+  
+    // Limit to 80 characters and add ellipsis if needed
+    if (title.length > 60) {
+      title = title.slice(0, 57) + "...";
+    }
+  
+    return title;
   };
 
   const formatDescription = (resource) => {
     return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
+  };
+
+  const handleCardClick = (id) => {
+    navigate(`/resource/${id}`); // 👈 navigates to details page
   };
 
   return (
@@ -65,7 +76,8 @@ export default function SearchResults({ data }) {
           {pageResources.map((resource, index) => (
             <div
               key={index}
-              className="group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
+              onClick={() => handleCardClick(resource.id)}
+              className="cursor-pointer group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
             >
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>
               <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 transition-colors duration-200 group-hover:border-emerald-300">
@@ -74,7 +86,7 @@ export default function SearchResults({ data }) {
                 <div className="flex-1 min-w-0">
                     <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
                     <p className="text-gray-700 mb-1 text-sm font-bold text-base truncate">{formatDescription(resource)}</p>
-                    <p className="text-gray-600 text-xs mb-1 truncate">{formatType(resource.resource_type)}</p>
+                    <p className="text-gray-600 text- mb-1 truncate">{formatType(resource.resource_type)}</p>
                 </div>
             </div>
           ))}

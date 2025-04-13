@@ -18,7 +18,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/summary/" element={<Summary />} />
             <Route path="/summary/:count" element={<Summary />} />
-            <Route path="/resource/" element={<Resource />} />
+            <Route path="/resource/:id" element={<Resource />} />
           </Routes>
       </Router>
     </div>
