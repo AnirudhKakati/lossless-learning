@@ -1,0 +1,1 @@
+gcloud sql connect lossless-learning-sql-instance --user=admin --database=lossless_learning_db

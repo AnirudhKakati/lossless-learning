@@ -1,0 +1,4 @@
+fastapi==0.115.12
+uvicorn==0.34.0
+psycopg2==2.9.10
+passlib==1.7.4
