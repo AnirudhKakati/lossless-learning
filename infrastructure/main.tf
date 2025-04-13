@@ -533,6 +533,7 @@ resource "google_cloud_scheduler_job" "resources_process_jobs" {
 }
 ## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
 
+## THIS SECTION IS FOR THE CLOUDSQL FAST API BACKEND
 #enable the Cloud SQL admin API
 resource "google_project_service" "cloud_sql_admin_api" {
   project = var.project_id
@@ -604,3 +605,5 @@ resource "google_project_iam_member" "cloudsql_client" {
   role    = "roles/cloudsql.client"
   member  = "serviceAccount:${google_service_account.cloudsql_fast_api_sa.email}"
 }
+
+## END OF SECTION FOR THE CLOUDSQL FAST API BACKEND
