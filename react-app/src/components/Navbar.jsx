@@ -7,7 +7,7 @@ export default function Navbar() {
       <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-300 text-black p-5 flex flex-col justify-between">
       <div>
         <h2 className="text-xl font-serif font-bold mb-20">Lossless Learning</h2>
-        <h3 className="text-m font-serif mb-2 text-emerald-300">Overview</h3>
+        <h3 className="text-m font-serif mb-2 text-emerald-700">Overview</h3>
         <nav>
           <ul>
             <li className="mb-2 flex items-center gap-1">
@@ -16,7 +16,7 @@ export default function Navbar() {
             </li>
             <li className="mb-2 flex items-center gap-1">
               <FiBookOpen size={22} className="relative -top-[2px] text-gray-500" />
-              <Link to="/resource" className="underline-hover">Lessons</Link>
+              <Link to="/resource" className="underline-hover">Resources</Link>
             </li>
             <li className="mb-2 flex items-center gap-1">
               <FiFileText size={22} className="relative -top-[2px] text-gray-500" />
@@ -30,7 +30,7 @@ export default function Navbar() {
         </nav>
       </div>
       <div>
-        <h3 className="text-m mb-2 text-emerald-300">Settings</h3>
+        <h3 className="text-m mb-2 text-emerald-700">Settings</h3>
         <nav>
           <ul>
             <li className="mb-2 flex items-center gap-1">
