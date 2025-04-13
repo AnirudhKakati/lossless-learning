@@ -12,8 +12,8 @@ export default function VideoResource({ resource }) {
     resource_type,
     video_title,
     url,
-    video_topic,
-    video_domain,
+    topic,
+    domain,
     transcript,
   } = resource;
 
@@ -29,25 +29,27 @@ export default function VideoResource({ resource }) {
             <FaYoutube className="w-10 h-10 text-emerald-300" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-800">
-              {resource_type}
+            <h2 className="text-xl font-semibold text-emerald-300">
+              {video_title}
             </h2>
-            <p className="text-emerald-300 font-semibold">{video_title}</p>
+            <p className="text-gray-800 font-semibold">{topic} | {domain}</p>
             <p className="text-gray-500 text-sm">
-              {video_topic} | {video_domain}
+                YouTube Video
             </p>
           </div>
         </div>
       </div>
 
+        <div className="flex justify-center">
       <iframe
         className="w-full rounded-md mb-8"
-        style={{ height: "500px" }}
+        style={{ height: "500px"}}
         src={embedUrl}
         title={video_title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
+      </div>
 
       <div className="border-b border-gray-300 mb-2 flex gap-4 text-sm font-semibold">
         <button

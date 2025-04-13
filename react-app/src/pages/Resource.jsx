@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
 import ResourcePage from "../components/Resources/ResourcePage";
@@ -9,6 +9,14 @@ export default function Resource() {
   const { id } = useParams();
   const [resource, setResource] = useState(null);
   const [loading, setLoading] = useState(true);
+
+
+  const navigate = useNavigate();
+
+    const handleTopicClick = (topic) => {
+        navigate("/summary", { state: { topic } });
+      };
+
 
   useEffect(() => {
     async function fetchResource() {
@@ -33,7 +41,7 @@ export default function Resource() {
       <main className="ml-64 p-8 w-full bg-gray-100">
         <div className="flex gap-6 w-full max-w-full overflow-hidden">
           <div className="flex-1 min-w-0">
-            <SearchBar />
+            <SearchBar onTopicClick={handleTopicClick} />
 
             {loading ? (
               <div className="flex justify-center items-center min-h-[200px]">
