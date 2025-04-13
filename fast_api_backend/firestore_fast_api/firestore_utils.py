@@ -28,7 +28,14 @@ def get_resources(topic=None, domain=None, sub_domain=None, resource_type=None):
         query=query.where("resource_type", "==", resource_type)
 
     docs=query.stream() #execute the query and convert each result to a dictionary
-    return [doc.to_dict() for doc in docs]
+
+    results=[]
+    for doc in docs:
+        data = doc.to_dict()
+        data["resource_id"] = doc.id  #add the Firestore document ID
+        results.append(data)
+
+    return results
 
 def get_resource_by_id(resource_id):
     """

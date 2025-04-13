@@ -532,3 +532,40 @@ resource "google_cloud_scheduler_job" "resources_process_jobs" {
   }
 }
 ## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
+
+#enable the Cloud SQL admin API
+resource "google_project_service" "cloud_sql_admin_api" {
+  project = var.project_id
+  service = "sqladmin.googleapis.com"
+}
+
+#create cloud sql instance
+resource "google_sql_database_instance" "sql_db_instance" {
+  name             = "lossless-learning-sql-instance"
+  region           = var.region
+  database_version = "POSTGRES_15"
+
+  settings {
+    tier = "db-f1-micro" # free-tier eligible
+    ip_configuration {
+      ipv4_enabled    = true
+      authorized_networks {
+        name  = "allow-all"
+        value = "0.0.0.0/0"  # (temporarily allows free access)
+      }
+    }
+  }
+}
+
+# create the sql database
+resource "google_sql_database" "sql_database" {
+  name     = "lossless_learning_db"
+  instance = google_sql_database_instance.sql_db_instance.name
+}
+
+#create a user for accessing the db
+resource "google_sql_user" "sql_user" {
+  name     = "admin"
+  instance = google_sql_database_instance.sql_db_instance.name
+  password = var.sql_password
+}
