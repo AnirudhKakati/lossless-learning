@@ -9,7 +9,7 @@ export default function SearchResults({ data }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setCurrentPage(1); // Reset page on new data
+    setCurrentPage(1); 
   }, [data]);
 
   const totalPages = Math.ceil(data.length / pageSize);
@@ -51,7 +51,6 @@ export default function SearchResults({ data }) {
   const extractTitle = (resource) => {
     let title = resource.repo_name || resource.video_title || resource.title || "Untitled";
   
-    // Limit to 80 characters and add ellipsis if needed
     if (title.length > 60) {
       title = title.slice(0, 57) + "...";
     }
@@ -63,8 +62,8 @@ export default function SearchResults({ data }) {
     return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
   };
 
-  const handleCardClick = (id) => {
-    navigate(`/resource/${id}`); // 👈 navigates to details page
+  const handleCardClick = (resourceId) => {
+    navigate(`/resource/${resourceId}`);
   };
 
   return (
@@ -76,7 +75,7 @@ export default function SearchResults({ data }) {
           {pageResources.map((resource, index) => (
             <div
               key={index}
-              onClick={() => handleCardClick(resource.id)}
+              onClick={() => handleCardClick(resource.resource_id)}
               className="cursor-pointer group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
             >
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>

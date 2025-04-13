@@ -1,7 +1,7 @@
 import { FaYoutube } from "react-icons/fa";
 import { useState } from 'react';
 
-export default function Resource() {
+export default function ResourcePage() {
   const [activeTab, setActiveTab] = useState('summary');
   
   return (
@@ -81,4 +81,4 @@ export default function Resource() {
                     </div>
     
   );
-}
+} 
