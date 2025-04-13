@@ -72,9 +72,9 @@ export default function SearchResults({ data }) {
                 {getIcon(resource.resource_type)}
               </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-gray-800 mb-1 text-md font-bold truncate">{formatType(resource.resource_type)}</p>
-                    <p className="text-emerald-300 mb-1 text-sm font-bold text-base truncate">{extractTitle(resource)}</p>
-                    <p className="text-gray-600 text-xs mb-1 truncate">{formatDescription(resource)}</p>
+                    <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
+                    <p className="text-gray-700 mb-1 text-sm font-bold text-base truncate">{formatDescription(resource)}</p>
+                    <p className="text-gray-600 text-xs mb-1 truncate">{formatType(resource.resource_type)}</p>
                 </div>
             </div>
           ))}
