@@ -10,15 +10,15 @@ import Resource from "./pages/Resource";
 
 
 
+
 export default function App() {
   return (
     <div className = "bg-gray-100">
       <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/summary/" element={<Summary />} />
-            <Route path="/summary/:count" element={<Summary />} />
-            <Route path="/resource/" element={<Resource />} />
+            <Route path="/summary" element={<Summary />} />
+            <Route path="/resource/:id" element={<Resource />} />
           </Routes>
       </Router>
     </div>

@@ -20,7 +20,7 @@ export default function Navbar() {
             </li>
             <li className="mb-2 flex items-center gap-1">
               <FiFileText size={22} className="relative -top-[2px] text-gray-500" />
-              <Link to="/summary/10" className="underline-hover">Summaries</Link>
+              <Link to="/summary" className="underline-hover">Summaries</Link>
             </li>
             <li className="mb-2 flex items-center gap-2">
               <FiHeart size={22} className="relative -top-[2px] text-gray-500" />
