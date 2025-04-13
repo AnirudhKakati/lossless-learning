@@ -277,3 +277,40 @@ def get_user_liked_resources(user_id: str):
     except psycopg2.Error as e:
         #handle database errors
         raise HTTPException(status_code=400, detail=f"Database error: {e}")
+    
+@app.get("/resources/{resource_id}/likes")
+def get_resource_like_count(resource_id: str):
+    """
+    Get the total number of likes for a specific resource.
+
+    Args:
+        resource_id (str): UUID of the resource.
+
+    Returns:
+        dict: Dictionary containing the resource_id and its total like count.
+    """
+
+    try:
+        conn = get_db_connection() #get database connection
+        cur = conn.cursor()
+
+        #query to get the like count for the specified resource
+        query = """
+            SELECT like_count
+            FROM resource_likes
+            WHERE resource_id = %s
+        """
+        cur.execute(query, (resource_id,))
+        result = cur.fetchone()
+
+        #close connection
+        cur.close()
+        conn.close()
+
+        #if resource exists in the likes table, return its count, otherwise return 0
+        like_count = result[0] if result else 0
+        return {"resource_id": resource_id, "like_count": like_count}
+
+    except psycopg2.Error as e:
+        #handle database errors
+        raise HTTPException(status_code=400, detail=f"Database error: {e}")
