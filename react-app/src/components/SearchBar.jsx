@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
 import data from "../../../topics.json";
 
-export default function SearchBar() {
+export default function SearchBar({ onTopicClick }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [openSubdomains, setOpenSubdomains] = useState({});
 
@@ -11,6 +11,13 @@ export default function SearchBar() {
       ...prev,
       [key]: !prev[key],
     }));
+  };
+
+  const handleTopicClick = (topic) => {
+    if (onTopicClick) {
+      onTopicClick(topic); // trigger API or action
+    }
+    setIsDropdownOpen(false); // close dropdown
   };
 
   return (
@@ -64,7 +71,13 @@ export default function SearchBar() {
                       {isOpen && (
                         <ul className="ml-4 mt-1 list-disc text-sm text-gray-600">
                           {Object.keys(topics).map((topic) => (
-                            <li key={topic}>{topic}</li>
+                            <li
+                              key={topic}
+                              onClick={() => handleTopicClick(topic)}
+                              className="cursor-pointer hover:text-emerald-600"
+                            >
+                              {topic}
+                            </li>
                           ))}
                         </ul>
                       )}
