@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react"
-import { FiBookOpen, FiGithub } from "react-icons/fi"
-import { FaYoutube } from "react-icons/fa"
+import { useState, useEffect } from "react";
+import { FiBookOpen, FiGithub } from "react-icons/fi";
+import { FaYoutube } from "react-icons/fa";
 
 export default function SearchResults({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
 
   useEffect(() => {
-    setCurrentPage(1); 
+    setCurrentPage(1); // Reset page on new data
   }, [data]);
 
   const totalPages = Math.ceil(data.length / pageSize);
@@ -23,15 +23,37 @@ export default function SearchResults({ data }) {
   };
 
   const getIcon = (type) => {
-    switch (type.toLowerCase()) {
+    switch (type?.toLowerCase()) {
       case "videos":
-        return <FaYoutube className="w-5 h-5 text-emerald-300" />;
+        return <FaYoutube className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
       case "github_repos":
-        return <FiGithub className="w-5 h-5 text-emerald-300" />;
+        return <FiGithub className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
       case "articles":
       default:
-        return <FiBookOpen className="w-5 h-5 text-emerald-300" />;
+        return <FiBookOpen className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
     }
+  };
+
+  const formatType = (type) => {
+    switch (type?.toLowerCase()) {
+      case "videos":
+        return "YouTube Video";
+      case "github_repos":
+        return "GitHub Repository";
+      case "articles":
+      default:
+        return "Article";
+    }
+  };
+
+  const extractTitle = (resource) => {
+    if (resource.repo_name) return resource.repo_name;
+    if (resource.video_title) return resource.video_title;
+    return resource.title || "Untitled";
+  };
+
+  const formatDescription = (resource) => {
+    return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
   };
 
   return (
@@ -46,14 +68,14 @@ export default function SearchResults({ data }) {
               className="group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
             >
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 shrink-0 transition-colors duration-200 group-hover:border-emerald-300">
-                {getIcon(resource.resource_type || resource.type)}
+              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 transition-colors duration-200 group-hover:border-emerald-300">
+                {getIcon(resource.resource_type)}
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-gray-800 text-sm mb-1 font-medium truncate">{resource.resource_type || resource.type}</p>
-                <p className="text-emerald-300 mb-1 text-sm text-base truncate">{resource.title}</p>
-                <p className="text-gray-600 text-xs truncate">{resource.description}</p>
-              </div>
+                <div className="flex-1 min-w-0">
+                    <p className="text-gray-800 mb-1 text-md font-bold truncate">{formatType(resource.resource_type)}</p>
+                    <p className="text-emerald-300 mb-1 text-sm font-bold text-base truncate">{extractTitle(resource)}</p>
+                    <p className="text-gray-600 text-xs mb-1 truncate">{formatDescription(resource)}</p>
+                </div>
             </div>
           ))}
 
