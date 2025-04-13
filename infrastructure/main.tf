@@ -533,6 +533,7 @@ resource "google_cloud_scheduler_job" "resources_process_jobs" {
 }
 ## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
 
+## THIS SECTION IS FOR THE CLOUDSQL FAST API BACKEND
 #enable the Cloud SQL admin API
 resource "google_project_service" "cloud_sql_admin_api" {
   project = var.project_id
@@ -569,3 +570,40 @@ resource "google_sql_user" "sql_user" {
   instance = google_sql_database_instance.sql_db_instance.name
   password = var.sql_password
 }
+
+#we create a secret for sql password which is currently in .tfvars file
+resource "google_secret_manager_secret" "cloud_sql_db_password" {
+  secret_id = "cloud-sql-db-password"
+  
+  replication {
+    auto {}
+  }
+}
+
+resource "google_secret_manager_secret_version" "cloud_sql_db_password_version" {
+  secret      = google_secret_manager_secret.cloud_sql_db_password.id
+  secret_data = var.sql_password
+}
+
+#create a service account for the deployed cloud sql fast api backend
+resource "google_service_account" "cloudsql_fast_api_sa" {
+  project      = var.project_id
+  account_id   = "cloudsql-fast-api-sa"
+  display_name = "Cloud Run SA for FastAPI"
+}
+
+#grant it secret manager access
+resource "google_project_iam_member" "secretmanager_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.cloudsql_fast_api_sa.email}"
+}
+
+#grant it access to cloud sql client
+resource "google_project_iam_member" "cloudsql_client" {
+  project = var.project_id
+  role    = "roles/cloudsql.client"
+  member  = "serviceAccount:${google_service_account.cloudsql_fast_api_sa.email}"
+}
+
+## END OF SECTION FOR THE CLOUDSQL FAST API BACKEND
