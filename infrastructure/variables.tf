@@ -38,6 +38,12 @@ variable "custom_search_api_key" {
 
 variable "custom_search_engine_id" {
   description = "Custom Search Engine ID (sensitive)"
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+}
+
+variable "sql_password" {
+  description = "Cloud SQL user password"
+  type        = string
+  sensitive   = true 
 }
