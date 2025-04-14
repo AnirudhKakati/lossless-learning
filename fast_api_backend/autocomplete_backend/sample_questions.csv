@@ -1,0 +1,1475 @@
+Questuions
+What is a vector and how is it represented?
+
+How are matrices defined in linear algebra?
+
+What are the basic types of matrices?
+
+How do you represent a system of equations using matrices?
+
+What are the dimensions of a matrix?
+
+What is the difference between a row and a column vector?
+
+What are some real-world applications of vectors and matrices?
+
+How do you identify if a matrix is square?
+
+What does it mean for two matrices to be equal?
+
+Why are vectors and matrices foundational to linear algebra?
+
+How do you add and subtract vectors?
+
+What is scalar multiplication in vector operations?
+
+How is the dot product of two vectors calculated?
+
+What is the geometric interpretation of the dot product?
+
+How do you calculate the cross product of two 3D vectors?
+
+What are orthogonal vectors and how are they identified?
+
+How do you normalize a vector?
+
+What does the magnitude of a vector represent?
+
+How do you compute the angle between two vectors?
+
+What are some properties of vector operations?
+
+How do you add and subtract matrices?
+
+What is matrix multiplication and how is it performed?
+
+What are the properties of matrix multiplication?
+
+How is the transpose of a matrix computed?
+
+What is the identity matrix and its role in operations?
+
+How do you compute the inverse of a matrix?
+
+What is matrix division and how is it handled?
+
+What are symmetric and skew-symmetric matrices?
+
+How do you perform element-wise operations on matrices?
+
+What are the computational challenges of matrix operations?
+
+What defines a vector space?
+
+What is a basis in a vector space?
+
+How do you determine the dimension of a vector space?
+
+What is linear independence?
+
+What is a spanning set in a vector space?
+
+How do you verify if a set of vectors forms a basis?
+
+What is the null space of a matrix?
+
+What is the column space of a matrix?
+
+How are vector spaces used in machine learning?
+
+What is the rank of a matrix and how is it related to vector spaces?
+
+What is a diagonal matrix?
+
+How is an identity matrix defined?
+
+What is an orthogonal matrix?
+
+What makes a matrix symmetric?
+
+What is a skew-symmetric matrix?
+
+What is a singular matrix?
+
+What are upper and lower triangular matrices?
+
+What is the purpose of sparse matrices?
+
+How do special matrices simplify computation?
+
+What are some applications of special matrices?
+
+What is an eigenvector?
+
+What is an eigenvalue?
+
+How are eigenvalues and eigenvectors computed?
+
+What is the characteristic equation?
+
+What does it mean geometrically to be an eigenvector?
+
+Why are eigenvalues important in data science?
+
+How do eigenvectors relate to matrix transformation?
+
+What is the eigenspace?
+
+What are degenerate eigenvalues?
+
+How are eigenvectors used in PCA?
+
+What is the determinant of a matrix?
+
+How do you compute the determinant of a 2x2 matrix?
+
+How is the characteristic equation formed?
+
+What does the determinant tell us about a matrix?
+
+What is the relation between determinant and invertibility?
+
+How do you compute eigenvalues using the characteristic equation?
+
+What are cofactor expansions?
+
+What happens when a matrix has a zero determinant?
+
+How does row-reduction affect the determinant?
+
+How is the determinant used in real applications?
+
+What is matrix diagonalization?
+
+When is a matrix diagonalizable?
+
+How does eigen decomposition work?
+
+Why is diagonalization useful?
+
+What are the steps to diagonalize a matrix?
+
+What is the relation between eigen decomposition and diagonalization?
+
+What is the role of eigenvectors in decomposition?
+
+How does similarity transformation relate to diagonalization?
+
+What is a spectral decomposition?
+
+In which scenarios is eigen decomposition commonly used?
+
+What is SVD and why is it important?
+
+"What are the components of SVD (U, Σ, Vᵀ)?"
+
+How is SVD different from eigen decomposition?
+
+When should you use SVD?
+
+How do you compute SVD of a matrix?
+
+What are singular values?
+
+What are applications of SVD in machine learning?
+
+How does SVD help in data compression?
+
+What does the rank of Σ in SVD indicate?
+
+How is SVD implemented in NumPy?
+
+What is PCA and its purpose?
+
+How does PCA reduce dimensionality?
+
+What is the role of eigenvectors in PCA?
+
+How do you compute the principal components?
+
+What is the explained variance in PCA?
+
+How is PCA related to SVD?
+
+When is PCA useful in practice?
+
+What are limitations of PCA?
+
+How is data transformed using PCA?
+
+How do you interpret PCA output?
+
+What is low-rank approximation?
+
+How is matrix factorization used for approximation?
+
+What role does SVD play in low-rank approximation?
+
+What is the Eckart–Young theorem?
+
+How do you choose the rank in approximation?
+
+What is the Frobenius norm in matrix approximation?
+
+What are the trade-offs in low-rank approximation?
+
+How does low-rank approximation help in recommendation systems?
+
+What are the memory benefits of low-rank approximations?
+
+How is low-rank approximation applied in image compression?
+
+What is a limit in calculus?
+
+How do you evaluate a limit from the left and right?
+
+What does it mean for a function to be continuous?
+
+What is the formal definition of a limit (epsilon-delta)?
+
+How do you determine if a function is continuous at a point?
+
+What is the limit of a function as x approaches infinity?
+
+What are common limit laws?
+
+What is an indeterminate form?
+
+How do limits help in defining derivatives?
+
+What are some real-world applications of limits?
+
+What is the derivative of a function?
+
+What is the geometric interpretation of a derivative?
+
+"What are the basic rules of differentiation (sum, product, quotient)?"
+
+How is the chain rule used in differentiation?
+
+How do you differentiate exponential and logarithmic functions?
+
+How are derivatives used in optimization problems?
+
+What is the second derivative and what does it represent?
+
+What is implicit differentiation?
+
+How do you find critical points using the first derivative?
+
+What is the derivative of a vector-valued function?
+
+What is a partial derivative?
+
+How do you compute partial derivatives of multivariable functions?
+
+What is the gradient of a function?
+
+What does the gradient vector represent geometrically?
+
+How are gradients used in optimization algorithms?
+
+What is the Hessian matrix?
+
+What is the Jacobian matrix?
+
+How does the gradient relate to level curves?
+
+What is directional derivative and how is it calculated?
+
+Why are gradients essential in machine learning?
+
+How are derivatives used to find local minima and maxima?
+
+What are critical points in an optimization problem?
+
+How do you use the second derivative test?
+
+What is gradient descent?
+
+How do learning rate and gradient affect convergence?
+
+What is stochastic gradient descent?
+
+What is the role of momentum in optimization?
+
+What is overfitting and how does optimization influence it?
+
+How is regularization used during optimization?
+
+What are common loss functions used in optimization?
+
+What is the chain rule and why is it important?
+
+How do you apply the chain rule in multivariable calculus?
+
+How does backpropagation use the chain rule?
+
+What is the total derivative of a function?
+
+What is a composite function in multivariable calculus?
+
+How is the chain rule applied in neural networks?
+
+How do you calculate partial derivatives using the chain rule?
+
+What is the role of the chain rule in automatic differentiation?
+
+What is a computational graph?
+
+What are some common pitfalls when using the chain rule?
+
+What is the Jacobian matrix and how is it formed?
+
+How does the Jacobian relate to multivariable transformations?
+
+What is the Hessian matrix?
+
+How do you compute the Hessian for a scalar-valued function?
+
+What does the sign of the determinant of the Hessian tell us?
+
+How do Jacobians help in backpropagation?
+
+When is the Jacobian singular?
+
+What does a positive-definite Hessian indicate?
+
+What are applications of the Hessian in optimization?
+
+How do you use Jacobians in coordinate transformations?
+
+What is constrained optimization?
+
+How do Lagrange multipliers help solve constrained problems?
+
+What is the Lagrangian function?
+
+How do you set up equations using Lagrange multipliers?
+
+What is the geometric intuition behind Lagrange multipliers?
+
+What are some practical applications of constrained optimization?
+
+How do you solve optimization problems with multiple constraints?
+
+What are saddle points in constrained optimization?
+
+How are Lagrange multipliers used in support vector machines?
+
+What is the KKT (Karush–Kuhn–Tucker) condition?
+
+Would you like me to continue with the next major topic: Probability and Statistics?
+
+
+What is the difference between probability and statistics?
+
+What are independent and dependent events?
+
+What is conditional probability?
+
+How does the chain rule of probability work?
+
+What is Bayes' Theorem and how is it applied in ML?
+
+What are mutually exclusive events?
+
+What is the law of total probability?
+
+"What is the difference between joint, marginal, and conditional probabilities?"
+
+How does probability apply to classification tasks in ML?
+
+What are some real-world applications of probability theory in AI?
+
+What is the difference between probability and statistics?
+
+What are independent and dependent events?
+
+What is conditional probability?
+
+How does the chain rule of probability work?
+
+What is Bayes' Theorem and how is it applied in ML?
+
+What are mutually exclusive events?
+
+What is the law of total probability?
+
+"What is the difference between joint, marginal, and conditional probabilities?"
+
+How does probability apply to classification tasks in ML?
+
+What are some real-world applications of probability theory in AI?
+
+What is a random variable (discrete vs continuous)?
+
+What is a probability mass function (PMF)?
+
+What is a probability density function (PDF)?
+
+What is the cumulative distribution function (CDF)?
+
+"What are common distributions (e.g., Binomial, Normal, Poisson, Uniform)?"
+
+How do you determine if a distribution is suitable for your data?
+
+What is the Central Limit Theorem and why is it important?
+
+What is the expected value of a random variable?
+
+How are distributions used in generative modeling?
+
+How are PDFs and CDFs used in probabilistic ML models?
+
+What is the expectation (mean) of a random variable?
+
+What is variance and how is it interpreted?
+
+What is standard deviation?
+
+How do you calculate covariance between two random variables?
+
+What does it mean when covariance is positive/negative?
+
+What is the correlation coefficient?
+
+How do you compute expectation for continuous vs. discrete variables?
+
+Why is variance important in model evaluation?
+
+How does covariance relate to multivariate Gaussian distributions?
+
+How are expectation and variance used in loss functions?
+
+What is Bayes’ Theorem and its formula?
+
+How is prior knowledge represented in Bayesian statistics?
+
+What is the difference between frequentist and Bayesian approaches?
+
+"What are priors, posteriors, and likelihoods?"
+
+How is Bayesian inference used in machine learning?
+
+What is Maximum A Posteriori (MAP) estimation?
+
+What is a conjugate prior?
+
+How does Bayesian updating work with new data?
+
+What is the role of Bayes' Theorem in Naïve Bayes classifiers?
+
+What is the intuition behind Bayesian networks?
+
+"What are measures of central tendency (mean, median, mode)?"
+
+"What are measures of spread (range, variance, IQR)?"
+
+What is a box plot and what does it show?
+
+What are outliers and how are they detected?
+
+What is skewness and kurtosis?
+
+How do you summarize a dataset using descriptive statistics?
+
+What are quantiles and percentiles?
+
+How does one interpret a histogram?
+
+What is the difference between population and sample statistics?
+
+How is data normalization related to descriptive statistics?
+
+What is the difference between population and sample?
+
+What is a sampling distribution?
+
+What is a confidence interval?
+
+What is hypothesis testing?
+
+What is the null and alternative hypothesis?
+
+What are Type I and Type II errors?
+
+What is a p-value and how is it interpreted?
+
+How does sample size affect statistical power?
+
+What is a t-test and when is it used?
+
+What are the assumptions behind common hypothesis tests?
+
+What is the purpose of hypothesis testing?
+
+How do you perform a one-tailed vs two-tailed test?
+
+What is the significance level (alpha)?
+
+What is the relationship between confidence level and significance level?
+
+What is the meaning of rejecting the null hypothesis?
+
+When should you use a z-test vs a t-test?
+
+What is the ANOVA test?
+
+What are chi-square tests used for?
+
+How are tests for proportions different from tests for means?
+
+What is statistical power?
+
+What is a vector and how is it represented?
+
+"What is the difference between a scalar, vector, and matrix?"
+
+What is the geometric interpretation of a vector?
+
+What is a vector space and what are its axioms?
+
+What is the basis of a vector space?
+
+What does it mean for vectors to be linearly independent?
+
+What is the span of a set of vectors?
+
+What is a subspace?
+
+How do you project a vector onto another vector?
+
+How are vectors used in machine learning models like linear regression?
+
+What is a matrix and how is it represented?
+
+"What are common matrix operations (addition, scalar multiplication, multiplication)?"
+
+What is the transpose of a matrix?
+
+What is the identity matrix and why is it important?
+
+What is the inverse of a matrix and how is it computed?
+
+What is matrix-vector multiplication and how is it interpreted geometrically?
+
+What is the dot product and cross product?
+
+What is element-wise multiplication vs matrix multiplication?
+
+How do you use matrices to represent datasets and transformations?
+
+What are common matrix shapes and notations in ML?
+
+What is a diagonal matrix?
+
+What is a symmetric matrix?
+
+What is an orthogonal matrix?
+
+What is a sparse matrix and why is it useful?
+
+What is a rank of a matrix and how is it determined?
+
+What is a full-rank matrix?
+
+What is a positive definite matrix?
+
+What is the condition number of a matrix?
+
+How does matrix rank relate to solutions of linear systems?
+
+What is the difference between singular and non-singular matrices?
+
+How do you represent a system of equations as a matrix equation?
+
+What is the augmented matrix form?
+
+What is Gaussian elimination?
+
+What is the Gauss-Jordan method?
+
+"What does it mean for a system to have a unique solution, no solution, or infinitely many solutions?"
+
+What are the row operations used to solve linear systems?
+
+How is matrix rank used to determine solvability?
+
+How do you use LU decomposition to solve systems?
+
+How are systems of equations used in ML algorithms like linear regression?
+
+What is the computational complexity of solving large linear systems?
+
+What is an eigenvector and eigenvalue?
+
+How do you compute them for a matrix?
+
+What is the geometric interpretation of eigenvectors?
+
+What is the characteristic equation?
+
+What are the applications of eigenvalues/eigenvectors in ML?
+
+How are they used in Principal Component Analysis (PCA)?
+
+What is diagonalization of a matrix?
+
+What is a spectral decomposition?
+
+What are the properties of eigenvalues of symmetric matrices?
+
+What is the significance of eigenvalues in stability analysis?
+
+What is Singular Value Decomposition?
+
+How is SVD represented (UΣVᵀ)?
+
+"What are the roles of U, Σ, and V in the decomposition?"
+
+How is SVD different from eigen decomposition?
+
+What is the geometric interpretation of SVD?
+
+How is SVD used in dimensionality reduction?
+
+How is SVD applied in recommendation systems?
+
+How does SVD relate to PCA?
+
+What are singular values?
+
+How is truncated SVD used to approximate matrices?
+
+What is a vector norm?
+
+"What are common norms (L1, L2, L∞)?"
+
+What is the geometric meaning of the L2 norm?
+
+How do you compute distance between two vectors?
+
+What is cosine similarity and how does it differ from Euclidean distance?
+
+What is the Frobenius norm of a matrix?
+
+How do norms help in regularization (L1/L2)?
+
+What is the triangle inequality?
+
+Why are norms important in optimization?
+
+How are vector distances used in clustering algorithms?
+
+"What’s the difference between supervised, unsupervised, and reinforcement learning?"
+
+What is overfitting? How can you prevent it?
+
+What is the bias-variance tradeoff?
+
+Explain how gradient descent works. What are its variants?
+
+"What are precision, recall, and F1-score? When would you prefer each?"
+
+What is regularization? Difference between L1 and L2 regularization?
+
+How does a decision tree decide where to split?
+
+What are the assumptions behind linear regression?
+
+"What’s the difference between a list, tuple, and dictionary in Python?"
+
+What is the purpose of *args and **kwargs in function definitions?
+
+How do you use list comprehensions and when should you avoid them?
+
+What are lambda functions? Give an example use case in data processing.
+
+How do you handle missing data using pandas?
+
+What’s the difference between shallow and deep copy in Python?
+
+What is a pipeline in ML and why is it useful?
+
+How would you monitor a model in production?
+
+What’s the role of CI/CD in MLOps?
+
+How do you manage model versioning?
+
+What’s the difference between batch inference and online inference?
+
+What are the key differences between Docker and Kubernetes in an ML context?
+
+Want me to break any of these down into flashcards or provide example-based answers for some? Or should I continue with Calculus in your ML roadmap?
+
+Explain the differences between bagging and boosting.
+
+What are the pros and cons of using Random Forest over a single decision tree?
+
+How does the k-nearest neighbors (KNN) algorithm work?
+
+What is the curse of dimensionality? How does it affect ML models?
+
+Explain the intuition behind Principal Component Analysis (PCA).
+
+When should you use logistic regression over decision trees?
+
+What is a confusion matrix? How is it useful?
+
+What are ROC curves and AUC scores?
+
+What is cross-validation and why is it important?
+
+What are support vectors in an SVM?
+
+How do ensemble methods improve model performance?
+
+What’s the difference between generative and discriminative models?
+
+What are the differences between classification and regression?
+
+"What’s a learning rate, and how do you choose its value?"
+
+What is the role of activation functions in neural networks?
+
+How do you handle class imbalance in a dataset?
+
+Explain feature importance. How is it computed in tree-based models?
+
+How does DBSCAN clustering differ from K-means?
+
+"What are latent variables, and how do they show up in models like LDA or VAEs?"
+
+How do you interpret coefficients in linear regression?
+
+How do you use enumerate() and zip() effectively?
+
+Explain the difference between is and == in Python.
+
+What are Python generators? How are they different from lists?
+
+What’s the difference between a module and a package?
+
+How do you manage dependencies in a Python project?
+
+What is the with statement used for?
+
+What are Python decorators? Provide a use case.
+
+What’s the difference between NumPy arrays and Python lists?
+
+How do you perform matrix multiplication in NumPy?
+
+What are broadcasting rules in NumPy?
+
+How can you optimize Pandas operations for large datasets?
+
+What’s the difference between .loc[] and .iloc[] in pandas?
+
+How do you merge and join datasets using pandas?
+
+How do you serialize a machine learning model in Python?
+
+How do you profile a Python program to find bottlenecks?
+
+What are the main components of an MLOps pipeline?
+
+How do you implement data versioning in an ML project?
+
+What is model drift and how do you detect it?
+
+How do you deploy a model as an API using FastAPI?
+
+What is the difference between a Docker image and a container?
+
+What are the steps for building a CI/CD pipeline for ML models?
+
+What is a feature store and why is it useful?
+
+How do you use Kubernetes for deploying ML models?
+
+How does TensorFlow Serving work?
+
+How do you ensure reproducibility in ML experiments?
+
+How do you monitor data quality in production?
+
+"What tools can you use to track ML experiments (e.g., MLflow, Weights & Biases)?"
+
+How do you perform canary or A/B testing on ML models?
+
+What is the role of airflow or Kubeflow in ML workflows?
+
+How would you scale inference for real-time predictions?
+
+Vector notation used in deep learning
+
+Matrix representation of image data
+
+Dot product vs cross product usage
+
+Orthogonal basis in high dimensions
+
+Identity matrix in neural network initialization
+
+Rank of a matrix in feature reduction
+
+Symmetric matrices and their applications
+
+Diagonal dominance and stability
+
+Eigenvalues in facial recognition systems
+
+Matrix multiplication properties and optimization
+
+Behavior of functions at discontinuities
+
+Limit evaluation using L'Hôpital's Rule
+
+Application of gradient vectors in ML
+
+Chain rule usage in backpropagation
+
+Role of Hessian in convex optimization
+
+Stationary points identification
+
+Gradient magnitude interpretation
+
+Convergence criteria in gradient descent
+
+Differences in learning rate update with RMSprop vs Adam
+
+Jacobian matrix in transformation functions
+
+Sample space enumeration for multi-event systems
+
+Mutual exclusivity vs independence
+
+Application of Bayes' theorem in spam filters
+
+Poisson distribution in real-time monitoring
+
+Normal distribution in anomaly detection
+
+Standard deviation role in feature scaling
+
+Confidence interval usage in A/B testing
+
+Type I vs Type II errors in hypothesis testing
+
+P-value thresholds and implications
+
+Bayesian inference in parameter estimation
+
+Convex function verification using second derivative
+
+Saddle points in non-convex landscapes
+
+Constraint handling in model tuning
+
+Karush-Kuhn-Tucker conditions in ML optimization
+
+Duality principles in Lagrangian methods
+
+Syntax rules for variable naming in Python
+
+Use cases for list vs tuple
+
+"Set operations: union, intersection, difference"
+
+Dictionary keys and immutability
+
+Nested loops and time complexity implications
+
+Function argument unpacking with *args and **kwargs
+
+Global vs nonlocal keyword usage
+
+Class attributes vs instance attributes
+
+Overriding built-in methods in custom classes
+
+Method resolution order in multiple inheritance
+
+Constructor usage with __init__()
+
+"Magic methods like __str__, __repr__, __eq__"
+
+"Encapsulation via private variables (_var, __var)"
+
+Context managers using with and __enter__/__exit__
+
+Benefits of virtual environments for project isolation
+
+Difference between venv and conda environments
+
+Pip freeze output interpretation
+
+Conda environment YAML file usage
+
+Installing specific package versions with pip
+
+Dependency resolution errors in pip installs
+
+NumPy array broadcasting rules
+
+Element-wise operations in NumPy arrays
+
+Memory efficiency of NumPy over Python lists
+
+Vectorized computation in NumPy
+
+"Transpose, reshape, and flatten operations"
+
+Matrix multiplication using @ and dot()
+
+Pandas Series vs DataFrame differences
+
+Indexing techniques: loc vs iloc vs at
+
+Chained indexing vs explicit indexing in Pandas
+
+Pandas groupby with aggregation functions
+
+Pivot tables and multi-index DataFrames
+
+Merging DataFrames with different key names
+
+Data type conversion with astype()
+
+"Handling NaNs with fillna, dropna, interpolate"
+
+Detecting outliers using IQR method in Python
+
+Winsorization for outlier treatment
+
+Reading large CSVs efficiently with chunks
+
+Writing compressed files using gzip or bz2
+
+Requests module for HTTP GET/POST API calls
+
+JSON parsing and flattening nested responses
+
+Line plots vs scatter plots in matplotlib
+
+Axis formatting and tick customization
+
+Grid layout with subplots() in matplotlib
+
+Custom color palettes using Seaborn
+
+Seaborn plot styles and themes
+
+KDE plots for visualizing distributions
+
+Violin plot vs box plot
+
+Heatmaps for correlation matrix visualization
+
+FacetGrid usage in Seaborn for subplots
+
+Handling overlapping plots with tight_layout()
+
+Difference between clone and fork in GitHub
+
+"Git stages: working directory, staging area, commit"
+
+Merge conflict resolution strategy
+
+Use of .gitignore for experiment folders
+
+Branch creation and rebasing
+
+Tagging commits for model versioning
+
+Pull request best practices
+
+GitHub commit history traversal
+
+Git stash for saving work-in-progress
+
+Logging pipeline runs with MLflow
+
+Writing reproducible Jupyter Notebooks
+
+Cell-level experiment tracking with mlflow.log_param()
+
+Keeping experiment metadata in YAML/JSON
+
+Saving trained models with version tags
+
+Organizing result folders using datetime stamps
+
+Environment capture using pip freeze and requirements.txt
+
+Managing ML experiments across branches
+
+Git LFS for large model binaries
+
+Commit messages and model explainability
+
+Snapshotting notebook checkpoints
+
+PEP8 standards and linter usage
+
+Debugging with pdb module
+
+Profiling code with cProfile
+
+Measuring execution time with timeit
+
+Code optimization using list comprehensions
+
+Avoiding memory leaks in loops
+
+Writing test cases using unittest
+
+Use of assertions in test-driven development
+
+Docstring conventions for Python functions
+
+Type hinting and static typing with mypy
+
+Exception handling using try/except/finally
+
+Custom exceptions for model errors
+
+Logging intermediate values using logging
+
+"Setting log levels: DEBUG, INFO, WARNING"
+
+Writing CLI utilities with argparse
+
+Capturing console output in Jupyter
+
+Function composition with lambda and map
+
+Generator functions and lazy evaluation
+
+Iterator vs iterable behavior in Python
+
+Context manager for temporary directories
+
+File handling with with open() syntax
+
+Shallow vs deep copy issues in lists/dicts
+
+Mutable default arguments caveat
+
+Monkey patching in Python
+
+"Serialization with pickle, joblib, json"
+
+Avoiding circular imports in large codebases
+
+Using pathlib over os.path
+
+Creating Python packages with __init__.py
+
+Script vs module usage in Python projects
+
+Code modularization using classes and helper functions
+
+Trade-off between bias and variance
+
+Relationship between model complexity and overfitting
+
+KNN's behavior with high-dimensional data
+
+SVM kernel trick explanation
+
+Linear regression assumptions and violations
+
+Logistic regression loss function characteristics
+
+Regularization effects: L1 vs L2
+
+Ridge vs Lasso in sparse datasets
+
+Use cases for ElasticNet over Ridge/Lasso
+
+Impact of correlated features in linear models
+
+Tree-based models and variance reduction
+
+Decision tree pruning strategies
+
+Gini impurity vs entropy in decision trees
+
+Bootstrapping in bagging techniques
+
+Random Forest handling of multicollinearity
+
+Feature importance in tree-based models
+
+Gradient Boosting vs AdaBoost differences
+
+LightGBM optimizations over XGBoost
+
+CatBoost's categorical feature handling
+
+Curse of dimensionality in classical models
+
+PCA vs t-SNE for dimensionality reduction
+
+Eigenvector interpretation in PCA
+
+Impact of scaling before PCA
+
+K-means assumptions and weaknesses
+
+DBSCAN suitability for non-convex clusters
+
+Elbow method and silhouette score usage
+
+Handling class imbalance with resampling
+
+SMOTE vs ADASYN synthetic sampling
+
+ROC-AUC vs PR-AUC under imbalance
+
+Stratified vs random splits in cross-validation
+
+Hyperparameter tuning with GridSearchCV vs RandomizedSearchCV
+
+Leave-one-out CV vs k-fold CV tradeoffs
+
+Leakage prevention in time series ML pipelines
+
+Model drift detection methods
+
+Offline vs online evaluation strategies
+
+Architecture choices: CNNs vs RNNs
+
+Vanishing gradient problem in deep networks
+
+Activation functions: ReLU vs GELU vs Swish
+
+BatchNorm placement in feedforward nets
+
+Dropout usage in fully connected layers
+
+He vs Xavier initialization rationale
+
+Weight decay impact on training
+
+Gradient clipping use case
+
+Optimizers: Adam vs RMSProp vs SGD
+
+Learning rate scheduling strategies
+
+Warm restarts in cyclical learning rates
+
+Overfitting in deep models and countermeasures
+
+Data augmentation strategies for image classification
+
+CNN filter visualization techniques
+
+Transfer learning benefits for small datasets
+
+Feature extractor vs fine-tuning in pretrained models
+
+Freezing layers in transfer learning
+
+U-Net architecture components
+
+Residual connections in ResNet
+
+DenseNet connectivity rationale
+
+Attention mechanism in computer vision
+
+Vision Transformers vs CNNs trade-offs
+
+Autoencoder bottleneck representation use
+
+Denoising autoencoder applications
+
+GAN training instability challenges
+
+Generator vs discriminator loss balancing
+
+Wasserstein loss usage in GANs
+
+Reinforcement learning with policy gradients
+
+Exploration vs exploitation balance
+
+Actor-critic architecture usage
+
+Deep Q-Learning vs SARSA
+
+Replay buffer purpose in DQN
+
+Environment reward shaping caveats
+
+Model deployment latency vs accuracy tradeoff
+
+"TensorRT, ONNX optimizations for deep models"
+
+Tokenization in transformer-based models
+
+Subword tokenization with BPE or WordPiece
+
+Out-of-vocabulary handling in classic vs transformer NLP
+
+Positional encoding in Transformers
+
+Self-attention computation flow
+
+Multi-head attention interpretation
+
+Encoder-decoder separation in seq2seq
+
+Causal masking in autoregressive models
+
+Beam search vs greedy decoding in generation
+
+BERT vs GPT architecture differences
+
+Fine-tuning vs feature extraction in BERT
+
+CLS token usage in classification
+
+Embedding matrix initialization and update
+
+Transformer scaling laws: depth vs width
+
+LoRA and adapters for parameter-efficient fine-tuning
+
+Prompt tuning vs instruction tuning
+
+Chain-of-thought prompting behavior
+
+Zero-shot vs few-shot prompt patterns
+
+Semantic similarity using sentence embeddings
+
+Sentence-BERT vs vanilla BERT for semantic tasks
+
+Attention visualization for explainability
+
+Layer-wise relevance propagation in NLP
+
+Named Entity Recognition challenges
+
+Dependency parsing vs constituency parsing
+
+Word2Vec CBOW vs Skip-gram
+
+Cosine similarity for embedding comparison
+
+N-gram model sparsity issues
+
+Perplexity as a language model evaluation metric
+
+BLEU score computation for translation
+
+ROUGE vs METEOR in summarization evaluation
+
+CI/CD differences between software and ML projects
+
+Key stages in an ML-specific CI pipeline
+
+Role of data versioning in reproducibility
+
+GitHub Actions vs GitLab CI in ML pipelines
+
+Unit testing for ML models and data
+
+Testing strategies for data quality checks
+
+Smoke tests for model inference APIs
+
+Canary deployment strategy in ML serving
+
+Blue-green vs rolling deployment in model releases
+
+MLflow vs DVC for model versioning
+
+Importance of training-data checksum validation
+
+Integration tests for pipeline DAGs
+
+Triggering retraining in a CI/CD setup
+
+Handling breaking schema changes in the pipeline
+
+Artifact lineage tracking across pipeline runs
+
+Metrics to track during CI pipeline runs
+
+Infrastructure-as-code for ML pipelines
+
+Model registry integration in CI/CD
+
+Handling model rollback in case of drift
+
+Continuous training vs continuous delivery distinction
+
+Role of feature stores in MLOps
+
+Online vs offline feature store differences
+
+Feature transformation consistency during serving
+
+Detecting data drift during ingestion
+
+Using Great Expectations or Deequ in pipelines
+
+Partitioning strategies in time-series pipelines
+
+"Role of schema validation (e.g., TFX ExampleValidator)"
+
+Importance of data freshness in production ML
+
+Feature engineering during batch inference
+
+Snapshotting strategy for historical features
+
+ML metadata management across stages
+
+Storing intermediate datasets in pipelines
+
+Ensuring idempotency in data preprocessing jobs
+
+Feature lineage tracing use cases
+
+"Scaling preprocessing using Spark, Ray, or Dask"
+
+MLflow vs Weights & Biases for experiment tracking
+
+Capturing hyperparameters and metrics consistently
+
+Distributed training orchestration challenges
+
+Model training on spot vs on-demand instances
+
+Importance of deterministic training runs
+
+AutoML integration in pipelines
+
+Transfer learning and fine-tuning in MLOps setups
+
+Resource optimization during hyperparameter tuning
+
+Why training and evaluation pipelines should be modular
+
+Integration of TensorBoard in training pipelines
+
+Online learning vs batch retraining
+
+Avoiding data leakage in training pipelines
+
+Containerizing training jobs with reproducibility
+
+GPU/TPU resource allocation for model jobs
+
+Comparing model checkpoints from multiple runs
+
+Batch vs real-time inference architecture trade-offs
+
+"Multi-model serving patterns (e.g., ensemble or dynamic routing)"
+
+A/B testing implementation for ML models
+
+Shadow mode deployment advantages
+
+Inference latency bottlenecks in model serving
+
+REST vs gRPC in model inference APIs
+
+Containerization best practices for model servers
+
+"Kubernetes-based model serving (e.g., KServe, Seldon)"
+
+"Using TorchServe, TensorFlow Serving, or ONNX Runtime"
+
+Resource limits configuration in serving pods
+
+Model caching strategies at inference time
+
+Version pinning in production model APIs
+
+Handling cold start issues in model servers
+
+Real-time feature retrieval at inference
+
+Endpoint autoscaling based on traffic and latency
+
+"Types of monitoring: infrastructure, data, model"
+
+Concept drift vs data drift detection
+
+Monitoring prediction confidence intervals
+
+"Serving metrics to log (e.g., latency, request rate, error rate)"
+
+Model accuracy tracking in production
+
+Using Prometheus and Grafana for monitoring ML endpoints
+
+Alerting thresholds for model degradation
+
+Logging PII safely in production pipelines
+
+Drift detection with evidently.ai or Amazon SageMaker Model Monitor
+
+Outlier detection in feature distributions
+
+Attribution of performance degradation to specific feature shifts
+
+"Online evaluation metrics (e.g., CTR, conversion rate)"
+
+Feedback loop design for production ML models
+
+Use of business KPIs in model monitoring
+
+Capturing inference logs without performance loss
+
+"Orchestrating pipelines with Kubeflow, Airflow, or Prefect"
+
+Ray vs Spark for parallelizing ML workloads
+
+ML workloads on Kubernetes: pros and cons
+
+Horizontal vs vertical scaling for ML model servers
+
+Cost optimization in training at scale
+
+Serverless model inference with Cloud Run / Lambda
+
+Job queuing systems for asynchronous inference
+
+GPU sharing in Kubernetes using NVIDIA device plugin
+
+ML system load testing techniques
+
+Hybrid cloud ML architecture patterns
+
+Securing model APIs with OAuth and API gateways
+
+Managing secrets in ML pipelines securely
+
+Governance practices for regulated industries
+
+Audit trails in ML pipelines
+
+Access control for datasets and models
+
+Explainability requirements for regulated models
+
+Reproducibility challenges in collaborative ML projects
+
+Dependency management in model containers
+
+Differential privacy considerations in production ML
+
+Red-teaming strategies for model robustness testing
