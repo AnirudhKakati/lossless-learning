@@ -31,7 +31,7 @@ export default function Navbar() {
             </li>
             <li className="mb-2 flex items-center gap-2">
               <FiHeart size={22} className="relative -top-[2px] text-gray-500" />
-              <a href="#" className="underline-hover">Favorites</a>
+              <Link to="/favorites" className="underline-hover">Favorites</Link>
             </li>
           </ul>
         </nav>

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Summary from "./pages/Summary";
 import Resource from "./pages/Resource";
 import Login from "./pages/Login";
+import Favorites from "./pages/Favorites";
 import RequireAuth from "./components/RequireAuth";
 
 
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/summary" element={<RequireAuth> <Summary /> </RequireAuth>} />
             <Route path="/summary/:topic" element={<RequireAuth> <Summary /> </RequireAuth>} />
             <Route path="/resource/:id" element={<RequireAuth> <Resource /> </RequireAuth>} />
+            <Route path="/favorites" element={<RequireAuth> <Favorites /> </RequireAuth>} />
           </Routes>
       </Router>
     </div>
