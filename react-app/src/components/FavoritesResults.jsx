@@ -6,11 +6,12 @@ import LikeButton from "./LikeButton";
 
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
-export default function SearchResults({ data }) {
+export default function FavoritesResults({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [likedResources, setLikedResources] = useState([]);
   const [likeCounts, setLikeCounts] = useState({});
   const [likeDataLoaded, setLikeDataLoaded] = useState(false);
+
   const pageSize = 10;
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
@@ -21,13 +22,17 @@ export default function SearchResults({ data }) {
 
   useEffect(() => {
     setCurrentPage(1);
+    setLikeDataLoaded(false);
   }, [data]);
 
   useEffect(() => {
-    setLikeDataLoaded(false); 
+    setLikeDataLoaded(false);
 
     const fetchLikeData = async () => {
-      if (!userId || pageResources.length === 0) return;
+      if (!userId || pageResources.length === 0) {
+        setLikeDataLoaded(true);
+        return;
+      }
 
       try {
         const [likedRes, countsArr] = await Promise.all([
@@ -46,6 +51,7 @@ export default function SearchResults({ data }) {
         setLikeDataLoaded(true);
       } catch (err) {
         console.error("Error fetching like data:", err);
+        setLikeDataLoaded(true);
       }
     };
 
@@ -54,16 +60,20 @@ export default function SearchResults({ data }) {
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
-      setLikeDataLoaded(false); 
+      setLikeDataLoaded(false);
       setCurrentPage((prev) => prev + 1);
     }
   };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setLikeDataLoaded(false); 
+      setLikeDataLoaded(false);
       setCurrentPage((prev) => prev - 1);
     }
+  };
+
+  const handleCardClick = (resourceId) => {
+    navigate(`/resource/${resourceId}`);
   };
 
   const getIcon = (type) => {
@@ -97,10 +107,6 @@ export default function SearchResults({ data }) {
     }
   };
 
-  const handleCardClick = (resourceId) => {
-    navigate(`/resource/${resourceId}`);
-  };
-
   if (!likeDataLoaded) {
     return (
       <div className="flex justify-center items-center py-10">
@@ -113,7 +119,7 @@ export default function SearchResults({ data }) {
     <div className="space-y-3 min-h-screen p-4">
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
-          No results found. Please try searching with different terms.
+          You haven’t liked anything yet. Go explore and save some favorites!
         </p>
       ) : (
         <>
