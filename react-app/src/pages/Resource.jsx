@@ -14,7 +14,7 @@ export default function Resource() {
   const navigate = useNavigate();
 
     const handleTopicClick = (topic) => {
-        navigate("/summary", { state: { topic } });
+        navigate(`/summary/${encodeURIComponent(topic)}`);
       };
 
 

@@ -21,6 +21,7 @@ export default function App() {
             <Route path="/" element={<RequireAuth> <Home /> </RequireAuth>} />
             <Route path="/login" element={<Login />} />
             <Route path="/summary" element={<RequireAuth> <Summary /> </RequireAuth>} />
+            <Route path="/summary/:topic" element={<RequireAuth> <Summary /> </RequireAuth>} />
             <Route path="/resource/:id" element={<RequireAuth> <Resource /> </RequireAuth>} />
           </Routes>
       </Router>

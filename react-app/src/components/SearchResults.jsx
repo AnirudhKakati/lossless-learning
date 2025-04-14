@@ -2,38 +2,88 @@ import { useState, useEffect } from "react";
 import { FiBookOpen, FiGithub } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import LikeButton from "./LikeButton";
+
+const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
 export default function SearchResults({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [likedResources, setLikedResources] = useState([]);
+  const [likeCounts, setLikeCounts] = useState({});
+  const [likeDataLoaded, setLikeDataLoaded] = useState(false);
   const pageSize = 10;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setCurrentPage(1); 
-  }, [data]);
+  const userId = localStorage.getItem("user_id");
 
   const totalPages = Math.ceil(data.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const pageResources = data.slice(startIndex, startIndex + pageSize);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
+  useEffect(() => {
+    setLikeDataLoaded(false); 
+
+    const fetchLikeData = async () => {
+      if (!userId || pageResources.length === 0) return;
+
+      try {
+        const [likedRes, countsArr] = await Promise.all([
+          fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
+          Promise.all(
+            pageResources.map((resource) =>
+              fetch(`${API_BASE}/resources/${resource.resource_id}/likes`)
+                .then((res) => res.json())
+                .then((json) => ({ [resource.resource_id]: json.like_count || 0 }))
+            )
+          ),
+        ]);
+
+        setLikedResources(likedRes || []);
+        setLikeCounts(Object.assign({}, ...countsArr));
+        setLikeDataLoaded(true);
+      } catch (err) {
+        console.error("Error fetching like data:", err);
+      }
+    };
+
+    fetchLikeData();
+  }, [currentPage, userId, data]);
+
   const goToNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+    if (currentPage < totalPages) {
+      setLikeDataLoaded(false); 
+      setCurrentPage((prev) => prev + 1);
+    }
   };
 
   const goToPreviousPage = () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+    if (currentPage > 1) {
+      setLikeDataLoaded(false); 
+      setCurrentPage((prev) => prev - 1);
+    }
   };
 
   const getIcon = (type) => {
     switch (type?.toLowerCase()) {
       case "videos":
-        return <FaYoutube className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
+        return <FaYoutube className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       case "github_repos":
-        return <FiGithub className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
-      case "articles":
+        return <FiGithub className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       default:
-        return <FiBookOpen className="h-7 w-7 text-gray-600 transition-colors duration-200 group-hover:text-emerald-300" />;
+        return <FiBookOpen className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
     }
+  };
+
+  const extractTitle = (resource) => {
+    const title = resource.repo_name || resource.video_title || resource.title || "Untitled";
+    return title.length > 60 ? title.slice(0, 57) + "..." : title;
+  };
+
+  const formatDescription = (resource) => {
+    return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
   };
 
   const formatType = (type) => {
@@ -42,73 +92,78 @@ export default function SearchResults({ data }) {
         return "YouTube Video";
       case "github_repos":
         return "GitHub Repository";
-      case "articles":
       default:
         return "Article";
     }
-  };
-
-  const extractTitle = (resource) => {
-    let title = resource.repo_name || resource.video_title || resource.title || "Untitled";
-  
-    if (title.length > 60) {
-      title = title.slice(0, 57) + "...";
-    }
-  
-    return title;
-  };
-
-  const formatDescription = (resource) => {
-    return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
   };
 
   const handleCardClick = (resourceId) => {
     navigate(`/resource/${resourceId}`);
   };
 
+  if (!likeDataLoaded) {
+    return (
+      <div className="flex justify-center items-center py-10">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500 mt-10" />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-3 min-h-screen p-4">
       {data.length === 0 ? (
-        <p className="text-center text-sm text-gray-500">No results found. Please try searching with different terms.</p>
+        <p className="text-center text-sm text-gray-500">
+          No results found. Please try searching with different terms.
+        </p>
       ) : (
         <>
           {pageResources.map((resource, index) => (
             <div
               key={index}
               onClick={() => handleCardClick(resource.resource_id)}
-              className="cursor-pointer group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative transition-colors duration-200 hover:border-emerald-300 hover:bg-emerald-50"
+              className="cursor-pointer group p-3 flex items-center gap-3 border rounded-md shadow-sm bg-white relative hover:border-emerald-300 hover:bg-emerald-50 transition-colors"
             >
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>
-              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 transition-colors duration-200 group-hover:border-emerald-300">
+
+              <LikeButton
+                resourceId={resource.resource_id}
+                initialLiked={likedResources.includes(resource.resource_id)}
+                initialCount={likeCounts[resource.resource_id] || 0}
+              />
+
+              <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 group-hover:border-emerald-300 transition-colors">
                 {getIcon(resource.resource_type)}
               </div>
-                <div className="flex-1 min-w-0">
-                    <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
-                    <p className="text-gray-700 mb-1 text-sm font-bold text-base truncate">{formatDescription(resource)}</p>
-                    <p className="text-gray-600 text- mb-1 truncate">{formatType(resource.resource_type)}</p>
-                </div>
+
+              <div className="flex-1 min-w-0">
+                <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
+                <p className="text-gray-700 mb-1 text-sm font-bold truncate">{formatDescription(resource)}</p>
+                <p className="text-gray-600 text-sm truncate">{formatType(resource.resource_type)}</p>
+              </div>
             </div>
           ))}
 
           {data.length > pageSize && (
             <div className="pt-4 flex items-center justify-center gap-x-6">
-              <button
-                onClick={goToPreviousPage}
-                disabled={currentPage === 1}
-                className="w-24 px-4 py-2 bg-gray-200 text-gray-700 rounded-md shadow-sm hover:bg-gray-300 transition-colors duration-200 disabled:opacity-0"
-              >
-                Previous
-              </button>
+              {currentPage > 1 && (
+                <button
+                  onClick={goToPreviousPage}
+                  className="w-24 px-4 py-2 bg-gray-200 text-gray-700 rounded-md shadow-sm hover:bg-gray-300 transition"
+                >
+                  Previous
+                </button>
+              )}
 
               <p className="text-sm text-gray-600">Page {currentPage}</p>
 
-              <button
-                onClick={goToNextPage}
-                disabled={currentPage === totalPages}
-                className="w-24 px-4 py-2 bg-emerald-300 text-white rounded-md shadow-sm hover:bg-emerald-400 transition-colors duration-200 disabled:opacity-0"
-              >
-                Next
-              </button>
+              {currentPage < totalPages && (
+                <button
+                  onClick={goToNextPage}
+                  className="w-24 px-4 py-2 bg-emerald-300 text-white rounded-md shadow-sm hover:bg-emerald-400 transition"
+                >
+                  Next
+                </button>
+              )}
             </div>
           )}
         </>
