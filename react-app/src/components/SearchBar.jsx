@@ -21,7 +21,7 @@ export default function SearchBar({ onTopicClick }) {
   };
 
   return (
-    <div className="w-full mb-2 bg-gray-100 p-2 rounded-lg">
+    <div className="w-full mb-2 p-2 rounded-lg">
       <div className="relative flex w-full">
         {/* Explore Button */}
         <button

@@ -15,7 +15,9 @@
 }
 
 html, body {
-  @apply bg-gray-100 text-black;
+  @apply min-h-screen bg-gray-100 text-black;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23e5e7eb' stroke-width='1' d='M0 0h48v48H0z M24 0v48 M0 24h48'/%3E%3C/svg%3E");
+  background-size: 48px 48px;
 }
 
 /* :root {

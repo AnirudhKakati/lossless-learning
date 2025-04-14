@@ -30,7 +30,7 @@ export default function ArticleResource({ resource }) {
 
     return (
      
-        <div className="p-6 py-8 mt-16 bg-white rounded shadow">
+        <div className="p-6 py-8 mt-20 bg-white rounded shadow">
 
     <div className="flex flex-col md:flex-row gap-8">
       {/* Icon */}
