@@ -61,7 +61,7 @@ def add_to_firestore(bucket_name,resource_type):
 
     Args:
         bucket_name (str): Name of the GCS bucket containing the resource files.
-        resource_type (str): Type of resource being inserted (e.g., "articles", "videos", "github_repos").
+        resource_type (str): Type of resource being inserted (e.g., "articles", "videos", "github_repos", "book_content").
 
     Returns:
         str: A summary message with the number of records added to Firestore.
@@ -80,9 +80,10 @@ def add_to_firestore(bucket_name,resource_type):
             record["resource_type"]=resource_type #add a resource type key to the record
             record={"_".join(k.lower().split()): v for k, v in record.items()} #convert each key to lower case with _ separator
 
-            unique_key=record.get("link") or record.get("url") or record.get("repo_url") #get the unique key based on the link/url
+            unique_key=record.get("link") or record.get("url") or record.get("repo_url") or record.get("unique_identifier")
+            #get the unique key based on the link/url
             #for articles it is stored in key "link", "url" for videos and "repo_url" for github repos
-
+            #for book content its a key called "unique_identifier" created by combining its fields <public_url>_<page_no>_<topic>
             if not unique_key:
                 print("Skipping record with no unique identifier")
                 continue
@@ -138,8 +139,8 @@ def firestore_data_processor(request):
     # validate required parameters
     if not resource_type:
         return "Error: Please provide a 'resource_type' parameter", 400
-    if resource_type not in {"videos","github_repos","articles"}:
-        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos' or 'articles' as a value", 400
+    if resource_type not in {"videos","github_repos","articles","book_content"}:
+        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos', 'articles' or 'book_content' as a value", 400
     
     try:
         result=add_to_firestore(bucket_name,resource_type)
