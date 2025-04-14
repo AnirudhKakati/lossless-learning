@@ -1,7 +1,20 @@
 from fastapi import FastAPI
 import pickle
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
+# enable CORS so frontend (on a different domain/port) can access this backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # will change "*" to our frontend domain for security
+    allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+)
+
+
 app = FastAPI()
+
+
 
 try:
     with open('trie.pkl', 'rb') as f:
