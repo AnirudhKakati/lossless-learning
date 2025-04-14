@@ -503,7 +503,7 @@ resource "google_cloud_run_service_iam_member" "invoker_rp" {
 }
 
 locals {
-  resource_types = ["articles","videos","github_repos"]
+  resource_types = ["articles","videos","github_repos","book_content"]
 }
 
 # create a Cloud Scheduler job for each resource type to trigger the Cloud Function
