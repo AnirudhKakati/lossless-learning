@@ -19,29 +19,29 @@ export default function Favorites() {
     try {
       setLoading(true);
 
-      // Step 1: Get liked resource IDs from CloudSQL
+
       const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}/likes`);
       const ids = await res.json();
 
-      console.log("⭐ Liked Resource IDs:", ids);
+      console.log("Liked Resource IDs:", ids);
 
       if (ids.length === 0) {
         setFavoritesData([]);
         return;
       }
 
-      // Step 2: Fetch each resource by ID from Firestore
+
       const results = await Promise.all(
         ids.map(async (id) => {
           const res = await fetch(`${FIRESTORE_BASE}/resource/${id}`);
           const data = await res.json();
           return {
             ...data,
-            resource_id: id, // ✅ Inject the resource_id manually
+            resource_id: id, 
           };
         })
       );
-      console.log("📦 Combined resource data:", results);
+      console.log("Combined resource data:", results);
 
       setFavoritesData(results);
     } catch (error) {

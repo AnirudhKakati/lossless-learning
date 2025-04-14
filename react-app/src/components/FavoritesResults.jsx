@@ -22,7 +22,7 @@ export default function FavoritesResults({ data }) {
 
   useEffect(() => {
     setCurrentPage(1);
-    setLikeDataLoaded(false); // ✅ reset likes when data changes
+    setLikeDataLoaded(false);
   }, [data]);
 
   useEffect(() => {
