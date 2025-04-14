@@ -67,7 +67,7 @@ export default function SearchResults({ data }) {
   };
 
   return (
-    <div className="space-y-3 bg-gray-100 min-h-screen p-4">
+    <div className="space-y-3 min-h-screen p-4">
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">No results found. Please try searching with different terms.</p>
       ) : (
