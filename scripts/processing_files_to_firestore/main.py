@@ -33,8 +33,8 @@ def get_jsons_from_bucket(bucket_name,resource_type):
     for blob in blobs:
         if not blob.name.endswith('.json') or blob.name.endswith('/'): #if not a json file then we skip
             continue
-        # for videos we select the "with_transcripts" jsons
-        if resource_type=="videos" and not blob.name.endswith('transcripts.json'): 
+        # for videos we select the "with_transcripts_and_summaries" jsons
+        if resource_type=="videos" and not blob.name.endswith('summaries.json'): 
             continue
         try:
             data=json.loads(blob.download_as_string())
