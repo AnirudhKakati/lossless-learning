@@ -1,10 +1,18 @@
 import os
 import psycopg2
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from passlib.context import CryptContext
 
 app = FastAPI() #initialize fast api connection
+
+# enable CORS so frontend (on a different domain/port) can access this backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # will change "*" to our frontend domain for security
+    allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+)
 
 #set up password hashing context using bcrypt algorithm
 #this will be used to securely hash user passwords
