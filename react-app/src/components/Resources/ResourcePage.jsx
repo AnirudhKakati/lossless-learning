@@ -3,6 +3,7 @@
 import VideoResource from "./VideoResource";
 import ArticleResource from "./ArticleResource";
 import RepoResource from "./RepoResource";
+import BookResource from "./BookResource";
 
 export default function ResourcePage({ resource }) {
   if (!resource) {
@@ -16,6 +17,7 @@ export default function ResourcePage({ resource }) {
       {resource_type === "videos" && <VideoResource resource={resource} />}
       {resource_type === "articles" && <ArticleResource resource={resource} />}
       {resource_type === "github_repos" && <RepoResource resource={resource} />}
+      {resource_type === "book_content" && <BookResource resource={resource} />}
     </div>
   );
 }
