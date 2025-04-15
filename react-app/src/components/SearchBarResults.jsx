@@ -3,6 +3,7 @@ import { FiBookOpen, FiGithub } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
+import ReactMarkdown from "react-markdown";
 
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
@@ -91,7 +92,9 @@ export default function SearchBarResults({ query, answer, context }) {
         <h2 className="text-lg font-semibold text-emerald-700 mb-2">
           Search Result for: <span className="text-gray-900">{query}</span>
         </h2>
-        <div className="text-sm text-gray-800 whitespace-pre-wrap">{answer}</div>
+        <div className="text-sm text-gray-800 whitespace-pre-wrap">
+            <ReactMarkdown>{answer}</ReactMarkdown>
+            </div>
       </div>
 
       {enrichedContext && enrichedContext.length > 0 && (
