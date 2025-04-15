@@ -12,6 +12,13 @@ from collections import defaultdict
 
 app = FastAPI()
 
+# enable CORS so frontend (on a different domain/port) can access this backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # will change "*" to our frontend domain for security
+    allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+)
+
 PROJECT_ID = "ardent-sun-453501-d5"
 LOCATION = "us-central1"
 DATA_STORE_ID = "book_store"
