@@ -24,7 +24,7 @@ except FileNotFoundError:
 @app.get("/search/autocomplete")
 def search_most_frequent(phrase: str):
     """
-    Endpoint to return autocomplete suggestions for a given input phrase.
+    Endpoint to return autocomplete suggestions for a given input phrase using a prefix match tree.
 
     Args:
         phrase (str): The input string (partial phrase) to base autocomplete suggestions on.
