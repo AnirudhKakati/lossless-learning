@@ -709,3 +709,55 @@ resource "google_cloud_scheduler_job" "files_for_summaries_trigger" {
   }
 }
 ## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
+
+##THIS SECTION IS FOR THE SEARCH APP FAST API BACKEND
+
+#service account for the search backend FastAPI application
+resource "google_service_account" "search_fast_api_sa" {
+  account_id   = "search-fastapi-sa"
+  display_name = "Search FastAPI Service Account"
+  description  = "Service account for the search FastAPI application running on Cloud Run"
+  project = var.project_id
+}
+
+#grant the service account access to Vertex AI
+resource "google_project_iam_member" "vertex_ai_user" {
+  project = var.project_id
+  role    = "roles/aiplatform.user"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
+
+#grant access to use Vertex AI's foundation models
+resource "google_project_iam_member" "vertexai_model_user" {
+  project = var.project_id
+  role    = "roles/aiplatform.serviceAgent"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
+
+#grant access to Vertex AI Search (Discovery Engine)
+resource "google_project_iam_member" "discovery_engine_admin" {
+  project = var.project_id
+  role    = "roles/discoveryengine.admin"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
+
+#grant access to read from Cloud Storage buckets
+resource "google_project_iam_member" "search_fast_api_storage_object_viewer" {
+  project = var.project_id
+  role    = "roles/storage.objectViewer"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
+
+#grant Cloud Run service agent role to allow running on Cloud Run
+resource "google_project_iam_member" "run_service_agent" {
+  project = var.project_id
+  role    = "roles/run.serviceAgent"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
+
+#allow the service account to be used by Cloud Run
+resource "google_project_iam_member" "service_account_user" {
+  project = var.project_id
+  role    = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
+}
