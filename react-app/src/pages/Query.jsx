@@ -9,16 +9,14 @@ export default function Query() {
   const navigate = useNavigate();
 
   const [qaResult, setQaResult] = useState(null);
-  const [qaContext, setQaContext] = useState([]);
-  const [inputText, setInputText] = useState(question ? decodeURIComponent(question) : "");
+  const [enrichedContext, setEnrichedContext] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch /ask result when URL param changes
+  // Fetch QA result from /ask
   useEffect(() => {
     if (!question) {
       setQaResult(null);
-      setQaContext([]);
-      setInputText("");
+      setEnrichedContext([]);
       return;
     }
 
@@ -36,7 +34,7 @@ export default function Query() {
         const data = await res.json();
         setQaResult({ query: decodeURIComponent(question), result: data });
       } catch (err) {
-        console.error("Failed to fetch answer:", err);
+        console.error("Failed to fetch QA result:", err);
       } finally {
         setIsLoading(false);
       }
@@ -45,43 +43,50 @@ export default function Query() {
     fetchQA();
   }, [question]);
 
-  // Enrich YouTube resources in context
+  // Enrich resource context using IDs
   useEffect(() => {
-    if (!qaResult?.result?.response?.response?.context) return;
+    const context = qaResult?.result?.response?.response?.context;
+    if (!context || context.length === 0) return;
 
-    const enrichContext = async () => {
-      const contexts = qaResult.result.response.response.context;
-
-      const enriched = await Promise.all(
-        contexts.map(async (item) => {
-          if (item.link && item.id) {
-            try {
-              const res = await fetch(
-                `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resource/id=${item.id}`
-              );
-              const data = await res.json();
-              return data.length > 0 ? data[0] : item;
-            } catch (err) {
-              console.error("Error fetching resource by ID:", err);
-              return item;
+    const enrich = async () => {
+        const enriched = await Promise.all(
+          context.map(async (item) => {
+            if (item.id) {
+              try {
+                const res = await fetch(
+                  `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resource/${item.id}`
+                );
+                const data1 = await res.json();
+                console.log("✅ data1:", data1);
+      
+                if (data1 && typeof data1 === "object" && Object.keys(data1).length > 0) {
+                  const enrichedItem = { ...data1, id: item.id };
+                  console.log("✅ Enriched item:", enrichedItem);
+                  return enrichedItem;
+                }
+              } catch (err) {
+                console.error(`❌ Failed to enrich item with ID ${item.id}:`, err);
+              }
             }
-          } else {
+      
+            console.log("⚠️ No enrichment for item:", item);
             return item;
-          }
-        })
-      );
+          })
+        );
+      
+        setEnrichedContext(enriched);
+      };
+      
 
-      setQaContext(enriched);
-    };
-
-    enrichContext();
+    enrich();
   }, [qaResult]);
 
   return (
-    <div className="flex min-h-screen overflow-x-hidden"
-    style={{
+    <div
+      className="flex min-h-screen overflow-x-hidden"
+      style={{
         backgroundImage:
-          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23e5e7eb' stroke-width='1' d='M0 0h48v48H0z M24 0v48 M0 24h48'/%3E%3C/svg%3E\")",
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23e5e7eb' stroke-width='1' d='M0 0h48v48 M24 0v48 M0 24h48'/%3E%3C/svg%3E\")",
         backgroundSize: "48px 48px",
       }}
     >
@@ -94,14 +99,14 @@ export default function Query() {
 
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[200px] mt-8">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500" />
           </div>
         ) : (
           qaResult && (
             <SearchBarResults
               query={qaResult.query}
               answer={qaResult.result.response.response.answer}
-              context={qaContext}
+              context={enrichedContext}
             />
           )
         )}
