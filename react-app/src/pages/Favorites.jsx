@@ -73,7 +73,10 @@ export default function Favorites() {
       <main className="ml-64 p-8 w-full">
         <div className="flex gap-6 w-full max-w-full overflow-hidden">
           <div className="flex-1 min-w-0">
-            <SearchBar onTopicClick={handleTopicClick} />
+          <SearchBar
+              onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
+              onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
+            />
 
             {loading ? (
               <div className="flex justify-center items-center min-h-[200px]">

@@ -1,10 +1,9 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import SearchFilter from "../components/SearchFilter";
 import SearchResults from "../components/SearchResults";
-
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 
 export default function Summary() {
   const { topic } = useParams();
@@ -12,10 +11,6 @@ export default function Summary() {
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const fetchTopicData = async (newTopic) => {
-    navigate(`/summary/${encodeURIComponent(newTopic)}`);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,9 +45,12 @@ export default function Summary() {
       <main className="ml-64 p-8 w-full">
         <div className="flex gap-6 w-full max-w-full overflow-hidden">
           <div className="flex-1 min-w-0">
-            <SearchBar onTopicClick={fetchTopicData} />
+            <SearchBar
+              onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
+              onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
+            />
 
-            {/* Conditional UI when topic is not present */}
+            {/* Resource results */}
             {!topic ? (
               <div className="text-gray-500 mt-8 text-center text-lg">
                 No results. Please search for a topic.
