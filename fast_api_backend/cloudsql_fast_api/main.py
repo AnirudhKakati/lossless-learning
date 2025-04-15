@@ -326,22 +326,22 @@ def get_resource_like_count(resource_id: str):
 @app.get("/resources/most_liked")
 def get_most_liked_resources():
     """
-    Fetch the top 5 most liked resources.
+    Fetch the top 6 most liked resources.
 
     Returns:
-        list: A list of the top 5 resource_id strings.
+        list: A list of the top 6 resource_id strings.
     """
 
     try:
         conn = get_db_connection() #get database connection
         cur = conn.cursor()
 
-        #query to get all resources top 5 most liked resources
+        #query to get all resources top 6 most liked resources
         query = """
             SELECT resource_id
             FROM resource_likes
             ORDER BY like_count DESC
-            LIMIT 5
+            LIMIT 6
         """
         cur.execute(query)
         rows = cur.fetchall()
