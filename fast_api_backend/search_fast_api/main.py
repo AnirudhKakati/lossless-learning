@@ -9,6 +9,8 @@ from langchain_google_community import VertexAISearchRetriever
 import vertexai
 import re
 from collections import defaultdict
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
