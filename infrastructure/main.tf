@@ -622,3 +622,90 @@ resource "google_storage_bucket_iam_member" "bucket_access_af" {
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.audios_fast_api_sa.email}"
 }
+
+
+## THIS SECTION IS FOR CLOUD FUNCTION TO CREATE TXTS AND CSV FILE FOR SUMMARIES
+# create a service account for the files for summaries Cloud Function
+resource "google_service_account" "files_for_summaries_sa" {
+  account_id   = "files-for-summaries-sa"
+  display_name = "Service Account for Files for Summaries Cloud Function"
+  project      = var.project_id
+}
+
+# grant bucket access to the service account
+resource "google_storage_bucket_iam_member" "bucket_access_fs" {
+  bucket = google_storage_bucket.main_project_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.files_for_summaries_sa.email}"
+}
+
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
+resource "google_storage_bucket_object" "function_archive_fs" {
+  name   = "cloud_functions/files_for_summaries_function_${filemd5("${path.module}/../scripts/files_for_summaries/files_for_summaries_function.zip")}.zip"
+  bucket = google_storage_bucket.main_project_bucket.name
+  source = "${path.module}/../scripts/files_for_summaries/files_for_summaries_function.zip"
+}
+
+# cloud Functions v2 deployment for the files for summaries function to run once a month
+resource "google_cloudfunctions2_function" "files_for_summaries" {
+  name        = "files-for-summaries"
+  location    = var.region
+  description = "Creates txt files for summaries and a csv file to store mapping of txt files and video urls"
+  
+  build_config {
+    runtime     = "python311"
+    entry_point = "summaries_processor" 
+    source {
+      storage_source {
+        bucket = google_storage_bucket.main_project_bucket.name
+        object = google_storage_bucket_object.function_archive_fs.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 10
+    min_instance_count = 0
+    available_memory   = "2048Mi"
+    timeout_seconds    = 540
+    environment_variables = {
+      DEFAULT_BUCKET_NAME = var.project_bucket_name
+    }
+    service_account_email = google_service_account.files_for_summaries_sa.email
+  }
+}
+
+# allow invocation of the function by all users
+resource "google_cloud_run_service_iam_member" "invoker_fs" {
+  location = google_cloudfunctions2_function.files_for_summaries.location
+  service  = google_cloudfunctions2_function.files_for_summaries.name
+  role     = "roles/run.invoker"
+  member   = "allUsers" 
+}
+
+
+# create a Cloud Scheduler to trigger the Cloud Function once a month
+resource "google_cloud_scheduler_job" "files_for_summaries_trigger" {
+  name        = "files-for-summaries-trigger"
+  description = "Triggers the files-for-summaries function monthly with bucket_name"
+  schedule    = "0 0 15 * *"  # At 00:00 UTC on the 15th of every month
+  time_zone   = "Etc/UTC"
+
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.files_for_summaries.url
+
+    oidc_token {
+      service_account_email = google_service_account.files_for_summaries_sa.email
+    }
+
+    headers = {
+      "Content-Type" = "application/json"
+    }
+
+    body = base64encode(jsonencode({
+      bucket_name = var.project_bucket_name
+    }))
+  }
+}
+## END OF SECTION FOR RESOURCES PROCESSING CLOUD FUNCTION
