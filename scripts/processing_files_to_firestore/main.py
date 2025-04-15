@@ -13,7 +13,7 @@ def get_jsons_from_bucket(bucket_name,resource_type):
 
     Args:
         bucket_name (str): Name of the GCS bucket containing the JSON files.
-        resource_type (str): Type of resource to fetch (e.g., "articles", "videos", "github_repos").
+        resource_type (str): Type of resource to fetch (e.g., "articles", "videos", "github_repos", "book_content", "topic_summaries").
 
     Returns:
         list: A list of parsed JSON records extracted from the matched files.
@@ -61,7 +61,7 @@ def add_to_firestore(bucket_name,resource_type):
 
     Args:
         bucket_name (str): Name of the GCS bucket containing the resource files.
-        resource_type (str): Type of resource being inserted (e.g., "articles", "videos", "github_repos", "book_content").
+        resource_type (str): Type of resource being inserted (e.g., "articles", "videos", "github_repos", "book_content", "topic_summaries").
 
     Returns:
         str: A summary message with the number of records added to Firestore.
@@ -80,16 +80,20 @@ def add_to_firestore(bucket_name,resource_type):
             record["resource_type"]=resource_type #add a resource type key to the record
             record={"_".join(k.lower().split()): v for k, v in record.items()} #convert each key to lower case with _ separator
 
-            unique_key=record.get("link") or record.get("url") or record.get("repo_url") or record.get("unique_identifier")
-            #get the unique key based on the link/url
+            if resource_type=="topic_summaries":
+                unique_key=record.get("topic")
+            else:
+                unique_key=record.get("link") or record.get("url") or record.get("repo_url") or record.get("unique_identifier")
+            #for topic summaries, the topics are unique, so use that as unique key
+            #else get the unique key based on the link/url
             #for articles it is stored in key "link", "url" for videos and "repo_url" for github repos
             #for book content its a key called "unique_identifier" created by combining its fields <public_url>_<page_no>_<topic>
             if not unique_key:
                 print("Skipping record with no unique identifier")
                 continue
             
-            article_id = hashlib.md5(unique_key.encode()).hexdigest() #create a hash key using the url of the record. This will become the id of the record
-            # in Firestore DB. This prevents duplicate records getting created in the DB for the same record 
+            article_id = hashlib.md5(unique_key.encode()).hexdigest() #create a hash key using the unique_key of the record. 
+            #This will become the id of the record in Firestore DB. This prevents duplicate records getting created in the DB for the same record 
             doc_ref=db.collection("resources").document(article_id) #add it to the collection "resources"
             doc_ref.set(record, merge=False)
 
@@ -139,8 +143,9 @@ def firestore_data_processor(request):
     # validate required parameters
     if not resource_type:
         return "Error: Please provide a 'resource_type' parameter", 400
-    if resource_type not in {"videos","github_repos","articles","book_content"}:
-        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos', 'articles' or 'book_content' as a value", 400
+    if resource_type not in {"videos","github_repos","articles","book_content","topic_summaries"}:
+        return "Error: Invalid value for 'resource_type' parameter. Please enter either 'videos','github_repos', 'articles', 'book_content' or " \
+        "'topic_summaries' as a value", 400
     
     try:
         result=add_to_firestore(bucket_name,resource_type)

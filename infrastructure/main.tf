@@ -503,7 +503,7 @@ resource "google_cloud_run_service_iam_member" "invoker_rp" {
 }
 
 locals {
-  resource_types = ["articles","videos","github_repos","book_content"]
+  resource_types = ["articles","videos","github_repos","book_content","topic_summaries"]
 }
 
 # create a Cloud Scheduler job for each resource type to trigger the Cloud Function
@@ -761,3 +761,98 @@ resource "google_project_iam_member" "service_account_user" {
   role    = "roles/iam.serviceAccountUser"
   member  = "serviceAccount:${google_service_account.search_fast_api_sa.email}"
 }
+
+
+## THIS SECTION IS FOR TOPIC SUMMARY GENERATION CLOUD FUNCTION
+# create a service account for the Topic Summary Generator Cloud Function
+resource "google_service_account" "topic_summary_generator_sa" {
+  account_id   = "topic-summary-generator-sa"
+  display_name = "Service Account for Topic Summary Generator"
+  project      = var.project_id
+}
+
+# grant bucket access to the service account
+resource "google_storage_bucket_iam_member" "bucket_access_summary" {
+  bucket = google_storage_bucket.main_project_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.topic_summary_generator_sa.email}"
+}
+
+# grant Vertex AI access to the service account
+resource "google_project_iam_member" "summary_vertex_ai_user" {
+  project = var.project_id
+  role    = "roles/aiplatform.user"
+  member  = "serviceAccount:${google_service_account.topic_summary_generator_sa.email}"
+}
+
+# upload the function code to the bucket with a content-hashed name to trigger updates only when code changes
+resource "google_storage_bucket_object" "function_archive_summary" {
+  name   = "cloud_functions/generating_topic_summaries_function_${filemd5("${path.module}/../scripts/generating_topic_summaries/generating_topic_summaries_function.zip")}.zip"
+  bucket = google_storage_bucket.main_project_bucket.name
+  source = "${path.module}/../scripts/generating_topic_summaries/generating_topic_summaries_function.zip"
+}
+
+# Cloud Functions v2 deployment for the topic summary generator function
+resource "google_cloudfunctions2_function" "topic_summary_generator" {
+  name        = "topic-summary-generator"
+  location    = var.region
+  description = "Generates topic summaries for specified domains using Vertex AI"
+  
+  build_config {
+    runtime     = "python311"
+    entry_point = "summary_generator" 
+    source {
+      storage_source {
+        bucket = google_storage_bucket.main_project_bucket.name
+        object = google_storage_bucket_object.function_archive_summary.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 10
+    min_instance_count = 0
+    available_memory   = "4096Mi"  # high memory for AI operations
+    timeout_seconds    = 540       # high timeout for AI processing
+    environment_variables = {
+      DEFAULT_BUCKET_NAME = var.project_bucket_name
+    }
+    service_account_email = google_service_account.topic_summary_generator_sa.email
+  }
+}
+
+# allow invocation of the function by all users
+resource "google_cloud_run_service_iam_member" "invoker_summary" {
+  location = google_cloudfunctions2_function.topic_summary_generator.location
+  service  = google_cloudfunctions2_function.topic_summary_generator.name
+  role     = "roles/run.invoker"
+  member   = "allUsers" 
+}
+
+# create a Cloud Scheduler job for each domain to trigger the Cloud Function
+resource "google_cloud_scheduler_job" "topic_summary_generation_jobs" {
+  count       = length(local.domains)
+  name        = "generate-topic-summaries-${lower(replace(local.domains[count.index], " ", "-"))}"
+  description = "Triggers topic summary generation for ${local.domains[count.index]}"
+  schedule    = "30 3 ${count.index + 1} * *"  # run on different days of the month
+  
+  http_target {
+    http_method = "POST"
+    uri         = google_cloudfunctions2_function.topic_summary_generator.url
+    
+    oidc_token {
+      service_account_email = google_service_account.topic_summary_generator_sa.email
+    }
+    
+    body = base64encode(jsonencode({
+      domain      = local.domains[count.index],
+      bucket_name = var.project_bucket_name,
+      project_id  = var.project_id
+    }))
+    
+    headers = {
+      "Content-Type" = "application/json"
+    }
+  }
+}
+## END OF SECTION FOR TOPIC SUMMARY GENERATION CLOUD FUNCTION
