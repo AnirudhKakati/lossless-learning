@@ -322,3 +322,39 @@ def get_resource_like_count(resource_id: str):
     except psycopg2.Error as e:
         #handle database errors
         raise HTTPException(status_code=400, detail=f"Database error: {e}")
+    
+@app.get("/resources/most_liked")
+def get_most_liked_resources():
+    """
+    Fetch the top 5 most liked resources.
+
+    Returns:
+        list: A list of the top 5 resource_id strings.
+    """
+
+    try:
+        conn = get_db_connection() #get database connection
+        cur = conn.cursor()
+
+        #query to get all resources top 5 most liked resources
+        query = """
+            SELECT resource_id
+            FROM resource_likes
+            ORDER BY like_count DESC
+            LIMIT 5
+        """
+        cur.execute(query)
+        rows = cur.fetchall()
+
+        #close connection
+        cur.close()
+        conn.close()
+
+        #convert query results to a list of resource IDs
+        #each row is a tuple with one element (the resource_id)
+        resource_ids = [row[0] for row in rows]
+        return resource_ids
+
+    except psycopg2.Error as e:
+        #handle database errors
+        raise HTTPException(status_code=400, detail=f"Database error: {e}")
