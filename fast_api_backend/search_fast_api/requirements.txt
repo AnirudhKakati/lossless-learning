@@ -4,4 +4,6 @@ langchain==0.3.23
 langchain-google-vertexai==2.0.20
 langchain-google-community==2.0.7
 fastapi==0.115.12
-uvicorn==0.34.1
+uvicorn==0.34.0
+numpy==2.2.4
+pandas==2.2.3
