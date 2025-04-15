@@ -60,7 +60,7 @@ export default function Query() {
                 console.log("✅ data1:", data1);
       
                 if (data1 && typeof data1 === "object" && Object.keys(data1).length > 0) {
-                  const enrichedItem = { ...data1, id: item.id };
+                  const enrichedItem = { ...data1, resource_id: item.id };
                   console.log("✅ Enriched item:", enrichedItem);
                   return enrichedItem;
                 }
