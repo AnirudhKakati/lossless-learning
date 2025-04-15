@@ -3,6 +3,10 @@ import { FiBookOpen, FiGithub } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
+import TeX from "@matejmazur/react-katex";
+import "katex/dist/katex.min.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
@@ -15,16 +19,19 @@ export default function SearchResults({ data }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
 
-  const totalPages = Math.ceil(data.length / pageSize);
+  const summary = data.find((r) => r.resource_type === "topic_summaries");
+  const otherResources = data.filter((r) => r.resource_type !== "topic_summaries");
+
+  const totalPages = Math.ceil(otherResources.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
-  const pageResources = data.slice(startIndex, startIndex + pageSize);
+  const pageResources = otherResources.slice(startIndex, startIndex + pageSize);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [data]);
 
   useEffect(() => {
-    setLikeDataLoaded(false); 
+    setLikeDataLoaded(false);
 
     const fetchLikeData = async () => {
       if (!userId || pageResources.length === 0) return;
@@ -54,14 +61,14 @@ export default function SearchResults({ data }) {
 
   const goToNextPage = () => {
     if (currentPage < totalPages) {
-      setLikeDataLoaded(false); 
+      setLikeDataLoaded(false);
       setCurrentPage((prev) => prev + 1);
     }
   };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setLikeDataLoaded(false); 
+      setLikeDataLoaded(false);
       setCurrentPage((prev) => prev - 1);
     }
   };
@@ -101,6 +108,48 @@ export default function SearchResults({ data }) {
     navigate(`/resource/${resourceId}`);
   };
 
+  function renderSummaryWithMath(summaryText) {
+    if (!summaryText) return null;
+  
+    const parts = summaryText.split(/(\\\[.*?\\\]|\\\(.*?\\\))/gs);
+  
+    return (
+      <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
+        {parts.map((part, index) => {
+          if (part.startsWith("\\[") && part.endsWith("\\]")) {
+            return (
+              <div key={index} className="my-4">
+                <TeX block>{part.slice(2, -2)}</TeX>
+              </div>
+            );
+          } else if (part.startsWith("\\(") && part.endsWith("\\)")) {
+            return (
+              <span key={index} className="inline">
+                {" "}
+                <TeX>{part.slice(2, -2)}</TeX>
+                {" "}
+              </span>
+            );
+          } else {
+            return (
+              <ReactMarkdown
+                key={index}
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  p: ({ children }) => <>{children}</>,
+                }}
+              >
+                {part}
+              </ReactMarkdown>
+            );
+          }
+        })}
+      </p>
+    );
+  }
+  
+  
+
   if (!likeDataLoaded) {
     return (
       <div className="flex justify-center items-center py-10">
@@ -111,6 +160,15 @@ export default function SearchResults({ data }) {
 
   return (
     <div className="space-y-3 min-h-screen p-4">
+      {currentPage === 1 && summary && (
+        <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-4 mb-4 shadow-sm">
+          <h2 className="text-xl font-semibold text-emerald-700 mb-2">
+            {summary.topic} — Summary
+          </h2>
+          <div className="prose">{renderSummaryWithMath(summary.summary)}</div>
+        </div>
+      )}
+
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
           No results found. Please try searching with different terms.
