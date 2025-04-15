@@ -114,7 +114,7 @@ export default function SearchResults({ data }) {
     const parts = summaryText.split(/(\\\[.*?\\\]|\\\(.*?\\\))/gs);
   
     return (
-      <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
+      <>
         {parts.map((part, index) => {
           if (part.startsWith("\\[") && part.endsWith("\\]")) {
             return (
@@ -122,7 +122,9 @@ export default function SearchResults({ data }) {
                 <TeX block>{part.slice(2, -2)}</TeX>
               </div>
             );
-          } else if (part.startsWith("\\(") && part.endsWith("\\)")) {
+          }
+  
+          if (part.startsWith("\\(") && part.endsWith("\\)")) {
             return (
               <span key={index} className="inline">
                 {" "}
@@ -130,10 +132,11 @@ export default function SearchResults({ data }) {
                 {" "}
               </span>
             );
-          } else {
-            return (
+          }
+  
+          return (
+            <span key={index} className="text-gray-800 whitespace-pre-wrap leading-relaxed">
               <ReactMarkdown
-                key={index}
                 remarkPlugins={[remarkGfm]}
                 components={{
                   p: ({ children }) => <>{children}</>,
@@ -141,12 +144,13 @@ export default function SearchResults({ data }) {
               >
                 {part}
               </ReactMarkdown>
-            );
-          }
+            </span>
+          );
         })}
-      </p>
+      </>
     );
   }
+  
   
   
 

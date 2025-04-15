@@ -11,6 +11,14 @@ export default function Summary() {
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+
+  const typeLabelMap = {
+    "YouTube Video": "videos",
+    "GitHub Repository": "github_repos",
+    "Article": "articles",
+    "Book": "book_content",
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +26,9 @@ export default function Summary() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resources?topic=${encodeURIComponent(topic)}`
+          `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resources?topic=${encodeURIComponent(
+            topic
+          )}`
         );
         const data = await res.json();
         setResults(data);
@@ -32,6 +42,23 @@ export default function Summary() {
     fetchData();
   }, [topic]);
 
+  const handleTypeToggle = (typeLabel) => {
+    setSelectedTypes((prev) =>
+      prev.includes(typeLabel)
+        ? prev.filter((t) => t !== typeLabel)
+        : [...prev, typeLabel]
+    );
+  };
+
+  const filteredResults =
+    selectedTypes.length === 0
+      ? results
+      : results.filter((item) =>
+          selectedTypes.includes(
+            Object.entries(typeLabelMap).find(([_, v]) => v === item.resource_type?.toLowerCase())?.[0]
+          )
+        );
+
   return (
     <div
       className="flex"
@@ -42,15 +69,14 @@ export default function Summary() {
       }}
     >
       <Navbar />
-      <main className="ml-64 p-8 w-full">
-        <div className="flex gap-6 w-full max-w-full overflow-hidden">
+      <main className="ml-64 p-8 w-full min-h-screen">
+        <div className="flex gap-6 w-full max-w-full items-start">
           <div className="flex-1 min-w-0">
             <SearchBar
               onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
               onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
             />
 
-            {/* Resource results */}
             {!topic ? (
               <div className="text-gray-500 mt-8 text-center text-lg">
                 No results. Please search for a topic.
@@ -60,11 +86,14 @@ export default function Summary() {
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
               </div>
             ) : (
-              <SearchResults data={results} />
+              <SearchResults data={filteredResults} />
             )}
           </div>
 
-          <SearchFilter />
+          <SearchFilter
+            selectedTypes={selectedTypes}
+            onToggleType={handleTypeToggle}
+          />
         </div>
       </main>
     </div>
