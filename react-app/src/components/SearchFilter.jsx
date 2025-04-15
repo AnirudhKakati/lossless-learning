@@ -16,7 +16,7 @@ export default function SearchFilter({ selectedTypes = [], onToggleType = () => 
                   id={label}
                   checked={selectedTypes.includes(label)}
                   onChange={() => onToggleType(label)}
-                  className="w-4 h-4 mr-2"
+                  className="w-4 h-4 mr-2 accent-emerald-400"
                 />
                 <label htmlFor={label} className="text-sm">
                   {label}

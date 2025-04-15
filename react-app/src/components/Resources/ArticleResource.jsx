@@ -1,4 +1,4 @@
-import { FiBookOpen } from "react-icons/fi";
+import { FiFileText } from "react-icons/fi";
 
 export default function ArticleResource({ resource }) {
   
@@ -23,7 +23,7 @@ export default function ArticleResource({ resource }) {
     <div className="flex flex-col md:flex-row gap-8">
       {/* Icon */}
       <div className="flex items-center justify-center w-24 h-24 rounded-full bg-white border border-gray-300 shrink-0">
-        <FiBookOpen className="w-12 h-12 text-emerald-400" />
+        <FiFileText className="w-12 h-12 text-emerald-400" />
       </div>
 
       {/* Content */}

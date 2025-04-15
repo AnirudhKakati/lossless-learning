@@ -60,11 +60,9 @@ export default function SearchBarResults({ query, answer, context }) {
   const getIcon = (type) => {
     switch (type?.toLowerCase()) {
       case "videos":
-        return <FaYoutube className="w-6 h-6 text-emerald-300" />;
-      case "github_repos":
-        return <FiGithub className="w-6 h-6 text-emerald-500" />;
+        return <FaYoutube className="w-6 h-6 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       default:
-        return <FiBookOpen className="w-6 h-6 text-emerald-500" />;
+        return <FiBookOpen className="w-6 h-6 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
     }
   };
 
@@ -88,8 +86,8 @@ export default function SearchBarResults({ query, answer, context }) {
 
   return (
     <div className="mt-8 w-full max-w-full overflow-x-hidden">
-      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-lg font-semibold text-emerald-700 mb-2">
+      <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-4 mb-4 shadow-sm">
+        <h2 className="text-lx font-semibold text-emerald-700 mb-2">
           Search Result for: <span className="text-gray-900">{query}</span>
         </h2>
         <div className="text-sm text-gray-800 whitespace-pre-wrap">

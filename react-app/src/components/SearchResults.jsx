@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiBookOpen, FiGithub } from "react-icons/fi";
+import { FiBookOpen, FiGithub, FiFileText } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
@@ -79,13 +79,15 @@ export default function SearchResults({ data }) {
         return <FaYoutube className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       case "github_repos":
         return <FiGithub className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
-      default:
+      case "book_content":
         return <FiBookOpen className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
+      default:
+        return <FiFileText className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
     }
   };
 
   const extractTitle = (resource) => {
-    const title = resource.repo_name || resource.video_title || resource.title || "Untitled";
+    const title = resource.repo_name || resource.video_title || resource.title || resource.book_title || "Untitled";
     return title.length > 60 ? title.slice(0, 57) + "..." : title;
   };
 
@@ -99,6 +101,8 @@ export default function SearchResults({ data }) {
         return "YouTube Video";
       case "github_repos":
         return "GitHub Repository";
+      case "book_content":
+        return "Book Content";
       default:
         return "Article";
     }
@@ -169,7 +173,7 @@ export default function SearchResults({ data }) {
           <h2 className="text-xl font-semibold text-emerald-700 mb-2">
             {summary.topic} — Summary
           </h2>
-          <div className="prose">{renderSummaryWithMath(summary.summary)}</div>
+          <div className="prose text-sm">{renderSummaryWithMath(summary.summary)}</div>
         </div>
       )}
 

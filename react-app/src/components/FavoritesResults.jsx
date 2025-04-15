@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiBookOpen, FiGithub } from "react-icons/fi";
+import { FiBookOpen, FiGithub, FiFileText} from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
@@ -82,8 +82,10 @@ export default function FavoritesResults({ data }) {
         return <FaYoutube className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       case "github_repos":
         return <FiGithub className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
-      default:
+      case "book_content":
         return <FiBookOpen className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
+      default:
+        return <FiFileText className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
     }
   };
 
