@@ -106,16 +106,12 @@ async def ask_question(q: Query) -> Dict[str, Any]:
                     d['author'] = author
                     res['response']['context'].append(d)
             else:
-                # print(raw_source)
                 req = raw_source.split('/')[-1]
                 id = raw_source.split('/')[-1].replace('.txt','')
                 url = df.loc[df['filename'] == req, 'url'].values
                 d['link'] = url[0]
                 d['id'] = id
-                # d['resource_id'] = 
                 res['response']['context'].append(d)
-
-                # res['response']['context'].append(result['context'][i].metadata)
 
         return {"response": res}
     except Exception as e:
