@@ -607,3 +607,18 @@ resource "google_project_iam_member" "cloudsql_client" {
 }
 
 ## END OF SECTION FOR THE CLOUDSQL FAST API BACKEND
+
+
+# create a service account for the fast api backend to play audios
+resource "google_service_account" "audios_fast_api_sa" {
+  account_id   = "audios-fast-api-sa"
+  display_name = "Service Account for the Audios Fast API"
+  project      = var.project_id
+}
+
+# grant bucket access to the service account
+resource "google_storage_bucket_iam_member" "bucket_access_af" {
+  bucket = google_storage_bucket.main_project_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.audios_fast_api_sa.email}"
+}
