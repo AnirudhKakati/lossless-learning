@@ -53,3 +53,30 @@ We also want to include information from reference books. This comes with the is
 To track user habits, we plan on storing statistics of how many clicks a page has or how much time a user has spent on a page. We can then use this data for trending articles and to create visualizations. 
 
 For the front end, a Figma prototype was created for the home/dashboard page. We will continue with transfering the prototype to code. For the additional pages, more Figma prototypes will be created and tested. 
+
+Meeting Date 3/20/2025
+
+Finalizing data pipeline for educational resources. Working on creating teraform scripts to manage GCP infrastructure. Finishing up scripts for fetching educational data such as videos and articles. 
+
+Started implementing the front end design from Figma to code using React and Tailwind CSS. Spent time learning about Tailwind and CSS because did not have much experience using before. Created outline of the dashboard page with a basic navbar, search bar, and article carousel. 
+
+
+Meeting Date: 3/28/2025
+
+Scripts for fetching data have been implemented. For fetching youtube videos we use youtube data v3 API, for fetching github repos we make REST API calls to github search repositories API and for fetching articles we use google custom search API with a custom search engine. No feasible cloud hosted solution was found for fetching video transcrips, so instead we will create a local script to obtain those. For Book pdfs, we will manually upload them. 
+
+All corresponding GCP resources were created through terraform code. 
+
+For the front end, started working on pages for search and summary. Moved page elements into a components folder to better fit the React structure. Added more details to the side navigation bar. Finished the search filter element. 
+
+Meeting Date: 4/11/2025
+
+For book resources, we are finalizing the process of how they will be displayed to the user. 
+
+Fast API is ready. Working locally but having some issues with deployment using terraform scripts. Will be finished soon.
+
+Front end is finalizing the log-in page and adding a like function for saving resources and ranking search results. A database will be used for user authentication for logging in. 
+
+Once the data from the APIs are implemented into the front end, it will be hosted on GCP. 
+
+We plan on having our project finished by Monday and completing the presentation aspect by Tuesday. 
