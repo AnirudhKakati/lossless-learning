@@ -10,7 +10,7 @@ import vertexai
 import re
 from collections import defaultdict
 from fastapi.middleware.cors import CORSMiddleware
-
+import pandas as pd
 
 app = FastAPI()
 
@@ -67,6 +67,8 @@ class Query(BaseModel):
 @app.post("/ask")
 async def ask_question(q: Query) -> Dict[str, Any]:
     try:
+        df = pd.read_csv('summaries_filename_url_mapping_summaries_filename_url_mapping.csv')
+
         result = chain.invoke({"input": q.query})
 
         res = defaultdict(dict)
@@ -90,14 +92,30 @@ async def ask_question(q: Query) -> Dict[str, Any]:
                 if match:
                     page_number = int(match.group(2))
                     source = str(match.group(1))
+                    req = source.split('/')[-1].replace('.pdf','')
+                    arr_req = req.split('by')
+                    book_name = arr_req[0].strip()
+                    author = arr_req[1].strip()
+
                     ns = 'https://storage.googleapis.com/'+'/'.join(source.split("/")[2:]).replace(' ','%20')
 
-                    d['page_num'] = page_number
-                    d['public_link'] = ns
-                    d['page_content'] = pc
+                    d['page_no'] = page_number
+                    d['public_url'] = ns
+                    d['page_snippet'] = pc
+                    d['book_title'] = book_name
+                    d['author'] = author
                     res['response']['context'].append(d)
             else:
-                 res['response']['context'].append(result['context'][i].metadata)
+                # print(raw_source)
+                req = raw_source.split('/')[-1]
+                id = raw_source.split('/')[-1].replace('.txt','')
+                url = df.loc[df['filename'] == req, 'url'].values
+                d['link'] = url[0]
+                d['id'] = id
+                # d['resource_id'] = 
+                res['response']['context'].append(d)
+
+                # res['response']['context'].append(result['context'][i].metadata)
 
         return {"response": res}
     except Exception as e:
