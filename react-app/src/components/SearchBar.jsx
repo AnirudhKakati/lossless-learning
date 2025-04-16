@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
-import data from "../../../topics.json";
+import data from "../../topics.json";
 
 export default function SearchBar({ onTopicClick, onSearchResults, initialInput = "" }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

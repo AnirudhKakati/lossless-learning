@@ -1,0 +1,215 @@
+{
+    "Foundational Mathematics": {
+        "Linear Algebra": {
+            "Introduction to Vectors and Matrices": [],
+            "Vector Operations": [],
+            "Matrix Operations": [],
+            "Vector Spaces and Bases": [],
+            "Special Matrices in Linear Algebra": [],
+            "Eigenvalues and Eigenvectors in Linear Algebra": [],
+            "Characteristic Equation and Determinant": [],
+            "Eigen Decomposition and Matrix Diagonalization": [],
+            "Singular Value Decomposition (SVD)": [],
+            "Principal Component Analysis (PCA)": [],
+            "Low-Rank Approximation Techniques in Matrix Factorization": []
+        },
+        "Calculus": {
+            "Limits and Continuity": [],
+            "Continuous vs. Discontinuous Functions": [],
+            "Partial Derivatives and Gradients": [],
+            "Chain Rule, Product Rule, and Quotient Rule": [],
+            "Hessian Matrix and Jacobian Matrix in for Optimization": [],
+            "Gradient Descent Optimization Algorithm": [],
+            "Advanced Optimizers (Adam, RMSprop, etc.)": [],
+            "Convex vs. Non-Convex Optimization in Machine Learning": [],
+            "Definite and Indefinite Integrals": []
+        },
+        "Probability and Statistics": {
+            "Introduction to Probability": [],
+            "Probability Axioms and Sample Spaces in Statistics": [],
+            "Conditional Probability and Bayes' Theorem": [],
+            "Discrete Probability Distributions": [],
+            "Continuous Probability Distributions": [],
+            "Central Limit Theorem and Law of Large Numbers": [],
+            "Point Estimation and Confidence Intervals": [],
+            "Hypothesis Testing: Null and Alternative Hypotheses": [],
+            "P-values and Significance Testing in Statistics": [],
+            "Bayesian vs. Frequentist Approaches in Statistical Inference": []
+        },
+        "Optimization": {
+            "Convex vs. Non-Convex Functions in Optimization": [],
+            "First-Order and Second-Order Conditions for Convexity": [],
+            "Constrained vs. Unconstrained Optimization": [],
+            "Lagrange Multipliers and KKT Conditions in Optimization": []
+        }
+    },
+    "Programming Fundamentals": {
+        "Python Programming": {
+            "Python Syntax and Data Structures": [],
+            "Lists and Tuples in Python": [],
+            "Dictionaries and Sets in Python": [],
+            "Functions, Loops, and Conditionals in Python": [],
+            "Object-Oriented Programming (OOP) in Python": [],
+            "Classes, Objects, Inheritance, and Encapsulation in Python": [],
+            "Python Virtual Environments: venv and Conda": [],
+            "Package Management with Pip and Conda": []
+        },
+        "Data Processing with Python": {
+            "NumPy Library": [],
+            "Linear Algebra Operations using NumPy": [],
+            "Pandas DataFrames for Data Analysis": [],
+            "Reading and Writing Data with Python": [],
+            "Web Scraping and APIs in Python": [],
+            "Handling Missing Data with Python": [],
+            "Detecting and Removing Outliers with Python": []
+        },
+        "Data Visualization with Python": {
+            "Matplotlib for Data Visualization": [],
+            "Seaborn for Data Visualization": []
+        },
+        "Version Control and Reproducibility": {
+            "Git Basics: Cloning, Branching, Merging": [],
+            "GitHub for Collaborative Projects: Pull Requests and Commit History": [],
+            "Experiment Tracking with Jupyter Notebooks and Python Scripts": [],
+            "Logging Hyperparameters and Results for Machine Learning Experiments": []
+        }
+    },
+    "Classical Machine Learning": {
+        "Feature Engineering and Preprocessing": {
+            "Data Preprocessing for Machine Learning": [],
+            "Encoding Categorical Variables: One-Hot Encoding and Label Encoding": [],
+            "Implementing Categorical Encoding with Scikit-Learn": [],
+            "Feature Scaling Techniques: Min-Max Scaling, Standardization, Log Transformations": [],
+            "Implementing Feature Scaling with Scikit-Learn": [],
+            "Text Data Preprocessing: Tokenization and TF-IDF Vectorization": [],
+            "Implementing Text Preprocessing with NLTK and Scikit-Learn": [],
+            "Feature Engineering for Machine Learning": [],
+            "Feature Selection Methods: Filter, Wrapper, and Embedded Methods": [],
+            "Implementing Feature Selection with Scikit-Learn": []
+        },
+        "Supervised Learning": {
+            "Introduction to Supervised Learning": [],
+            "Simple Linear Regression": [],
+            "Multiple Linear Regression": [],
+            "Implementing Linear Regression with Scikit-Learn": [],
+            "Polynomial Regression": [],
+            "Implementing Polynomial Regression with Scikit-Learn": [],
+            "Ridge and Lasso Regression for Regularization": [],
+            "Implementing Regularized Regression with Scikit-Learn": [],
+            "Logistic Regression": [],
+            "Implementing Logistic Regression with Scikit-Learn": [],
+            "Decision Trees and Random Forests": [],
+            "Implementing Decision Trees and Random Forests with Scikit-Learn": [],
+            "Naive Bayes Classifiers": [],
+            "Implementing Naive Bayes with Scikit-Learn": [],
+            "Support Vector Machines (SVM)": [],
+            "Implementing SVM with Scikit-Learn": [],
+            "Ensemble Learning: Bagging, Boosting, and Stacking": [],
+            "Implementing Ensemble Methods with Scikit-Learn": [],
+            "Model Evaluation Metrics": [],
+            "Implementing Model Evaluation with Scikit-Learn": [],
+            "Cross-Validation Techniques for Model Evaluation": [],
+            "Implementing Cross-Validation with Scikit-Learn": [],
+            "Hyperparameter Tuning Techniques": [],
+            "Implementing Grid Search and Random Search with Scikit-Learn": []
+        },
+        "Unsupervised Learning": {
+            "Introduction to Unsupervised Learning": [],
+            "K-Means Clustering": [],
+            "Implementing K-Means with Scikit-Learn": [],
+            "Hierarchical Clustering": [],
+            "Implementing Hierarchical Clustering with Scikit-Learn": [],
+            "DBSCAN Clustering Algorithm": [],
+            "Implementing DBSCAN with Scikit-Learn": [],
+            "Principal Component Analysis (PCA)": [],
+            "Implementing PCA with Scikit-Learn": [],
+            "t-SNE and UMAP for High-Dimensional Data Visualization": [],
+            "Implementing t-SNE and UMAP with Scikit-Learn": [],
+            "Association Rule Mining":[],
+            "Implementing Association Rule Mining in Python":[]
+        },
+        "Reinforcement Learning": {
+            "Markov Decision Processes (MDPs) in Reinforcement Learning": [],
+            "Implementing MDPs with Python": [],
+            "Q-Learning and Deep Q Networks (DQN) in Reinforcement Learning": [],
+            "Implementing Q-Learning with Python": []
+        }
+    },
+    "Deep Learning": {
+        "Neural Networks in Deep Learning": {
+            "Perceptron and Multi-Layer Perceptron (MLP)": [],
+            "Implementing Neural Networks with TensorFlow/PyTorch": [],
+            "Activation Functions in Deep Learning": [],
+            "Backpropagation Algorithm for Training Neural Networks": [],
+            "Loss Functions in Machine Learning": [],
+            "Implementing Custom Loss Functions with Python": [],
+            "Vanishing and Exploding Gradient Problems in Deep Learning": [],
+            "Gradient Stabilization Techniques": [],
+            "Normalization Techniques: Batch, Layer, Instance, Group": []
+        },
+        "Convolutional Neural Networks (CNNs)": {
+            "Fundamentals of Convolution Operations": [],
+            "CNN Building Blocks: Pooling, Stride, Padding": [],
+            "Popular CNN Architectures: AlexNet, ResNet, EfficientNet": [],
+            "Implementing CNNs with TensorFlow/PyTorch": [],
+            "Transfer Learning with Pre-trained CNN Models": []
+        },
+        "Recurrent Neural Networks (RNNs) and Transformers": {
+            "Recurrent Neural Networks (RNNs) for Sequence Modeling": [],
+            "Long Short-Term Memory (LSTMs) and Gated Recurrent Units (GRUs)": [],
+            "Implementing RNNs, LSTMs, and GRUs with TensorFlow/PyTorch": [],
+            "Attention Mechanisms in Sequence Models": [],
+            "Transformers and Self-Attention Architecture": [],
+            "Implementing Transformers with TensorFlow/PyTorch": [],
+            "Pre-trained Transformer Models: BERT, GPT, T5": []
+        },
+        "Generative Models in Deep Learning": {
+            "Generative Adversarial Networks (GANs)": [],
+            "Variational Autoencoders (VAEs)": [],
+            "Diffusion Models for Image Generation": [],
+            "Text-to-Image Models: DALL-E, Stable Diffusion": [],
+            "Evaluating Generative Models: Inception Score, FID": []
+        }
+    },
+    "MLOps": {
+        "Model Deployment and Serving": {
+            "Model Deployment using TensorFlow Serving": [],
+            "Flask and FastAPI for Model Serving": [],
+            "Containerization with Docker for ML Models": [],
+            "Kubernetes for Scaling ML Services": [],
+            "Cloud Deployment for ML Models": [],
+            "Edge Deployment for ML Models": []
+        },
+        "ML Pipelines and Orchestration": {
+            "Building ML Pipelines with Airflow": [],
+            "Kubeflow for Kubernetes-based ML Workflows": [],
+            "Data Validation and Model Monitoring": [],
+            "Feature Stores for ML": []
+        },
+        "Model Management and Versioning": {
+            "ML Experiment Tracking with MLflow": [],
+            "Model Registry and Versioning": [],
+            "Model Metadata Management": [],
+            "Model Lineage Tracking": []
+        },
+        "CI/CD for Machine Learning": {
+            "CI/CD Pipelines for ML Projects": [],
+            "Automated Testing for ML Systems": [],
+            "Continuous Training and Deployment": [],
+            "Infrastructure as Code for ML Systems": []
+        },
+        "ML System Monitoring": {
+            "Monitoring ML Model Performance": [],
+            "Detecting Data and Concept Drift": [],
+            "A/B Testing for ML Models": [],
+            "Model Explainability and Interpretability": []
+        },
+        "ML Engineering Best Practices": {
+            "ML System Design Patterns": [],
+            "Scalable ML System Architecture": [],
+            "Cost Optimization for ML Systems": [],
+            "ML Technical Debt Management": [],
+            "ML System Security and Compliance": []
+        }
+    }
+}
