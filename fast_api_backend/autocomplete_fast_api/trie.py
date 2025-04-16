@@ -13,6 +13,12 @@ df_augmented = pd.concat(
 )
 
 class TrieNode:
+    '''Class to create the Trie prefix tree
+
+       Methods: Insert, search_most_frequent 
+    
+    '''
+    
     def __init__(self):
         self.children = {}
         self.sentences = {}  
