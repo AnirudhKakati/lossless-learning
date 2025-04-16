@@ -85,7 +85,7 @@ export default function LoginPage() {
             {/* Form Side */}
             <div className="flex-1 border-t md:border-t-0 md:border-l border-gray-200 pt-8 md:pt-0 md:pl-12">
               <h2 className="text-2xl font-bold text-emerald-500 mb-2 text-center md:text-left">
-                {isLogin ? "Welcome Back" : "Create an Account"}
+                {isLogin ? "Welcome Learner" : "Create an Account"}
               </h2>
               <p className="text-gray-500 mb-6 text-center md:text-left">
                 {isLogin ? "Log in to your account" : "Sign up to get started"}
