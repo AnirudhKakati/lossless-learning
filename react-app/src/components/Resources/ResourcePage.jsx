@@ -11,7 +11,7 @@ export default function ResourcePage({ resource }) {
   }
 
   const { resource_type } = resource;
-
+  // Return different page depending on resource type
   return (
     <div>
       {resource_type === "videos" && <VideoResource resource={resource} />}

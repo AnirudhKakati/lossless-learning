@@ -5,13 +5,17 @@ import SearchFilter from "../components/SearchFilter";
 import FavoritesResults from "../components/FavoritesResults";
 import { useNavigate } from "react-router-dom";
 
+// API endpoints
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 const FIRESTORE_BASE = "https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app";
 
+
+// Favorites page
 export default function Favorites() {
   const userId = localStorage.getItem("user_id");
   const navigate = useNavigate();
 
+  // Store state variables for favorites, fetching data, and resource types 
   const [favoritesData, setFavoritesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -23,6 +27,7 @@ export default function Favorites() {
     "Book": "book_content",
   };
 
+  // Filter by resource logic
   const handleTypeToggle = (typeLabel) => {
     setSelectedTypes((prev) =>
       prev.includes(typeLabel)
@@ -40,6 +45,7 @@ export default function Favorites() {
           )
         );
 
+  // Get favorite resources from backend 
   const fetchFavorites = async () => {
     try {
       setLoading(true);

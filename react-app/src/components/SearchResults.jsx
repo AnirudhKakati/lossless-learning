@@ -8,9 +8,12 @@ import "katex/dist/katex.min.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+// Endpoint for fetching results
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
 export default function SearchResults({ data }) {
+
+  // Store states for current page, likes, loading data
   const [currentPage, setCurrentPage] = useState(1);
   const [likedResources, setLikedResources] = useState([]);
   const [likeCounts, setLikeCounts] = useState({});
@@ -22,13 +25,14 @@ export default function SearchResults({ data }) {
   const summary = data.find((r) => r.resource_type === "topic_summaries");
   const otherResources = data.filter((r) => r.resource_type !== "topic_summaries");
 
-  // ✅ Sort by like count using full likeCounts map
+  // Sort likes
   const sortedResources = [...otherResources].sort((a, b) => {
     const likesA = likeCounts[a.resource_id] || 0;
     const likesB = likeCounts[b.resource_id] || 0;
     return likesB - likesA;
   });
 
+  // Current Page Calculations
   const totalPages = Math.ceil(sortedResources.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const pageResources = sortedResources.slice(startIndex, startIndex + pageSize);
@@ -47,7 +51,6 @@ export default function SearchResults({ data }) {
         const [likedRes, countsArr] = await Promise.all([
           fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
           Promise.all(
-            // ✅ Fetch likes for all otherResources instead of only pageResources
             otherResources.map((resource) =>
               fetch(`${API_BASE}/resources/${resource.resource_id}/likes`)
                 .then((res) => res.json())
@@ -67,6 +70,7 @@ export default function SearchResults({ data }) {
     fetchLikeData();
   }, [currentPage, userId, data]);
 
+  // Next Page
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setLikeDataLoaded(false);
@@ -74,6 +78,7 @@ export default function SearchResults({ data }) {
     }
   };
 
+  // Previous Page
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setLikeDataLoaded(false);
@@ -81,6 +86,7 @@ export default function SearchResults({ data }) {
     }
   };
 
+  // Get icons for resources
   const getIcon = (type) => {
     switch (type?.toLowerCase()) {
       case "videos":
@@ -94,15 +100,18 @@ export default function SearchResults({ data }) {
     }
   };
 
+  // Get title, different title names for resource so need to standardize
   const extractTitle = (resource) => {
     const title = resource.repo_name || resource.video_title || resource.title || resource.book_title || "Untitled";
     return title.length > 60 ? title.slice(0, 57) + "..." : title;
   };
 
+  // Format topic and domain
   const formatDescription = (resource) => {
     return `${resource.topic || "Unknown Topic"} | ${resource.domain || "Unknown Domain"}`;
   };
 
+  // Set types for display
   const formatType = (type) => {
     switch (type?.toLowerCase()) {
       case "videos":
@@ -120,6 +129,7 @@ export default function SearchResults({ data }) {
     navigate(`/resource/${resourceId}`);
   };
 
+  // Function for parsing and rendering LaTeX and Markdown
   function renderSummaryWithMath(summaryText) {
     if (!summaryText) return null;
 
@@ -162,6 +172,7 @@ export default function SearchResults({ data }) {
     );
   }
 
+  // Animate loading if data isnt all ready
   if (!likeDataLoaded) {
     return (
       <div className="flex justify-center items-center py-10">
@@ -172,6 +183,7 @@ export default function SearchResults({ data }) {
 
   return (
     <div className="space-y-3 min-h-screen p-4">
+      {/* Render summary with latex and markdown */}
       {currentPage === 1 && summary && (
         <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-4 mb-4 shadow-sm">
           <h2 className="text-xl font-semibold text-emerald-700 mb-2">
@@ -186,7 +198,7 @@ export default function SearchResults({ data }) {
           No results found. Please try searching with different terms or adjust resource filters.
         </p>
       ) : (
-        <>
+        <> {/* Render each card with like button */}
           {pageResources.map((resource, index) => (
             <div
               key={index}

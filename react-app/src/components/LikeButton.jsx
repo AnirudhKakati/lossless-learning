@@ -14,7 +14,8 @@ export default function LikeButton({ resourceId, initialLiked, initialCount }) {
 
     setLoading(true);
     const endpoint = liked ? '/unlike' : '/like';
-
+    
+    // Post like or unlike data
     try {
       const res = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',

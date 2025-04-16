@@ -1,7 +1,7 @@
 import { Link, useNavigate} from "react-router-dom";
 import { FiGrid, FiBookOpen, FiFileText, FiHeart, FiSettings, FiLogOut } from 'react-icons/fi';
 
-
+// Navbar for switching pages
 export default function Navbar() {
       const navigate = useNavigate();
 

@@ -25,7 +25,7 @@ function getIcon(type) {
       return <FiFileText className={baseClass} />;
   }
 }
-
+// Component for displaying top liked resources on home page
 export default function TopLikedResources({ onLoadComplete }) {
   const [resources, setResources] = useState([]);
   const [likeCounts, setLikeCounts] = useState({});
@@ -34,6 +34,7 @@ export default function TopLikedResources({ onLoadComplete }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
 
+  // Fetch most liked resources, data for each, and like counts 
   useEffect(() => {
     const fetchMostLikedResources = async () => {
       try {
@@ -60,6 +61,7 @@ export default function TopLikedResources({ onLoadComplete }) {
         );
         setLikeCounts(Object.assign({}, ...counts));
 
+        // Fetch liked user data
         if (userId) {
           const res = await fetch(
             `${MOST_LIKED_ENDPOINT.replace(
@@ -87,6 +89,7 @@ export default function TopLikedResources({ onLoadComplete }) {
     <section className="mt-6">
       <h2 className="text-2xl font-semibold mb-4">Most Liked Resources</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-stretch">
+        {/* Loop through each result to display like button and information*/}
         {resources.map((res) => (
           <div
             key={res.resource_id}

@@ -5,7 +5,7 @@ export default function ArticleResource({ resource }) {
     if (!resource) {
         return <div className="text-gray-500">No resource found.</div>;
       }
-    
+      // Hold variable names for reference
       const {
         repo_name,
         repo_id,
@@ -16,6 +16,7 @@ export default function ArticleResource({ resource }) {
         sub_domain
       } = resource;
       
+      // get user profile url
       let authorProfileUrl = null;
 
         if (repo_url) {

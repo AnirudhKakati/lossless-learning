@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import SearchFilter from "../components/SearchFilter";
 import SearchResults from "../components/SearchResults";
 
+// Page for search by explore 
 export default function Summary() {
   const { topic } = useParams();
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Summary() {
     "Book": "book_content",
   };
 
+  // Use topics to return relevant resources
   useEffect(() => {
     const fetchData = async () => {
       if (!topic) return;
@@ -42,6 +44,7 @@ export default function Summary() {
     fetchData();
   }, [topic]);
 
+  // Logic for resource filter
   const handleTypeToggle = (typeLabel) => {
     setSelectedTypes((prev) =>
       prev.includes(typeLabel)
@@ -68,7 +71,7 @@ export default function Summary() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Sidebar */}
+
       <div className="hidden md:block">
         <Navbar />
       </div>
@@ -82,6 +85,7 @@ export default function Summary() {
               onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
             />
 
+            {/* Load explore search results using SearchResults component */}
             {!topic ? (
               <div className="text-center text-sm text-gray-500">
                 No results. Please search for a topic or adjust resource filters.

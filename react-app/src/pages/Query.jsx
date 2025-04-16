@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import SearchBarResults from "../components/SearchBarResults";
 
+
+// Used for loading QA search results
 export default function Query() {
   const { question } = useParams();
   const navigate = useNavigate();
@@ -89,7 +91,7 @@ export default function Query() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Sidebar */}
+
       <div className="hidden md:block">
         <Navbar />
       </div>

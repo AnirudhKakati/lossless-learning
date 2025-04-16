@@ -7,6 +7,7 @@ import LikeButton from "./LikeButton";
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
 export default function FavoritesResults({ data }) {
+  // Store states for page, likes, and loaded data
   const [currentPage, setCurrentPage] = useState(1);
   const [likedResources, setLikedResources] = useState([]);
   const [likeCounts, setLikeCounts] = useState({});
@@ -16,13 +17,14 @@ export default function FavoritesResults({ data }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
 
-  // ✅ Sort full data by like count
+  // Sort by like counts
   const sortedData = [...data].sort((a, b) => {
     const likesA = likeCounts[a.resource_id] || 0;
     const likesB = likeCounts[b.resource_id] || 0;
     return likesB - likesA;
   });
 
+  // Store page number data
   const totalPages = Math.ceil(sortedData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const pageResources = sortedData.slice(startIndex, startIndex + pageSize);
@@ -40,12 +42,11 @@ export default function FavoritesResults({ data }) {
         setLikeDataLoaded(true);
         return;
       }
-
+      // fetch like data for user
       try {
         const [likedRes, countsArr] = await Promise.all([
           fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
           Promise.all(
-            // ✅ Fetch likes for ALL data, not just current page
             data.map((resource) =>
               fetch(`${API_BASE}/resources/${resource.resource_id}/likes`)
                 .then((res) => res.json())
@@ -134,7 +135,7 @@ export default function FavoritesResults({ data }) {
           No liked posts to show. Save some favorites or adjust resource filters.
         </p>
       ) : (
-        <>
+        <> {/* Load all of the cards in resource */}
           {pageResources.map((resource, index) => (
             <div
               key={index}

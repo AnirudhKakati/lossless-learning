@@ -12,7 +12,7 @@ export default function VideoResource({ resource }) {
   if (!resource) {
     return <div className="text-gray-500">No resource found.</div>;
   }
-
+  // Hold variables to reference
   const {
     resource_id = urlResourceId,
     resource_type,
@@ -24,10 +24,12 @@ export default function VideoResource({ resource }) {
     summary,
   } = resource;
 
+  // embeded YouTube url
   const embedUrl = url?.includes("watch?v=")
     ? url.replace("watch?v=", "embed/")
     : url;
 
+  // Handle fetching audio for video summary
   const handlePlayAudio = async () => {
     try {
       setLoadingAudio(true);
@@ -65,7 +67,7 @@ export default function VideoResource({ resource }) {
           </div>
         </div>
       </div>
-
+      {/* YouTube video embedding */}
       <div className="flex justify-center">
         <iframe
           className="w-full rounded-md mb-8"
@@ -77,6 +79,7 @@ export default function VideoResource({ resource }) {
         ></iframe>
       </div>
 
+      {/* Menu for video summary and transcript */}
       <div className="flex border-b border-gray-300 gap-4 text-sm font-semibold mb-4">
         <button
           onClick={() => setActiveTab("summary")}

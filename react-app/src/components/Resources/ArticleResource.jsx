@@ -6,6 +6,7 @@ export default function ArticleResource({ resource }) {
         return <div className="text-gray-500">No resource found.</div>;
       }
     
+      // store variables for reference later
       const {
         title,
         topic,

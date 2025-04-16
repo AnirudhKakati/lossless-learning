@@ -8,6 +8,7 @@ export default function SearchFilter({ selectedTypes = [], onToggleType = () => 
       <div>
         <h3 className="text-xs font-semibold text-emerald-500 uppercase">Content Type</h3>
         <ul className="mt-2 space-y-2">
+          {/* Option for each resource type */}
           {options.map((label, index) => (
             <li key={index} className="flex items-center">
               <input

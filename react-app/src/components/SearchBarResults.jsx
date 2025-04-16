@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
 import ReactMarkdown from "react-markdown";
 
+// Endpoint for API
 const API_BASE = "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app";
 
+// Takes in query, answer, context
 export default function SearchBarResults({ query, answer, context }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
 
+  // state for enriching data and loading in
   const [enrichedContext, setEnrichedContext] = useState([]);
   const [likeDataLoaded, setLikeDataLoaded] = useState(false);
 
@@ -21,7 +24,7 @@ export default function SearchBarResults({ query, answer, context }) {
         setLikeDataLoaded(true);
         return;
       }
-
+      // fetch user likes
       try {
         const [likedRes, countsArr] = await Promise.all([
           fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
@@ -29,6 +32,7 @@ export default function SearchBarResults({ query, answer, context }) {
             context
               .filter((item) => item.resource_id)
               .map((item) =>
+              // fetch item likes
                 fetch(`${API_BASE}/resources/${item.resource_id}/likes`)
                   .then((res) => res.json())
                   .then((json) => ({ [item.resource_id]: json.like_count || 0 }))
@@ -39,6 +43,7 @@ export default function SearchBarResults({ query, answer, context }) {
         const normalizedLiked = likedRes.map((id) => id.toString());
         const likeCountMap = Object.assign({}, ...countsArr);
 
+        // set liked data from user for cards
         const enriched = context.map((item) => ({
           ...item,
           liked: normalizedLiked.includes(item.resource_id),
@@ -90,6 +95,7 @@ export default function SearchBarResults({ query, answer, context }) {
         <h2 className="text-lx font-semibold text-emerald-700 mb-2">
           Search Result for: <span className="text-gray-900">{query}</span>
         </h2>
+        {/* Use markdown for QA response */}
         <div className="text-sm text-gray-800 whitespace-pre-wrap">
             <ReactMarkdown>{answer}</ReactMarkdown>
             </div>
@@ -97,6 +103,7 @@ export default function SearchBarResults({ query, answer, context }) {
 
       {enrichedContext && enrichedContext.length > 0 && (
         <div className="grid gap-4 w-full max-w-full px-2">
+          {/* Loop over resources to display */}
           {enrichedContext.map((item, index) => (
             <div
               key={index}

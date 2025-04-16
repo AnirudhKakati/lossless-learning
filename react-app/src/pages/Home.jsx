@@ -17,7 +17,7 @@ export default function Home() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Sidebar */}
+      
       <div className="hidden md:block">
         <Navbar />
       </div>
@@ -37,6 +37,8 @@ export default function Home() {
 
             {showContent ? (
               <div className="bg-white border border-gray-300 rounded-lg px-8 py-6 mb-6 shadow-sm w-full">
+
+                {/* Information Section */}
                 <h1 className="text-2xl mb-2">Welcome to Lossless Learning</h1>
                 <p className="text-lg font-serif mb-4 text-gray-600">
                   Your destination for mastering machine learning, coding, mathematics, and more — with clarity and speed.

@@ -6,6 +6,7 @@ export default function BookResource({ resource }) {
         return <div className="text-gray-500">No resource found.</div>;
       }
     
+      // store variables for reference
       const {
         book_title,
         topic,
@@ -51,6 +52,7 @@ export default function BookResource({ resource }) {
           <h3 className="text-xl font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
             Navigation
           </h3>
+          {/* Use page number to navigate to page in PDF */}
           <div className="text-gray-700 space-y-2">
             <p><span className="font-semibold">URL Link: </span> 
                 <a 

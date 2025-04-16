@@ -16,6 +16,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
+    // Login & register endpoints
     const endpoint = isLogin
       ? "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app/login"
       : "https://lossless-learning-cloudsql-fastapi-kbhge3in6a-uc.a.run.app/register";
@@ -35,6 +36,7 @@ export default function LoginPage() {
         throw new Error(data.detail || "Something went wrong.");
       }
 
+      // Store user_id for session
       localStorage.setItem("user_id", data.user_id);
       navigate("/");
     } catch (err) {
@@ -51,7 +53,7 @@ export default function LoginPage() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Wrapper to keep error from shifting layout */}
+
       <div className="relative flex flex-col items-center">
         {/* Login/Register Card */}
         <div className="w-full max-w-5xl bg-white bg-opacity-90 backdrop-blur-sm shadow-xl rounded-2xl p-10 border border-gray-200">

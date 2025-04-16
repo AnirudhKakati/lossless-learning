@@ -3,6 +3,7 @@ import { FiSearch, FiChevronDown } from "react-icons/fi";
 import data from "../../topics.json";
 
 export default function SearchBar({ onTopicClick, onSearchResults, initialInput = "" }) {
+  // states for drop down, text input, and suggestions
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [openSubdomains, setOpenSubdomains] = useState({});
   const [inputText, setInputText] = useState(initialInput);
@@ -46,7 +47,6 @@ export default function SearchBar({ onTopicClick, onSearchResults, initialInput 
     }
   };
 
-  // Optional: Autocomplete API for inputText
   useEffect(() => {
     const controller = new AbortController();
 
@@ -55,6 +55,7 @@ export default function SearchBar({ onTopicClick, onSearchResults, initialInput 
       return;
     }
 
+    // fetch response for text input
     const delayDebounce = setTimeout(() => {
       fetch(
         `https://lossless-learning-autocomplete-fastapi-kbhge3in6a-uc.a.run.app/search/autocomplete?phrase=${encodeURIComponent(inputText)}`,

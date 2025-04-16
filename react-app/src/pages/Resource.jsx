@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar";
 import ResourcePage from "../components/Resources/ResourcePage";
 
+// Page for loading individual resource pages
 export default function Resource() {
   const { id } = useParams();
   const [resource, setResource] = useState(null);
@@ -14,6 +15,7 @@ export default function Resource() {
     navigate(`/summary/${encodeURIComponent(topic)}`);
   };
 
+  // Get individual resource information using resource id
   useEffect(() => {
     async function fetchResource() {
       try {
@@ -42,7 +44,7 @@ export default function Resource() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Sidebar */}
+    
       <div className="hidden md:block">
         <Navbar />
       </div>
@@ -60,6 +62,7 @@ export default function Resource() {
               }
             />
 
+            {/* Load resource page component */}
             {loading ? (
               <div className="flex justify-center items-center min-h-[200px]">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
