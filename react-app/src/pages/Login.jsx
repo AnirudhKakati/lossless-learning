@@ -62,20 +62,20 @@ export default function LoginPage() {
                 Lossless Learning
               </h1>
               <p className="text-gray-700 text-lg mb-6">
-                Empowering learners with distilled, high-quality Machine
-                Learning educational content from across the internet.
+              A one stop solution for all things ML. Empowering learners with distilled, high-quality machine learning educational content from across the internet.
+
               </p>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">
                 Why use Lossless Learning?
               </h2>
               <ul className="list-disc pl-5 text-gray-600 space-y-2 text-sm md:text-base">
                 <li>
-                  Curated resources covering mathematics, programming, deep
-                  learning and more
+                Curated resources for 150+ topics covering the mathematics, programming, and theory behind machine learning
+
                 </li>
                 <li>
-                  Explore GitHub repositories, YouTube videos, and relevant
-                  articles all in one place
+                Explore Books, YouTube videos, GitHub repositories, and relevant articles all in one place 
+
                 </li>
                 <li>Finetuned summaries for faster understanding</li>
                 <li>Favorite resources to revisit anytime</li>
@@ -83,7 +83,8 @@ export default function LoginPage() {
             </div>
 
             {/* Form Side */}
-            <div className="flex-1 border-t md:border-t-0 md:border-l border-gray-200 pt-8 md:pt-0 md:pl-12">
+            <div className="flex-1 flex flex-col justify-center border-t md:border-t-0 md:border-l border-gray-200 pt-8 md:pt-0 md:pl-12">
+
               <h2 className="text-2xl font-bold text-emerald-500 mb-2 text-center md:text-left">
                 {isLogin ? "Welcome Learner" : "Create an Account"}
               </h2>
