@@ -14,12 +14,35 @@ export default function Favorites() {
 
   const [favoritesData, setFavoritesData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState([]);
+
+  const typeLabelMap = {
+    "YouTube Video": "videos",
+    "GitHub Repository": "github_repos",
+    "Article": "articles",
+    "Book": "books",
+  };
+
+  const handleTypeToggle = (typeLabel) => {
+    setSelectedTypes((prev) =>
+      prev.includes(typeLabel)
+        ? prev.filter((t) => t !== typeLabel)
+        : [...prev, typeLabel]
+    );
+  };
+
+  const filteredFavorites =
+    selectedTypes.length === 0
+      ? favoritesData
+      : favoritesData.filter((item) =>
+          selectedTypes.includes(
+            Object.entries(typeLabelMap).find(([_, v]) => v === item.resource_type?.toLowerCase())?.[0]
+          )
+        );
 
   const fetchFavorites = async () => {
     try {
       setLoading(true);
-
-
       const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}/likes`);
       const ids = await res.json();
 
@@ -30,19 +53,18 @@ export default function Favorites() {
         return;
       }
 
-
       const results = await Promise.all(
         ids.map(async (id) => {
           const res = await fetch(`${FIRESTORE_BASE}/resource/${id}`);
           const data = await res.json();
           return {
             ...data,
-            resource_id: id, 
+            resource_id: id,
           };
         })
       );
-      console.log("Combined resource data:", results);
 
+      console.log("Combined resource data:", results);
       setFavoritesData(results);
     } catch (error) {
       console.error("Error fetching user favorites:", error);
@@ -70,21 +92,27 @@ export default function Favorites() {
       }}
     >
       <Navbar />
-      <main className="ml-64 p-8 w-full">
-        <div className="flex gap-6 w-full max-w-full overflow-hidden">
+      <main className="ml-64 p-8 w-full min-h-screen">
+        <div className="flex gap-6 w-full max-w-full items-start">
           <div className="flex-1 min-w-0">
-            <SearchBar onTopicClick={handleTopicClick} />
+            <SearchBar
+              onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
+              onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
+            />
 
             {loading ? (
               <div className="flex justify-center items-center min-h-[200px]">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
               </div>
             ) : (
-              <FavoritesResults data={favoritesData} />
+              <FavoritesResults data={filteredFavorites} />
             )}
           </div>
 
-          <SearchFilter />
+          <SearchFilter
+            selectedTypes={selectedTypes}
+            onToggleType={handleTypeToggle}
+          />
         </div>
       </main>
     </div>

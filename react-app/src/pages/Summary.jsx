@@ -1,10 +1,9 @@
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import SearchFilter from "../components/SearchFilter";
 import SearchResults from "../components/SearchResults";
-
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 
 export default function Summary() {
   const { topic } = useParams();
@@ -12,9 +11,13 @@ export default function Summary() {
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedTypes, setSelectedTypes] = useState([]);
 
-  const fetchTopicData = async (newTopic) => {
-    navigate(`/summary/${encodeURIComponent(newTopic)}`);
+  const typeLabelMap = {
+    "YouTube Video": "videos",
+    "GitHub Repository": "github_repos",
+    "Article": "articles",
+    "Book": "book_content",
   };
 
   useEffect(() => {
@@ -23,7 +26,9 @@ export default function Summary() {
       try {
         setLoading(true);
         const res = await fetch(
-          `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resources?topic=${encodeURIComponent(topic)}`
+          `https://lossless-learning-firestore-fastapi-203101603788.us-central1.run.app/resources?topic=${encodeURIComponent(
+            topic
+          )}`
         );
         const data = await res.json();
         setResults(data);
@@ -37,6 +42,23 @@ export default function Summary() {
     fetchData();
   }, [topic]);
 
+  const handleTypeToggle = (typeLabel) => {
+    setSelectedTypes((prev) =>
+      prev.includes(typeLabel)
+        ? prev.filter((t) => t !== typeLabel)
+        : [...prev, typeLabel]
+    );
+  };
+
+  const filteredResults =
+    selectedTypes.length === 0
+      ? results
+      : results.filter((item) =>
+          selectedTypes.includes(
+            Object.entries(typeLabelMap).find(([_, v]) => v === item.resource_type?.toLowerCase())?.[0]
+          )
+        );
+
   return (
     <div
       className="flex"
@@ -47,26 +69,31 @@ export default function Summary() {
       }}
     >
       <Navbar />
-      <main className="ml-64 p-8 w-full">
-        <div className="flex gap-6 w-full max-w-full overflow-hidden">
+      <main className="ml-64 p-8 w-full min-h-screen">
+        <div className="flex gap-6 w-full max-w-full items-start">
           <div className="flex-1 min-w-0">
-            <SearchBar onTopicClick={fetchTopicData} />
+            <SearchBar
+              onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
+              onSearchResults={({ query }) => navigate(`/query/${encodeURIComponent(query)}`)}
+            />
 
-            {/* Conditional UI when topic is not present */}
             {!topic ? (
-              <div className="text-gray-500 mt-8 text-center text-lg">
-                No results. Please search for a topic.
+              <div className="text-center text-sm text-gray-500">
+                No results. Please search for a topic or adjust resource filters.
               </div>
             ) : loading ? (
               <div className="flex justify-center items-center min-h-[200px]">
                 <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
               </div>
             ) : (
-              <SearchResults data={results} />
+              <SearchResults data={filteredResults} />
             )}
           </div>
 
-          <SearchFilter />
+          <SearchFilter
+            selectedTypes={selectedTypes}
+            onToggleType={handleTypeToggle}
+          />
         </div>
       </main>
     </div>

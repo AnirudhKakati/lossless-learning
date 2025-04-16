@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiBookOpen, FiGithub } from "react-icons/fi";
+import { FiBookOpen, FiGithub, FiFileText} from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
@@ -82,8 +82,10 @@ export default function FavoritesResults({ data }) {
         return <FaYoutube className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
       case "github_repos":
         return <FiGithub className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
-      default:
+      case "book_content":
         return <FiBookOpen className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
+      default:
+        return <FiFileText className="h-7 w-7 text-gray-600 group-hover:text-emerald-300 transition-colors" />;
     }
   };
 
@@ -119,7 +121,7 @@ export default function FavoritesResults({ data }) {
     <div className="space-y-3 min-h-screen p-4">
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
-          You haven’t liked anything yet. Go explore and save some favorites!
+          No liked posts to show. Save some favorites or adjust resource filters.
         </p>
       ) : (
         <>
@@ -142,7 +144,7 @@ export default function FavoritesResults({ data }) {
               </div>
 
               <div className="flex-1 min-w-0">
-                <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
+                <p className="text-emerald-500 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
                 <p className="text-gray-700 mb-1 text-sm font-bold truncate">{formatDescription(resource)}</p>
                 <p className="text-gray-600 text-sm truncate">{formatType(resource.resource_type)}</p>
               </div>
@@ -165,7 +167,7 @@ export default function FavoritesResults({ data }) {
               {currentPage < totalPages && (
                 <button
                   onClick={goToNextPage}
-                  className="w-24 px-4 py-2 bg-emerald-300 text-white rounded-md shadow-sm hover:bg-emerald-400 transition"
+                  className="w-24 px-4 py-2 bg-emerald-500 text-white rounded-md shadow-sm hover:bg-emerald-600 transition"
                 >
                   Next
                 </button>

@@ -8,7 +8,7 @@ import Resource from "./pages/Resource";
 import Login from "./pages/Login";
 import Favorites from "./pages/Favorites";
 import RequireAuth from "./components/RequireAuth";
-
+import Query from "./pages/Query";
 
 
 
@@ -25,6 +25,7 @@ export default function App() {
             <Route path="/summary/:topic" element={<RequireAuth> <Summary /> </RequireAuth>} />
             <Route path="/resource/:id" element={<RequireAuth> <Resource /> </RequireAuth>} />
             <Route path="/favorites" element={<RequireAuth> <Favorites /> </RequireAuth>} />
+            <Route path="/query/:question?" element={<RequireAuth> <Query /> </RequireAuth>} />
           </Routes>
       </Router>
     </div>

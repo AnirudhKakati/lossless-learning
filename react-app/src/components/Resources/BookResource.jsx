@@ -1,18 +1,18 @@
-import { FiFileText } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
 
-export default function ArticleResource({ resource }) {
+export default function BookResource({ resource }) {
   
     if (!resource) {
         return <div className="text-gray-500">No resource found.</div>;
       }
     
       const {
-        title,
+        book_title,
         topic,
         domain,
-        snippet,
-        link,
-        display_link,
+        page_snippet,
+        public_url,
+        page_no,
         sub_domain
       } = resource;
       
@@ -23,14 +23,14 @@ export default function ArticleResource({ resource }) {
     <div className="flex flex-col md:flex-row gap-8">
       {/* Icon */}
       <div className="flex items-center justify-center w-24 h-24 rounded-full bg-white border border-gray-300 shrink-0">
-        <FiFileText className="w-12 h-12 text-gray-600" />
+        <FiBookOpen className="w-12 h-12 text-gray-600" />
       </div>
 
       {/* Content */}
       <div className="flex-1">
         {/* Title */}
         <h2 className="text-3xl font-bold text-emerald-500 mb-6">
-          {title}
+          {book_title}
         </h2>
 
         {/* Information Section */}
@@ -42,7 +42,7 @@ export default function ArticleResource({ resource }) {
             <p><span className="font-semibold">Domain:</span> {domain}</p>
             <p><span className="font-semibold">Sub-domain:</span> {sub_domain}</p>
             <p><span className="font-semibold">Topic:</span> {topic}</p>
-            <p><span className="font-semibold">Snippet:</span> {snippet}</p>
+            <p><span className="font-semibold">Snippet:</span> {page_snippet}</p>
           </div>
         </div>
 
@@ -52,26 +52,19 @@ export default function ArticleResource({ resource }) {
             Navigation
           </h3>
           <div className="text-gray-700 space-y-2">
-            <p><span className="font-semibold">Website: </span> 
+            <p><span className="font-semibold">URL Link: </span> 
                 <a 
-                 href={`https://${display_link}`}
+                 href={`https://${public_url}`}
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-blue-500 hover:underline break-words"
                 >
-                {display_link}
+                {public_url}
               </a>
             </p>
             <p>
-              <span className="font-semibold">Link: </span>
-              <a 
-                href={link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="text-blue-500 hover:underline break-words"
-              >
-                {link}
-              </a>
+              <span className="font-semibold">Page Number: </span>
+              {page_no}
             </p>
           </div>
         </div>
