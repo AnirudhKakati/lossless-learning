@@ -3,10 +3,10 @@ A one stop solution for all things ML. Empowering learners with distilled, high-
 
 ## Why use Lossless Learning?
 * Curated resources covering mathematics, programming, deep learning and more *
-Explore GitHub repositories, YouTube videos, and relevant articles all in one place
-Finetuned summaries for faster understanding
-Favorite resources to revisit anytime
-
+* Explore Books, YouTube videos, GitHub repositories, and relevant articles all in one place *
+* Finetuned summaries for faster understanding *
+* Favorite resources to revisit anytime *
+ 
 
 Checkout the web app here:
 https://lossless-learning-react-frontend-kbhge3in6a-uc.a.run.app/
