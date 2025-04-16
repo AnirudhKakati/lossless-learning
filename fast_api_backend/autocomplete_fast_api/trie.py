@@ -4,7 +4,6 @@ from typing import List
 import pickle
 
 df = pd.read_csv('sample_questions.csv')
-df.rename(columns={'Questuions': 'questions'}, inplace=True) 
 
 row_multipliers = np.random.randint(1, 6, size=len(df))
 
