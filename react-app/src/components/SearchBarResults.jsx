@@ -140,7 +140,7 @@ export default function SearchBarResults({ query, answer, context }) {
                   </>
                 ) : (
                   <>
-                    <p className="text-emerald-300 mb-1 text-md font-bold truncate">
+                    <p className="text-emerald-500 mb-1 text-md font-bold truncate">
                       {item.book_title}
                     </p>
                     <p className="text-gray-700 text-sm mb-1">

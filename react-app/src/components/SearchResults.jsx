@@ -22,9 +22,16 @@ export default function SearchResults({ data }) {
   const summary = data.find((r) => r.resource_type === "topic_summaries");
   const otherResources = data.filter((r) => r.resource_type !== "topic_summaries");
 
-  const totalPages = Math.ceil(otherResources.length / pageSize);
+  // ✅ Sort by like count using full likeCounts map
+  const sortedResources = [...otherResources].sort((a, b) => {
+    const likesA = likeCounts[a.resource_id] || 0;
+    const likesB = likeCounts[b.resource_id] || 0;
+    return likesB - likesA;
+  });
+
+  const totalPages = Math.ceil(sortedResources.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
-  const pageResources = otherResources.slice(startIndex, startIndex + pageSize);
+  const pageResources = sortedResources.slice(startIndex, startIndex + pageSize);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -34,13 +41,14 @@ export default function SearchResults({ data }) {
     setLikeDataLoaded(false);
 
     const fetchLikeData = async () => {
-      if (!userId || pageResources.length === 0) return;
+      if (!userId || otherResources.length === 0) return;
 
       try {
         const [likedRes, countsArr] = await Promise.all([
           fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
           Promise.all(
-            pageResources.map((resource) =>
+            // ✅ Fetch likes for all otherResources instead of only pageResources
+            otherResources.map((resource) =>
               fetch(`${API_BASE}/resources/${resource.resource_id}/likes`)
                 .then((res) => res.json())
                 .then((json) => ({ [resource.resource_id]: json.like_count || 0 }))
@@ -114,9 +122,9 @@ export default function SearchResults({ data }) {
 
   function renderSummaryWithMath(summaryText) {
     if (!summaryText) return null;
-  
+
     const parts = summaryText.split(/(\\\[.*?\\\]|\\\(.*?\\\))/gs);
-  
+
     return (
       <>
         {parts.map((part, index) => {
@@ -127,17 +135,16 @@ export default function SearchResults({ data }) {
               </div>
             );
           }
-  
+
           if (part.startsWith("\\(") && part.endsWith("\\)")) {
             return (
               <span key={index} className="inline">
                 {" "}
-                <TeX>{part.slice(2, -2)}</TeX>
-                {" "}
+                <TeX>{part.slice(2, -2)}</TeX>{" "}
               </span>
             );
           }
-  
+
           return (
             <span key={index} className="text-gray-800 whitespace-pre-wrap leading-relaxed">
               <ReactMarkdown
@@ -154,9 +161,6 @@ export default function SearchResults({ data }) {
       </>
     );
   }
-  
-  
-  
 
   if (!likeDataLoaded) {
     return (

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiBookOpen, FiGithub, FiFileText} from "react-icons/fi";
+import { FiBookOpen, FiGithub, FiFileText } from "react-icons/fi";
 import { FaYoutube } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LikeButton from "./LikeButton";
@@ -16,9 +16,16 @@ export default function FavoritesResults({ data }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("user_id");
 
-  const totalPages = Math.ceil(data.length / pageSize);
+  // ✅ Sort full data by like count
+  const sortedData = [...data].sort((a, b) => {
+    const likesA = likeCounts[a.resource_id] || 0;
+    const likesB = likeCounts[b.resource_id] || 0;
+    return likesB - likesA;
+  });
+
+  const totalPages = Math.ceil(sortedData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
-  const pageResources = data.slice(startIndex, startIndex + pageSize);
+  const pageResources = sortedData.slice(startIndex, startIndex + pageSize);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -29,7 +36,7 @@ export default function FavoritesResults({ data }) {
     setLikeDataLoaded(false);
 
     const fetchLikeData = async () => {
-      if (!userId || pageResources.length === 0) {
+      if (!userId || data.length === 0) {
         setLikeDataLoaded(true);
         return;
       }
@@ -38,7 +45,8 @@ export default function FavoritesResults({ data }) {
         const [likedRes, countsArr] = await Promise.all([
           fetch(`${API_BASE}/users/${userId}/likes`).then((res) => res.json()),
           Promise.all(
-            pageResources.map((resource) =>
+            // ✅ Fetch likes for ALL data, not just current page
+            data.map((resource) =>
               fetch(`${API_BASE}/resources/${resource.resource_id}/likes`)
                 .then((res) => res.json())
                 .then((json) => ({ [resource.resource_id]: json.like_count || 0 }))
@@ -90,7 +98,7 @@ export default function FavoritesResults({ data }) {
   };
 
   const extractTitle = (resource) => {
-    const title = resource.repo_name || resource.video_title || resource.title || resource.book_title ||"Untitled";
+    const title = resource.repo_name || resource.video_title || resource.title || resource.book_title || "Untitled";
     return title.length > 60 ? title.slice(0, 57) + "..." : title;
   };
 
@@ -142,8 +150,6 @@ export default function FavoritesResults({ data }) {
                   initialCount={likeCounts[resource.resource_id] || 0}
                 />
               </div>
-
-
 
               <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 group-hover:border-emerald-300 transition-colors">
                 {getIcon(resource.resource_type)}
