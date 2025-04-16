@@ -90,7 +90,7 @@ export default function FavoritesResults({ data }) {
   };
 
   const extractTitle = (resource) => {
-    const title = resource.repo_name || resource.video_title || resource.title || "Untitled";
+    const title = resource.repo_name || resource.video_title || resource.title || resource.book_title ||"Untitled";
     return title.length > 60 ? title.slice(0, 57) + "..." : title;
   };
 
@@ -104,6 +104,8 @@ export default function FavoritesResults({ data }) {
         return "YouTube Video";
       case "github_repos":
         return "GitHub Repository";
+      case "book_content":
+        return "Book Content";
       default:
         return "Article";
     }
