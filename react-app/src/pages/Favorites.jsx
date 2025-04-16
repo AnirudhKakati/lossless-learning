@@ -20,7 +20,7 @@ export default function Favorites() {
     "YouTube Video": "videos",
     "GitHub Repository": "github_repos",
     "Article": "articles",
-    "Book": "books",
+    "Book": "book_content",
   };
 
   const handleTypeToggle = (typeLabel) => {
