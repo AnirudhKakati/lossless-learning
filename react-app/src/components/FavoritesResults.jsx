@@ -134,12 +134,12 @@ export default function FavoritesResults({ data }) {
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>
 
               <div className="hidden xl:block">
-  <LikeButton
-    resourceId={resource.resource_id}
-    initialLiked={likedResources.includes(resource.resource_id)}
-    initialCount={likeCounts[resource.resource_id] || 0}
-  />
-</div>
+                <LikeButton
+                  resourceId={resource.resource_id}
+                  initialLiked={likedResources.includes(resource.resource_id)}
+                  initialCount={likeCounts[resource.resource_id] || 0}
+                />
+              </div>
 
 
 

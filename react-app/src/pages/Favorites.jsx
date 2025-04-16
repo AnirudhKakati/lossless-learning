@@ -46,8 +46,6 @@ export default function Favorites() {
       const res = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}/likes`);
       const ids = await res.json();
 
-      console.log("Liked Resource IDs:", ids);
-
       if (ids.length === 0) {
         setFavoritesData([]);
         return;
@@ -64,7 +62,6 @@ export default function Favorites() {
         })
       );
 
-      console.log("Combined resource data:", results);
       setFavoritesData(results);
     } catch (error) {
       console.error("Error fetching user favorites:", error);
@@ -78,10 +75,6 @@ export default function Favorites() {
     fetchFavorites();
   }, []);
 
-  const handleTopicClick = (topic) => {
-    navigate(`/summary/${encodeURIComponent(topic)}`);
-  };
-
   return (
     <div
       className="flex w-full overflow-x-hidden"
@@ -91,14 +84,13 @@ export default function Favorites() {
         backgroundSize: "48px 48px",
       }}
     >
-      {/* Sidebar */}
       <div className="hidden md:block">
         <Navbar />
       </div>
 
-      {/* Main content */}
       <main className="md:ml-64 p-4 md:p-8 w-full max-w-full overflow-x-hidden min-h-screen">
         <div className="flex gap-6 w-full max-w-full items-start">
+          {/* Results Section */}
           <div className="flex-1 min-w-0">
             <SearchBar
               onTopicClick={(topic) => navigate(`/summary/${encodeURIComponent(topic)}`)}
@@ -114,10 +106,13 @@ export default function Favorites() {
             )}
           </div>
 
-          <SearchFilter
-            selectedTypes={selectedTypes}
-            onToggleType={handleTypeToggle}
-          />
+          {/* Filter Section */}
+          <div className="w-[14rem]">
+            <SearchFilter
+              selectedTypes={selectedTypes}
+              onToggleType={handleTypeToggle}
+            />
+          </div>
         </div>
       </main>
     </div>
