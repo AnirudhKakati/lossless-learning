@@ -225,7 +225,7 @@ export default function SearchResults({ data }) {
               {currentPage < totalPages && (
                 <button
                   onClick={goToNextPage}
-                  className="w-24 px-4 py-2 bg-emerald-300 text-white rounded-md shadow-sm hover:bg-emerald-400 transition"
+                  className="w-24 px-4 py-2 bg-emerald-500 text-white rounded-md shadow-sm hover:bg-emerald-500 transition"
                 >
                   Next
                 </button>

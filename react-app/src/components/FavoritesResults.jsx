@@ -167,7 +167,7 @@ export default function FavoritesResults({ data }) {
               {currentPage < totalPages && (
                 <button
                   onClick={goToNextPage}
-                  className="w-24 px-4 py-2 bg-emerald-300 text-white rounded-md shadow-sm hover:bg-emerald-400 transition"
+                  className="w-24 px-4 py-2 bg-emerald-500 text-white rounded-md shadow-sm hover:bg-emerald-600 transition"
                 >
                   Next
                 </button>
