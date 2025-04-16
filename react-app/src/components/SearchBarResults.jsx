@@ -112,11 +112,15 @@ export default function SearchBarResults({ query, answer, context }) {
               </p>
 
               {item.resource_type === "videos" && item.resource_id && (
+
+                <div className="hidden xl:block">
                 <LikeButton
                   resourceId={item.resource_id}
                   initialLiked={item.liked}
                   initialCount={item.likeCount}
                 />
+              </div>
+
               )}
 
               <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 group-hover:border-emerald-300 transition-colors">

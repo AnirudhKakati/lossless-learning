@@ -191,11 +191,13 @@ export default function SearchResults({ data }) {
             >
               <p className="absolute top-3 right-3 text-gray-500 text-xs hidden sm:block">{resource.date}</p>
 
-              <LikeButton
-                resourceId={resource.resource_id}
-                initialLiked={likedResources.includes(resource.resource_id)}
-                initialCount={likeCounts[resource.resource_id] || 0}
-              />
+              <div className="hidden xl:block">
+                <LikeButton
+                  resourceId={resource.resource_id}
+                  initialLiked={likedResources.includes(resource.resource_id)}
+                  initialCount={likeCounts[resource.resource_id] || 0}
+                />
+              </div>
 
               <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-gray-300 shrink-0 group-hover:border-emerald-300 transition-colors">
                 {getIcon(resource.resource_type)}
