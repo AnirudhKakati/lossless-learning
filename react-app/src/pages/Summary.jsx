@@ -61,15 +61,20 @@ export default function Summary() {
 
   return (
     <div
-      className="flex"
+      className="flex w-full overflow-x-hidden"
       style={{
         backgroundImage:
-          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23e5e7eb' stroke-width='1' d='M0 0h48v48H0z M24 0v48 M0 24h48'/%3E%3C/svg%3E\")",
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='none' stroke='%23e5e7eb' stroke-width='1' d='M0 0h48v48 M24 0v48 M0 24h48'/%3E%3C/svg%3E\")",
         backgroundSize: "48px 48px",
       }}
     >
-      <Navbar />
-      <main className="ml-64 p-8 w-full min-h-screen">
+      {/* Sidebar */}
+      <div className="hidden md:block">
+        <Navbar />
+      </div>
+
+      {/* Main content */}
+      <main className="md:ml-64 p-4 md:p-8 w-full max-w-full overflow-x-hidden min-h-screen">
         <div className="flex gap-6 w-full max-w-full items-start">
           <div className="flex-1 min-w-0">
             <SearchBar
