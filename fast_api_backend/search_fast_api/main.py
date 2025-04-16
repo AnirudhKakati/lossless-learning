@@ -66,6 +66,13 @@ class Query(BaseModel):
 
 @app.post("/ask")
 async def ask_question(q: Query) -> Dict[str, Any]:
+
+
+    ''' 
+        Fast API post method to ask questions which searches the database and retrives the most relvenat results followed by summarization
+
+    '''
+    
     try:
         df = pd.read_csv('summaries_filename_url_mapping_summaries_filename_url_mapping.csv')
 
