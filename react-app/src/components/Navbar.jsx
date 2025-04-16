@@ -13,7 +13,7 @@ export default function Navbar() {
       return (
       <aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-300 text-black p-5 flex flex-col justify-between">
       <div>
-        <h2 className="text-xl font-serif font-bold mt-8">Lossless Learning</h2>
+        <h2 className="text-xl font-bold mt-8">Lossless Learning</h2>
         <nav className="mt-10">
         <h3 className="text-m font-serif mb-2 text-emerald-700">Overview</h3>
           <ul>

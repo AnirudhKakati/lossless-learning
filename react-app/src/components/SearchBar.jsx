@@ -76,7 +76,7 @@ export default function SearchBar({ onTopicClick, onSearchResults, initialInput 
   }, [inputText]);
 
   return (
-    <div className="w-full mb-2 p-2 rounded-lg relative z-40">
+    <div className="w-full mb-2 pb-2 rounded-lg relative z-40">
       <div className="relative w-full">
         {/* Explore + Search input */}
         <div className="flex w-full">
@@ -100,7 +100,7 @@ export default function SearchBar({ onTopicClick, onSearchResults, initialInput 
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Search resources..."
+              placeholder="Search resources or ask a question..."
               className="w-full h-12 p-3 pl-10 border border-gray-300 rounded-r-md focus:outline-none focus:border-emerald-300 transition-colors duration-200"
             />
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
