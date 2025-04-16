@@ -48,14 +48,14 @@ export default function VideoResource({ resource }) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-xl shadow-md">
+    <div className="bg-white p-8 rounded-xl shadow-md border border-gray-300">
       <div className="flex items-start justify-between mb-4">
         <div className="flex gap-6 items-center mb-6">
           <div className="flex items-center justify-center w-20 h-20 rounded-full bg-white border border-gray-300 shrink-0">
-            <FaYoutube className="w-10 h-10 text-emerald-300" />
+            <FaYoutube className="w-10 h-10 text-gray-600" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-emerald-300">
+            <h2 className="text-xl font-semibold text-emerald-500">
               {video_title}
             </h2>
             <p className="text-gray-800 font-semibold">
@@ -82,7 +82,7 @@ export default function VideoResource({ resource }) {
           onClick={() => setActiveTab("summary")}
           className={`pb-1 ${
             activeTab === "summary"
-              ? "text-emerald-300 border-b-2 border-emerald-300"
+              ? "text-emerald-500 border-b-2 border-emerald-500"
               : "text-gray-500"
           }`}
         >
@@ -92,7 +92,7 @@ export default function VideoResource({ resource }) {
           onClick={() => setActiveTab("details")}
           className={`pb-1 ${
             activeTab === "details"
-              ? "text-emerald-300 border-b-2 border-emerald-300"
+              ? "text-emerald-500 border-b-2 border-emerald-500"
               : "text-gray-500"
           }`}
         >
@@ -107,7 +107,7 @@ export default function VideoResource({ resource }) {
             {!audioUrl && (
               <button
                 onClick={handlePlayAudio}
-                className="mt-4 text-sm text-white bg-emerald-300 hover:bg-emerald-400 px-4 py-2 rounded-md shadow"
+                className="mt-4 text-sm text-white bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-md shadow"
               >
                 {loadingAudio ? "Loading..." : "Play Summary Audio"}
               </button>

@@ -78,8 +78,8 @@ export default function Summary() {
             />
 
             {!topic ? (
-              <div className="text-gray-500 mt-8 text-center text-lg">
-                No results. Please search for a topic.
+              <div className="text-center text-sm text-gray-500">
+                No results. Please search for a topic or adjust resource filters.
               </div>
             ) : loading ? (
               <div className="flex justify-center items-center min-h-[200px]">

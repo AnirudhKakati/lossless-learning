@@ -121,7 +121,7 @@ export default function FavoritesResults({ data }) {
     <div className="space-y-3 min-h-screen p-4">
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
-          You haven’t liked anything yet. Go explore and save some favorites!
+          No liked posts to show. Save some favorites or adjust resource filters.
         </p>
       ) : (
         <>
@@ -144,7 +144,7 @@ export default function FavoritesResults({ data }) {
               </div>
 
               <div className="flex-1 min-w-0">
-                <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
+                <p className="text-emerald-500 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
                 <p className="text-gray-700 mb-1 text-sm font-bold truncate">{formatDescription(resource)}</p>
                 <p className="text-gray-600 text-sm truncate">{formatType(resource.resource_type)}</p>
               </div>

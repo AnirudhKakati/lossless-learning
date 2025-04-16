@@ -74,7 +74,7 @@ export default function TopLikedResources({ onLoadComplete }) {
         console.error("Error loading most liked resources:", err);
       } finally {
         setLoading(false);
-        if (onLoadComplete) onLoadComplete(); 
+        if (onLoadComplete) onLoadComplete();
       }
     };
 
@@ -91,9 +91,8 @@ export default function TopLikedResources({ onLoadComplete }) {
           <div
             key={res.resource_id}
             onClick={() => navigate(`/resource/${res.resource_id}`)}
-            className="relative bg-white border cursor-pointer rounded-lg shadow-sm p-4 flex flex-col justify-between transition hover:bg-emerald-50 group min-h-[160px]"
+            className="relative bg-white cursor-pointer rounded-lg shadow-sm p-4 flex flex-col justify-between min-h-[160px] border border-gray-300 group hover:bg-emerald-50 border-emerald-300 transition-colors duration-200"
           >
-        
             <div className="absolute top-2 right-2">
               <LikeButton
                 resourceId={res.resource_id}
@@ -102,10 +101,8 @@ export default function TopLikedResources({ onLoadComplete }) {
               />
             </div>
 
-
             <div className="flex flex-col space-y-1">
               <div className="flex items-center gap-3">
-
                 <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 group-hover:border-emerald-300 transition-colors">
                   {getIcon(res.resource_type)}
                 </div>
@@ -125,13 +122,14 @@ export default function TopLikedResources({ onLoadComplete }) {
                 </p>
               </div>
 
-             
-              <div
-                className="text-md font-bold text-emerald-800 break-words pt-1"
-              >
+              <div className="text-md font-bold text-emerald-500 break-words pt-1">
                 {(() => {
                   const title =
-                    res.repo_name || res.video_title || res.title || res.book_title || "Untitled";
+                    res.repo_name ||
+                    res.video_title ||
+                    res.title ||
+                    res.book_title ||
+                    "Untitled";
                   return title.length > 60
                     ? title.slice(0, 57) + "..."
                     : title;

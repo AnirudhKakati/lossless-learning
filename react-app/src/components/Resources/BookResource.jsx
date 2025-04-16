@@ -18,18 +18,18 @@ export default function BookResource({ resource }) {
       
     return (
      
-        <div className="p-6 py-8 mt-16 bg-white rounded shadow">
+        <div className="p-6 py-8 mt-6 bg-white rounded shadow border border-gray-300">
 
     <div className="flex flex-col md:flex-row gap-8">
       {/* Icon */}
       <div className="flex items-center justify-center w-24 h-24 rounded-full bg-white border border-gray-300 shrink-0">
-        <FiBookOpen className="w-12 h-12 text-emerald-400" />
+        <FiBookOpen className="w-12 h-12 text-gray-600" />
       </div>
 
       {/* Content */}
       <div className="flex-1">
         {/* Title */}
-        <h2 className="text-3xl font-bold text-emerald-400 mb-6">
+        <h2 className="text-3xl font-bold text-emerald-500 mb-6">
           {book_title}
         </h2>
 

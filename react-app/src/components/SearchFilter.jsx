@@ -3,11 +3,11 @@ export default function SearchFilter({ selectedTypes = [], onToggleType = () => 
 
   return (
     <div className="sticky top-4 self-start">
-      <div className="w-56 p-4 pb-6 border rounded-lg shadow-md bg-white h-fit space-y-6">
+      <div className="w-56 p-4 pb-6 border border-gray-300 rounded-lg shadow-md bg-white h-fit space-y-6">
         <h2 className="text-lg font-bold">Refine your search</h2>
 
         <div>
-          <h3 className="text-xs font-semibold text-emerald-300 uppercase">Content Type</h3>
+          <h3 className="text-xs font-semibold text-emerald-500 uppercase">Content Type</h3>
           <ul className="mt-2 space-y-2">
             {options.map((label, index) => (
               <li key={index} className="flex items-center">

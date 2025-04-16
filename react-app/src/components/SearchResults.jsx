@@ -179,7 +179,7 @@ export default function SearchResults({ data }) {
 
       {data.length === 0 ? (
         <p className="text-center text-sm text-gray-500">
-          No results found. Please try searching with different terms.
+          No results found. Please try searching with different terms or adjust resource filters.
         </p>
       ) : (
         <>
@@ -202,7 +202,7 @@ export default function SearchResults({ data }) {
               </div>
 
               <div className="flex-1 min-w-0">
-                <p className="text-emerald-300 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
+                <p className="text-emerald-500 mb-1 text-md font-bold truncate">{extractTitle(resource)}</p>
                 <p className="text-gray-700 mb-1 text-sm font-bold truncate">{formatDescription(resource)}</p>
                 <p className="text-gray-600 text-sm truncate">{formatType(resource.resource_type)}</p>
               </div>

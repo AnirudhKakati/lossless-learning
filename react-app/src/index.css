@@ -9,7 +9,7 @@
 
 .underline-hover {
   @apply relative inline-block p-2 hover:text-gray-900 
-         after:block after:h-[4px] after:w-0 after:bg-emerald-300 
+         after:block after:h-[4px] after:w-0 after:bg-emerald-400 
          after:transition-all after:duration-300 after:ease-in-out 
          hover:after:w-full font-sans;
 }

@@ -126,7 +126,7 @@ export default function SearchBarResults({ query, answer, context }) {
               <div className="flex-1 min-w-0">
                 {item.resource_type === "videos" ? (
                   <>
-                    <p className="text-emerald-300 mb-1 text-md font-bold truncate">
+                    <p className="text-emerald-500 mb-1 text-md font-bold truncate">
                       {extractTitle(item)}
                     </p>
                     <p className="text-gray-700 mb-1 text-sm font-bold truncate">

@@ -31,7 +31,7 @@ export default function Home() {
             />
 
             {showContent ? (
-              <div className="bg-white border border-gray-200 rounded-lg px-8 py-6 mb-6 shadow-sm w-full">
+              <div className="bg-white border border-gray-300 rounded-lg px-8 py-6 mb-6 shadow-sm w-full">
               <h1 className="text-2xl mb-2">Welcome to Lossless Learning</h1>
               <p className="text-lg font-serif mb-4 text-gray-600">
                 Your destination for mastering machine learning, coding, mathematics, and more — with clarity and speed.
@@ -43,16 +43,16 @@ export default function Home() {
              
               <ul className="list-disc list-inside text-sm text-gray-700 space-y-3">
                 <li>
-                  <span className="text-emerald-600 font-semibold">Curated Resources:</span> Handpicked GitHub repos, YouTube videos, articles, and book content — all in one place.
+                  <span className="text-emerald-500 font-semibold">Curated Resources:</span> Handpicked GitHub repos, YouTube videos, articles, and book content — all in one place.
                 </li>
                 <li>
-                  <span className="text-emerald-600 font-semibold">Smart Summaries:</span> Understand faster with concise explanations and topic overviews.
+                  <span className="text-emerald-500 font-semibold">Smart Summaries:</span> Understand faster with concise explanations and topic overviews.
                 </li>
                 <li>
-                  <span className="text-emerald-600 font-semibold">Community Favorites:</span> See what others love and find what’s most helpful, quickly.
+                  <span className="text-emerald-500 font-semibold">Community Favorites:</span> See what others love and find what’s most helpful, quickly.
                 </li>
                 <li>
-                  <span className="text-emerald-600 font-semibold">Search & Filter:</span> Discover exactly what you need by topic, domain, or resource type.
+                  <span className="text-emerald-500 font-semibold">Search & Filter:</span> Discover exactly what you need by topic, domain, or resource type.
                 </li>
               </ul>
             </div>
