@@ -54,7 +54,7 @@ export default function BookResource({ resource }) {
           <div className="text-gray-700 space-y-2">
             <p><span className="font-semibold">URL Link: </span> 
                 <a 
-                 href={`https://${public_url}`}
+                 href={`${public_url}`}
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-blue-500 hover:underline break-words"
