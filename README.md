@@ -58,7 +58,7 @@ Each FastAPI app is a separately deployed Cloud Run service, Dockerized individu
   * Topic browsing and resource discovery
   * Autocomplete search suggestions
   * Full-text RAG-powered search across resources
-  * Watch youtube videos in-browser
+  * Watch youtube directly in-webapp
   * Favorite and revisit resources anytime
   * Play AI-generated audio summaries in-browser
 
